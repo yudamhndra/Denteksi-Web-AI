@@ -14,7 +14,7 @@ class CreatePemeriksaanGigiTable extends Migration
     public function up()
     {
         Schema::create('pemeriksaan_gigi', function (Blueprint $table) {
-            $table->id();
+            $table->uuid("id")->primary();
             $table->unsignedBigInteger('id_anak');
             $table->unsignedBigInteger('id_sekolah')->nullable();
             $table->unsignedBigInteger('id_kelas')->nullable();

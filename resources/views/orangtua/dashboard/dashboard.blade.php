@@ -103,7 +103,7 @@
                 </div>
                 --}}
 
-                <div class="row">
+                {{-- <div class="row">
                     @if($artikel != null && count($artikel) > 0)
                         @foreach ($artikel as $item)
                             <div class="col-md-6">
@@ -128,14 +128,14 @@
                             </div>
                         </div>
                     @endif
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
 
     <!-- Scan QR -->
 
-    {{--
+    
     <div class="col-12 col-xl-12 mb-5">
         <div class="card shadow px-3 py-1" id="scan-camera">
             <div class="card-body p-6">
@@ -154,7 +154,7 @@
             </div>
         </div>
     </div>
-    --}}
+   
 
         <!-- <div class="col-12 col-xl-12 mb-4">
             <div class="card shadow px-3 py-1">
@@ -163,16 +163,16 @@
                         <h6 class="card-title">VIDEO REKOMENDASI</h6>
                     </div>
                     <div class="row">
-                        @foreach($video as $video)
+                        {{-- @foreach($video as $video) --}}
                         <div class="col-md-7">
                         <iframe class="" width="240" height="180"
-                        src="{{$video->link}}">
+                        {{-- src="{{$video->link}}"> --}}
                             </iframe>
                         </div>
                         <div class="col-md-4">
-                            <p>{{$video->judul}}</p>
+                            {{-- <p>{{$video->judul}}</p> --}}
                         </div>
-                        @endforeach
+                        {{-- @endforeach --}}
                     </div>
                 </div>
             </div>
