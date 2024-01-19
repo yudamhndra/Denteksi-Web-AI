@@ -1,0 +1,16 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+.tanggal {
+    outline: 1px solid #dee2e6;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    vertical-align: top;
+}
