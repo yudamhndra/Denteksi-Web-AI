@@ -41,7 +41,7 @@
                         <div class="error-placement"></div> <!-- Menambahkan elemen div untuk menampilkan pesan error -->
                     </div>
                     <div class="row col-md-10">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" id="tempat_lahir" name="tempat_lahir"
@@ -51,12 +51,23 @@
                                  @enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
                                 <input type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror" id="tanggal_lahir" name="tanggal_lahir"
                                     autocomplete="off" placeholder="masukkan tanggal lahir" value="{{old('tanggal_lahir')}}" max="{{ date('Y-m-d') }}">
                                     @error('tanggal_lahir')
+                               <div class="invalid-feedback">{{ $message }}</div>
+                             @enderror
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Nomor Whatsapp <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('no_whatsapp') is-invalid @enderror" id="no_whatsapp" name="no_whatsapp"
+                                    autocomplete="off" placeholder="masukkan nomor whatsapp" value="{{old('no_whatsapps')}}">
+                                    @error('no_whatsapp')
                                <div class="invalid-feedback">{{ $message }}</div>
                              @enderror
                             </div>

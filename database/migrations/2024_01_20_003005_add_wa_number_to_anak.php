@@ -14,7 +14,7 @@ class AddWaNumberToAnak extends Migration
     public function up()
     {
         Schema::table('anak', function (Blueprint $table) {
-            $table -> string('nomor_wa');
+            $table -> string('no_whatsapp');
         });
     }
 
