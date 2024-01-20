@@ -76,6 +76,7 @@
                     <th>Nama Anak</th>
                     <th>Jenis Kelamin</th>
                     <th>Tanggal Lahir</th>
+                    <th>Whatsapp</th>
                     <th>action</th>
                 </tr>
             </thead>
@@ -106,7 +107,8 @@ function cetakQR() {
         return {
             id: row.id,
             nama: row.nama,
-            tanggal: row.tanggal_lahir
+            tanggal: row.tanggal_lahir,
+            whatsapp: row.no_whatsapp,
         };
     });
 
@@ -187,6 +189,11 @@ $(document).ready(function () {
                 {
                     data: 'tanggal_lahir',
                     name: 'tanggal_lahir',
+                    visible: true
+                },
+                {
+                    data: 'no_whatsapp',
+                    name: 'no_whatsapp',
                     visible: true
                 },
                  { data: 'action', name:'action', visible:true},

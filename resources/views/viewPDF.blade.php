@@ -48,7 +48,8 @@
                     <div class="card-body">
                         <p class="" id="auto-increment-id"></p>
                         <p>{{ $row['id'].'-'.$row['tanggal'] }}</p>
-                     
+                        <p>{{ $row['whatsapp'] }}</p>
+
                         <p>Nama: {{ $row['nama'] }}</p>
                         <div class="visible-print text-center">
                             @if(isset($row['base64QR']))

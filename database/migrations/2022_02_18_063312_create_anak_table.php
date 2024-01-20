@@ -24,8 +24,8 @@ class CreateAnakTable extends Migration
             $table->softDeletes();
 
             $table->foreign('id_orangtua')->references('id')->on('orangtua')->onDelete('cascade');
-            
-            
+
+
         });
     }
 
