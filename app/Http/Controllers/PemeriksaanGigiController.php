@@ -59,26 +59,26 @@ class PemeriksaanGigiController extends Controller
     public function store(Request $request)
     {
         // Pesan validasi kustom
-        $messages = [
-            'gambar1.required' => 'Gambar 1 wajib diisi.',
-            'gambar2.required' => 'Gambar 2 wajib diisi.',
-            'gambar3.required' => 'Gambar 3 wajib diisi.',
-        ];
+        // $messages = [
+        //     'gambar1.required' => 'Gambar 1 wajib diisi.',
+        //     'gambar2.required' => 'Gambar 2 wajib diisi.',
+        //     'gambar3.required' => 'Gambar 3 wajib diisi.',
+        // ];
 
-        // Validasi request
-        $validator = Validator::make($request->all(), [
-            'gambar1' => 'required',
-            'gambar2' => 'required',
-            'gambar3' => 'required'
-        ], $messages);
+        // // Validasi request
+        // $validator = Validator::make($request->all(), [
+        //     'gambar1' => 'required',
+        //     'gambar2' => 'required',
+        //     'gambar3' => 'required'
+        // ], $messages);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withErrors($validator)->withInput();
+        // }
 
-        try {
+        // try {
             $waktu_pemeriksaan = now();
-            $imageArray = array();
+            // $imageArray = array();
             $pgigi = new PemeriksaanGigi();
 
             $idAnak = Session::get('id_anak');
@@ -88,57 +88,61 @@ class PemeriksaanGigiController extends Controller
                 return redirect()->back()->with('error', 'ID anak tidak valid');
             }
 
-            $pgigi->id_sekolah = $request->id_sekolah ?: $request->id_posyandu;
-            $pgigi->id_kelas = $request->kelas;
+            $pgigi->id_anak = $idAnak;
+
+            // $pgigi->id_sekolah = $request->id_sekolah ?: $request->id_posyandu;
+            // $pgigi->id_kelas = $request->kelas;
             $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
 
-            for ($i = 1; $i <= 3; $i++) {
-                $fieldName = 'gambar' . $i;
+            // for ($i = 1; $i <= 3; $i++) {
+            //     $fieldName = 'gambar' . $i;
 
-                if ($request->hasFile($fieldName)) {
-                    $file = $request->file($fieldName);
-                    $extension = strtolower($file->getClientOriginalExtension());
-                    $filename = uniqid() . '.' . $extension;
-                    $imageArray[] = ['gambar' => $file, 'filename' => $filename];
+            //     if ($request->hasFile($fieldName)) {
+            //         $file = $request->file($fieldName);
+            //         $extension = strtolower($file->getClientOriginalExtension());
+            //         $filename = uniqid() . '.' . $extension;
+            //         $imageArray[] = ['gambar' => $file, 'filename' => $filename];
 
-                    Storage::put('public/gigi/' . $filename, File::get($file));
-                    $pgigi->$fieldName = $filename;
-                }
-            }
+            //         Storage::put('public/gigi/' . $filename, File::get($file));
+            //         $pgigi->$fieldName = $filename;
+            //     }
+            // }
+
+            $pgigi->gambar1 = $request->gambar1->getClientOriginalName();
 
             $pgigi->save();
 
-            \Log::info('Data Pemeriksaan Gigi berhasil disimpan: ' . json_encode($pgigi));
+        //     \Log::info('Data Pemeriksaan Gigi berhasil disimpan: ' . json_encode($pgigi));
 
-            $kecamatan = $request->kelas
-                ? $pgigi->kelas->sekolah->kelurahan->kecamatan->id
-                : $pgigi->sekolah->kelurahan->kecamatan->id;
+        //     $kecamatan = $request->kelas
+        //         ? $pgigi->kelas->sekolah->kelurahan->kecamatan->id
+        //         : $pgigi->sekolah->kelurahan->kecamatan->id;
 
-            // make request to detection api
-            $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
-            foreach ($imageArray as $key => $value) {
-                $key = $key + 1;
-                $response->attach(
-                    'gambar[' . $key . ']',
-                    file_get_contents($value['gambar']),
-                    $value['filename']
-                );
-            }
+        //     // make request to detection api
+        //     $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
+        //     foreach ($imageArray as $key => $value) {
+        //         $key = $key + 1;
+        //         $response->attach(
+        //             'gambar[' . $key . ']',
+        //             file_get_contents($value['gambar']),
+        //             $value['filename']
+        //         );
+        //     }
 
-            // request to detection api
-            $response = $response->post(config('app.ai_url') . '/api/detect', [
-                'pemeriksaan_id' => $pgigi->id,
-                'nama_anak' => $pgigi->anak->nama,
-                'nama_ortu' => $pgigi->anak->orangtua->nama,
-                'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
-                'nama_sekolah' => $pgigi->kelas->sekolah->nama,
-            ])->throw()->json();
+        //     // request to detection api
+        //     $response = $response->post(config('app.ai_url') . '/api/detect', [
+        //         'pemeriksaan_id' => $pgigi->id,
+        //         'nama_anak' => $pgigi->anak->nama,
+        //         'nama_ortu' => $pgigi->anak->orangtua->nama,
+        //         'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
+        //         'nama_sekolah' => $pgigi->kelas->sekolah->nama,
+        //     ])->throw()->json();
 
             return redirect()->route('view-riwayat')->with('success', 'Sukses mengisi data pemeriksaan gigi');
-        } catch (\Throwable $th) {
-            \Log::error('Terjadi kesalahan: ' . $th->getMessage());
-            return redirect()->back()->with('error', $th->getMessage())->withInput();
-        }
+        // } catch (\Throwable $th) {
+        //     \Log::error('Terjadi kesalahan: ' . $th->getMessage());
+        //     return redirect()->back()->with('error', $th->getMessage())->withInput();
+        // }
     }
 
         // try {
