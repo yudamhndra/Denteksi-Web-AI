@@ -87,12 +87,12 @@
                 <div class="d-md-block d-none">
                     <h1 class="mb-3 mb-md-0 text-left">Unggah Foto Gigi</h1>
                     <h1 class="mb-3 mb-md-0 text-left">Untuk Pemeriksaan</h1>
-                    <a type="button" href="{{ route('pemeriksaan') }}" class="btn btn-primary wd-350 mt-3 button">UNGGAH SEKARANG</a>
+                    <a type="button" href="{{ route('orangtua-anak.pemeriksaan', ['id' => $anak->id]) }}" class="btn btn-primary wd-350 mt-3 button">UNGGAH SEKARANG</a>
                 </div>
                 <div class="d-md-none text-center"> <!-- Tampilan Mobile -->
                     <img class="wd-250 ht-250" src="{{asset('assets/images/image_uploadGigi.png')}}" alt="Senyumin" class="img-fluid">
                     <h2 class="mb-3 mb-md-0 text-center">Unggah Foto Gigi Untuk Pemeriksaan</h2>
-                    <a type="button" href="{{ route('pemeriksaan') }}" class="btn btn-primary wd-200 mt-3 button text-center">UNGGAH SEKARANG</a>
+                    <a type="button" href="{{ route('orangtua-anak.pemeriksaan', ['id' => $anak->id]) }}" class="btn btn-primary wd-200 mt-3 button text-center">UNGGAH SEKARANG</a>
                 </div>
             </div>
             <div class="col-md-6 d-none d-md-block text-center">

@@ -105,7 +105,10 @@ Route::group(['prefix' => 'orangtua'], function () {
     Route::get('/anak',[OrangtuaController::class,'viewAnak'])->name('viewanak');
     Route::get('/anak/create',[OrangtuaController::class,'viewTambahAnak'])->name('view-anak.create');
     Route::post('/anak/store',[OrangtuaController::class,'tambahAnak'])->name('tambahanak.store');
+
     Route::get('/anak/{id}/edit',[OrangtuaController::class,'editAnak'])->name('orangtua-anak.edit');
+    Route::get('/orangtua/anak/{id}/pemeriksaan', [OrangtuaController::class, 'pemeriksaanAnak'])->name('orangtua-anak.pemeriksaan');
+
     Route::get('/artikel-view/{id}',[ArtikelController::class, 'artikelView'])->name('baca-artikel');
     Route::get('/anak/{id}/editprofile',[OrangtuaController::class,'editAnakProfile'])->name('orangtua-anak.editprofile');
     Route::put('/anak/{id}/update',[OrangtuaController::class,'updateAnak'])->name('orangtua-anak.update');
@@ -115,7 +118,7 @@ Route::group(['prefix' => 'orangtua'], function () {
     Route::get('/profil',[OrangtuaController::class,'profil'])->name('orangtua.profil');
     Route::post('/updateprofil',[OrangtuaController::class,'updateProfil'])->name('orangtua.updateprofil');
     // Route::get('periksa-gigi',[PemeriksaanGigiController::class,'create'])->name('periksa-gigi.create');
-    Route::get('periksa-gigi',[PemeriksaanGigiController::class,'store'])->name('periksa-gigi.store');
+    // Route::post('periksa-gigi',[PemeriksaanGigiController::class,'store'])->name('periksa-gigi.store');
     Route::get('/reservasi/create/{id}',[OrangtuaController::class,'reservasi'])->name('reservasi');
     Route::get('reservasi',[ReservasiController::class,'create'])->name('reservasi.create');
     Route::get('reservasi/cek/{poli}', [ReservasiController::class,'poli'])->name('reservasi.poli');
@@ -124,9 +127,9 @@ Route::group(['prefix' => 'orangtua'], function () {
     Route::post('reservasi',[ReservasiController::class,'store'])->name('reservasi.store');
     Route::get('reservasi/batal/{reservasiId}', [ReservasiController::class,"batalReservasi"])->name('reservasi.cancel');
 
-    Route::get('/orangtua/anak/pemeriksaan/periksa', function () {
-      return view('orangtua.anak.pemeriksaan');
-    })->name('pemeriksaan');
+    // Route::get('/orangtua/anak/pemeriksaan/periksa', function () {
+    //   return view('orangtua.anak.pemeriksaan');
+    // })->name('pemeriksaan');
 
     Route::get('/QR/{id}', [qrController::class,'index']);
     Route::get('/scan', [QRscanController::class, 'index']);

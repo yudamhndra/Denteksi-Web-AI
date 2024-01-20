@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 use File;
+use Illuminate\Support\Facades\Session;
 use Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -436,6 +437,16 @@ class OrangtuaController extends Controller
         $anak = Anak::find($id);
         return view('orangtua.anak.editProfile',compact('anak'));
     }
+
+    public function pemeriksaanAnak($id)
+    {
+        $anak = Anak::find($id);
+        Session::put('id_anak', $id);
+
+        return view('orangtua.anak.pemeriksaan', compact('anak'));
+    }
+
+
 
     public function updateAnak(Request $request, $id){
         $messages = [
