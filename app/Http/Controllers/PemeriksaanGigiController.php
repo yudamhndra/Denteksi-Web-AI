@@ -14,11 +14,16 @@ use App\Models\ResikoKaries;
 use App\Models\Dokter;
 use App\Models\SkriningIndeks;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\Response; 
 use Carbon\Carbon;
 use Notification;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
+use Ramsey\Uuid\Uuid;
 
 class PemeriksaanGigiController extends Controller
 {
@@ -54,48 +59,96 @@ class PemeriksaanGigiController extends Controller
      */
     public function store(Request $request)
     {
+        // Pesan validasi kustom
+        // $messages = [
+        //     'gambar1.required' => 'Gambar 1 wajib diisi.',
+        //     'gambar2.required' => 'Gambar 2 wajib diisi.',
+        //     'gambar3.required' => 'Gambar 3 wajib diisi.',
+        // ];
 
-        $messages = [
+        // // Validasi request
+        // $validator = Validator::make($request->all(), [
+        //     'gambar1' => 'required',
+        //     'gambar2' => 'required',
+        //     'gambar3' => 'required'
+        // ], $messages);
 
-            'gambar1.required' => 'Gambar 1 wajib diisi.',
-            'gambar2.required' => 'Gambar 2 wajib diisi.',
-            'gambar3.required' => 'Gambar 3 wajib diisi.',
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withErrors($validator)->withInput();
+        // }
 
-
-        ];
-        $validator = $request->validate([
-            'gambar1' => 'required',
-            'gambar2' => 'required',
-            'gambar3' => 'required'
-        ], $messages);
-
-        try {
+        // try {
+            $uuid = Uuid::uuid4()->toString();
             $waktu_pemeriksaan = now();
-            $imageArray = array();
+
+            // $imageArray = array();
             $pgigi = new PemeriksaanGigi();
-            $pgigi->id_anak = $request->anak;
-            $pgigi->id_sekolah = $request->id_sekolah ?: $request->id_posyandu;
-            $pgigi->id_kelas = $request->kelas;
-            $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
+            $pgigi->id = $uuid;
+
+            $idAnak = Session::get('id_anak');
+            $anak = Anak::find($idAnak);
     
-            // Process each image field
-            for ($i = 1; $i <= 3; $i++) {
-                $fieldName = 'gambar' . $i;
-    
-                if ($request->hasFile($fieldName)) {
-                    $file = $request->file($fieldName);
-                    $extension = strtolower($file->getClientOriginalExtension());
-                    $filename = uniqid() . '.' . $extension;
-                    $imageArray[] = ['gambar' => $file, 'filename' => $filename];
-    
-                    Storage::put('public/gigi/' . $filename, File::get($file));
-                    $pgigi->$fieldName = $filename;
-                }
+            if (!$anak) {
+                return redirect()->back()->with('error', 'ID anak tidak valid');
             }
-            // $pgigi->gsoal1 = $request->gsoal1;
-            // $pgigi->gsoal2 = $request->gsoal2;
-    
+
+            $pgigi->id_anak = $idAnak;
+
+            // $pgigi->id_sekolah = $request->id_sekolah ?: $request->id_posyandu;
+            // $pgigi->id_kelas = $request->kelas;
+            $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
+
+            // for ($i = 1; $i <= 3; $i++) {
+            //     $fieldName = 'gambar' . $i;
+
+            //     if ($request->hasFile($fieldName)) {
+            //         $file = $request->file($fieldName);
+            //         $extension = strtolower($file->getClientOriginalExtension());
+            //         $filename = uniqid() . '.' . $extension;
+            //         $imageArray[] = ['gambar' => $file, 'filename' => $filename];
+
+            //         Storage::put('public/gigi/' . $filename, File::get($file));
+            //         $pgigi->$fieldName = $filename;
+            //     }
+            // }
+
+            $pgigi->gambar1 = $request->gambar1->getClientOriginalName();
+
             $pgigi->save();
+
+        //     \Log::info('Data Pemeriksaan Gigi berhasil disimpan: ' . json_encode($pgigi));
+
+        //     $kecamatan = $request->kelas
+        //         ? $pgigi->kelas->sekolah->kelurahan->kecamatan->id
+        //         : $pgigi->sekolah->kelurahan->kecamatan->id;
+
+        //     // make request to detection api
+            $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
+        //     foreach ($imageArray as $key => $value) {
+        //         $key = $key + 1;
+                $response->attach(
+                    'gambar[1]',
+                    file_get_contents($request->gambar1),
+                    $request->gambar1->getClientOriginalName()
+                );
+        //     }
+
+        //     // request to detection api
+            $response = $response->post(config('app.ai_url') . '/api/detect', [
+                'pemeriksaan_id' => $pgigi->id,
+                'nama_anak' => $pgigi->anak->nama,
+                'nama_ortu' => $pgigi->anak->orangtua->nama,
+                // 'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
+                // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
+            ])->throw()->json();
+
+            return redirect()->route('view-riwayat')->with('success', 'Sukses mengisi data pemeriksaan gigi');
+        // } catch (\Throwable $th) {
+        //     \Log::error('Terjadi kesalahan: ' . $th->getMessage());
+        //     return redirect()->back()->with('error', $th->getMessage())->withInput();
+        // }
+    }
+
         // try {
         //     $waktu_pemeriksaan = Carbon::now();
         //     $imageArray = array();
@@ -175,11 +228,7 @@ class PemeriksaanGigiController extends Controller
             // $rk->save();
             // }
 
-            if($request->kelas){
-                $kecamatan = $pgigi->kelas->sekolah->kelurahan->kecamatan->id;
-            }else{
-                $kecamatan = $pgigi->sekolah->kelurahan->kecamatan->id;
-            }
+            
             // $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
 
             // foreach ($imageArray as $key => $value) {
@@ -191,23 +240,7 @@ class PemeriksaanGigiController extends Controller
             //     );
             // }
 
-            $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
-                foreach ($imageArray as $key => $value) {
-                    $key = $key + 1;
-                    $response->attach(
-                        'gambar[' . $key . ']',
-                        file_get_contents($value['gambar']),
-                        $value['filename']
-                    );
-                }
-
-            $response = $response->post(config('app.ai_url').'/api/detect',[
-                 'pemeriksaan_id' => $pgigi->id,
-                 'nama_anak' => $pgigi->anak->nama,
-                 'nama_ortu' => $pgigi->anak->orangtua->nama,
-                 'nama_instansi'=> 'Puskesmas '.$pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
-                 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
-            ])->throw()->json();
+            
 
 
 //            $response= $response->request('GET','http://185.210.144.115:8014/api/status/',[
@@ -245,17 +278,14 @@ class PemeriksaanGigiController extends Controller
 //
 //            );
 
-        } catch (\Throwable $th) {
-            return redirect()->back()->with('error', $th->getMessage());
-        }
+       
 
 //        $dokter = User::whereHas('dokter',function($query) use($kecamatan){
 //            $query->where('id_kecamatan',$kecamatan);
 //        })->get();
 //        Notification::send($dokter, new \App\Notifications\PemeriksaanGigiNotification(PemeriksaanGigi::with('anak','sekolah')->find($pgigi->id)));
 //        return redirect()->route('view-riwayat')->with('success','sukses mengisi data pemeriksaan gigi');
-        return redirect()->route('view-riwayat')->with('success','sukses mengisi data pemeriksaan gigi');
-    }
+       
 
     /**
      * Display the specified resource.

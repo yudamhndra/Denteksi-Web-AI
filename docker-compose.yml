@@ -3,23 +3,6 @@
 ###############################################################################
 version: '3.1'
 services:
-    mariadb:
-        image: 'mariadb:10.6'
-        working_dir: /application
-        restart: always
-        volumes:
-            - './mysql/data:/var/lib/mysql'
-            - '.:/application'
-        environment:
-            - MYSQL_ROOT_PASSWORD=root
-            - MYSQL_DATABASE=db-sim-gigi
-            - MYSQL_USER=admin-sim-gigi
-            - MYSQL_PASSWORD=pass-sim-gigi
-        ports:
-            - '8087:3306'
-        networks:
-            - app-network
-
     webserver:
         image: 'nginx:alpine'
         working_dir: /application
@@ -41,6 +24,11 @@ services:
             - './phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/8.1/fpm/conf.d/99-overrides.ini'
         networks:
             - app-network
+    composer:
+        image: composer:latest
+        volumes:
+            - .:/app
+        working_dir: /app
 
 networks:
   app-network:
