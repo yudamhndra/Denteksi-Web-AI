@@ -98,21 +98,20 @@ class PemeriksaanGigiController extends Controller
             // $pgigi->id_kelas = $request->kelas;
             $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
 
-            // for ($i = 1; $i <= 3; $i++) {
-            //     $fieldName = 'gambar' . $i;
+            
+            $fieldName = 'gambar';
 
-            //     if ($request->hasFile($fieldName)) {
-            //         $file = $request->file($fieldName);
-            //         $extension = strtolower($file->getClientOriginalExtension());
-            //         $filename = uniqid() . '.' . $extension;
-            //         $imageArray[] = ['gambar' => $file, 'filename' => $filename];
+            if ($request->hasFile($fieldName)) {
+                $file = $request->file($fieldName);
+                $extension = strtolower($file->getClientOriginalExtension());
+                $filename = uniqid() . '.' . $extension;
+                $imageArray[] = ['gambar' => $file, 'filename' => $filename];
 
-            //         Storage::put('public/gigi/' . $filename, File::get($file));
-            //         $pgigi->$fieldName = $filename;
-            //     }
-            // }
+                Storage::put('public/gigi/' . $filename, File::get($file));
+                $pgigi->$fieldName = $filename;
+            }
+            
 
-            $pgigi->gambar1 = $request->gambar1->getClientOriginalName();
 
             $pgigi->save();
 
