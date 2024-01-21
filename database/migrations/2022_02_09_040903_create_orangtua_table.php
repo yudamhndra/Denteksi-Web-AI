@@ -25,7 +25,6 @@ class CreateOrangtuaTable extends Migration
             $table->string('pendidikan')->nullable();
             $table->timestamps();
             $table->softDeletes();
-
             $table->foreign('id_users')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('id_kecamatan')->references('id')->on('kecamatan')->onDelete('cascade');
             $table->foreign('id_kelurahan')->references('id')->on('kelurahan')->onDelete('cascade');

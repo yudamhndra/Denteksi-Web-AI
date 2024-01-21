@@ -58,7 +58,6 @@
                                 <th >Hasil Pemeriksaan</th>
                                 <th>Rekomendasi</th>
                                 <th>Action </th>
-
                             </tr>
                         </thead>
                         <tbody class="col-lg-12">
@@ -67,6 +66,8 @@
                     </table>
                 </div>
             </div>
+
+            {{--
             <div class="tab-pane fade " id="home" role="tabpanel" aria-labelledby="home-line-tab">
                 <div class="">
                     <table id="table-fisik" class="table table-striped table-bordered " style="width:100%">
@@ -77,7 +78,6 @@
                                 <th>Tanggal</th>
                                 <th>Waktu</th>
                                 <th>Hasil Pemeriksaan</th>
-
                             </tr>
                         </thead>
                         <tbody class="col-lg-12"></tbody>
@@ -95,8 +95,6 @@
                                 <th>Tanggal</th>
                                 <th>Waktu</th>
                                 <th>Hasil Pemeriksaan</th>
-
-
                             </tr>
                         </thead>
                         <tbody class="col-lg-12"></tbody>
@@ -120,6 +118,8 @@
                     </table>
                 </div>
             </div>
+
+            --}}
 
         </div>
     </div>
@@ -193,7 +193,7 @@
 
 
         function load_data(anak = '') {
-            
+
             /*
 
             tableData = $('#table-fisik ').DataTable({
@@ -477,10 +477,9 @@
 
                     },
                     {
-                        data:'validasi',
-                        name:'validasi',
+                        data:'action',
+                        name:'action',
                         visible:true,
-
                     },
 
 
