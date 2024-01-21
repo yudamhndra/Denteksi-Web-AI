@@ -174,12 +174,12 @@
 {{--            </li>--}}
             <li class="nav-item nav-category">Lainnya</li>
 
-                <li class="nav-item">
-                    <a href="{{route('reservasi.riwayat')}}" class="nav-link">
-                        <i class="link-icon" data-feather="book"></i>
-                        <span class="link-title"> Riwayat Reservasi</span>
-                    </a>
-                </li>
+            {{--                 <li class="nav-item">--}}
+            {{--                  <a href="{{route('reservasi.riwayat')}}" class="nav-link">--}}
+            {{--                        <i class="link-icon" data-feather="book"></i>--}}
+            {{--                        <span class="link-title"> Riwayat Reservasi</span>--}}
+            {{--                    </a>--}}
+            {{--                 </li>--}}
 
                 {{--<li class="nav-item">
                     <!-- <a href="{{route('viewanak')}}" class="nav-link"> -->

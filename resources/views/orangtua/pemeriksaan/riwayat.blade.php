@@ -57,7 +57,7 @@
                                 <th >Waktu</th>
                                 <th >Hasil Pemeriksaan</th>
                                 <th>Rekomendasi</th>
-                                <th>Validasi </th>
+                                <th>Action </th>
 
                             </tr>
                         </thead>
