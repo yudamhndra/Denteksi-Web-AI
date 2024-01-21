@@ -22,6 +22,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\qrController;
 use App\Http\Controllers\QRscanController;
 use App\Http\Controllers\SpreadsheetController;
+use App\Http\Controllers\WhatsAppController;
 
 /*
 |--------------------------------------------------------------------------
@@ -137,6 +138,8 @@ Route::group(['prefix' => 'orangtua'], function () {
     Route::get('/anak/{id}/cetakQR', [qrController::class,'viewPDF']) ->name('cetakQRAnak');
     Route::get('/downloadSpreadsheet', [SpreadsheetController::class, 'downloadTemplate'])-> name('downloadSpreadsheet');
     Route::post('/importSpreadsheet', [SpreadsheetController::class, 'saveSpreadsheetToDatabase']) -> name('saveSpreadsheet');
+
+    Route::get('/send-whatsapp', [WhatsAppController::class, 'sendWhatsAppMesage']);
   });
 });
 

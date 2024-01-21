@@ -22,6 +22,7 @@
         "ramsey/uuid": "^4.7",
         "realrashid/sweet-alert": "^5.0",
         "simplesoftwareio/simple-qrcode": "~4",
+        "twilio/sdk": "^7.13",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
