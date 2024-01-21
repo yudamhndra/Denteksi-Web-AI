@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('navbar-title') riwayat pemeriksaan @endsection
+
 @section('content')
 
 
@@ -51,7 +51,6 @@
                     <table id="table-gigi" class="table  table-striped table-bordered " style="width:100%">
                         <thead>
                             <tr class="col-lg-12">
-                                <th>id</th>
                                 <th >no</th>
                                 <th>Tanggal</th>
                                 <th >Waktu</th>
@@ -443,11 +442,7 @@
                 },
 
 
-                columns: [{
-                        data: 'id',
-                        name: 'id',
-                        visible: false
-                    },
+                columns: [
                     {
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',

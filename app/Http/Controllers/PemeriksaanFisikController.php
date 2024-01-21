@@ -511,17 +511,21 @@ class PemeriksaanFisikController extends Controller
                 return $rekomendasi;
 
             })
-            ->addColumn('validasi',function($pemeriksaanGigi){
+            // ->addColumn('validasi',function($pemeriksaanGigi){
 
-                if(($pemeriksaanGigi->skriningOdontogram->isEmpty()) Or ($pemeriksaanGigi->skriningIndeks->reservasi==NULL)){
-                    $validasi = '<button class="btn btn-danger m-0 me-1">Belum divalidasi </button>';
-                    $validasi .= '<button class= "btn btn-custom m-0 text-white" id="show-foto" ><i class="fa fa-eye" ></i> Lihat Foto</button>';
-                }else{
-                    $validasi = '<button class="btn btn-custom m-0 me-1 text-white">Sudah divalidasi</button>';
-                    $validasi .= '<button class= "btn btn-custom m-0 text-white" id="show-foto" ><i class="fa fa-eye" ></i> Lihat Foto</button>';
+            //     if(($pemeriksaanGigi->skriningOdontogram->isEmpty()) Or ($pemeriksaanGigi->skriningIndeks->reservasi==NULL)){
+            //         $validasi = '<button class="btn btn-danger m-0 me-1">Belum divalidasi </button>';
+            //         $validasi .= '<button class= "btn btn-custom m-0 text-white" id="show-foto" ><i class="fa fa-eye" ></i> Lihat Foto</button>';
+            //     }else{
+            //         $validasi = '<button class="btn btn-custom m-0 me-1 text-white">Sudah divalidasi</button>';
+            //         $validasi .= '<button class= "btn btn-custom m-0 text-white" id="show-foto" ><i class="fa fa-eye" ></i> Lihat Foto</button>';
 
-                }
-                return $validasi;
+            //     }
+            //     return $validasi;
+            // })
+            ->addColumn('action', function($row){
+                $btn = '<a href="'.route('orangtua-anak.edit',$row->id).'" class="btn btn-info "><i class="fa fa-pencil-square-o" aria-hidden="true"></i>lihat hasil</a>';
+                return $btn;
             })
 
             ->rawColumns(['gambar','diagnosa','rekomendasi','validasi'])
