@@ -23,6 +23,7 @@ use Carbon\Carbon;
 use Notification;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
+use Ramsey\Uuid\Uuid;
 
 class PemeriksaanGigiController extends Controller
 {
@@ -77,9 +78,12 @@ class PemeriksaanGigiController extends Controller
         // }
 
         // try {
+            $uuid = Uuid::uuid4()->toString();
             $waktu_pemeriksaan = now();
+
             // $imageArray = array();
             $pgigi = new PemeriksaanGigi();
+            $pgigi->id = $uuid;
 
             $idAnak = Session::get('id_anak');
             $anak = Anak::find($idAnak);
@@ -119,24 +123,24 @@ class PemeriksaanGigiController extends Controller
         //         : $pgigi->sekolah->kelurahan->kecamatan->id;
 
         //     // make request to detection api
-        //     $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
+            $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
         //     foreach ($imageArray as $key => $value) {
         //         $key = $key + 1;
-        //         $response->attach(
-        //             'gambar[' . $key . ']',
-        //             file_get_contents($value['gambar']),
-        //             $value['filename']
-        //         );
+                $response->attach(
+                    'gambar[1]',
+                    file_get_contents($request->gambar1),
+                    $request->gambar1->getClientOriginalName()
+                );
         //     }
 
         //     // request to detection api
-        //     $response = $response->post(config('app.ai_url') . '/api/detect', [
-        //         'pemeriksaan_id' => $pgigi->id,
-        //         'nama_anak' => $pgigi->anak->nama,
-        //         'nama_ortu' => $pgigi->anak->orangtua->nama,
-        //         'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
-        //         'nama_sekolah' => $pgigi->kelas->sekolah->nama,
-        //     ])->throw()->json();
+            $response = $response->post(config('app.ai_url') . '/api/detect', [
+                'pemeriksaan_id' => $pgigi->id,
+                'nama_anak' => $pgigi->anak->nama,
+                'nama_ortu' => $pgigi->anak->orangtua->nama,
+                // 'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
+                // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
+            ])->throw()->json();
 
             return redirect()->route('view-riwayat')->with('success', 'Sukses mengisi data pemeriksaan gigi');
         // } catch (\Throwable $th) {

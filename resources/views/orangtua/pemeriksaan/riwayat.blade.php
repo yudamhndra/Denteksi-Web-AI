@@ -193,6 +193,9 @@
 
 
         function load_data(anak = '') {
+            
+            /*
+
             tableData = $('#table-fisik ').DataTable({
                 "oLanguage": {
                     "sEmptyTable": "Silakan pilih anak terlebih dahulu",
@@ -401,6 +404,8 @@
                 ],
 
             });
+
+            */
 
             tableDataGigi = $('#table-gigi').DataTable({
                 "oLanguage": {
