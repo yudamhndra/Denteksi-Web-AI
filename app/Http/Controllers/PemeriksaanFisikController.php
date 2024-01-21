@@ -523,12 +523,19 @@ class PemeriksaanFisikController extends Controller
             //     }
             //     return $validasi;
             // })
-            ->addColumn('action', function($row){
-                $btn = '<a href="'.route('orangtua-anak.edit',$row->id).'" class="btn btn-info "><i class="fa fa-pencil-square-o" aria-hidden="true"></i>lihat hasil</a>';
+            // ->addColumn('action', function($row){
+            //     $btn = '<a href="'.route('orangtua-anak.edit',$row->id).'" class="btn btn-info "><i class="fa fa-pencil-square-o" aria-hidden="true"></i>lihat hasil</a>';
+            //     return $btn;
+            // })
+
+            ->addColumn('action', function($row) {
+                $url = url('orangtua-anak/edit/' . $row->id);
+                $btn = '<a href="' . $url . '" class="btn btn-info"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Lihat Hasil</a>';
                 return $btn;
             })
 
-            ->rawColumns(['gambar','diagnosa','rekomendasi','validasi'])
+
+            ->rawColumns(['gambar','diagnosa','rekomendasi','validasi','action'])
             ->addIndexColumn()
             ->make(true);
 
