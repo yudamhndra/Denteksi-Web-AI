@@ -98,10 +98,7 @@ class PemeriksaanGigiController extends Controller
             // $pgigi->id_kelas = $request->kelas;
             $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
 
-<<<<<<< HEAD
-=======
             $filename = uniqid() . '.' . strtolower($request->file('gambar1')->getClientOriginalExtension());
->>>>>>> ef28ce7cc69b58c1aea5254e959ce5a3c6ed4778
 
             $fieldName = 'gambar1';
 
@@ -111,15 +108,11 @@ class PemeriksaanGigiController extends Controller
                 Storage::put('public/gigi/' . $filename, File::get($file));
 
                 $pgigi->$fieldName = $filename;
+                $pgigi->gambar1 = $filename;
 
             }
-<<<<<<< HEAD
-
-
 
             $pgigi->save();
-=======
->>>>>>> ef28ce7cc69b58c1aea5254e959ce5a3c6ed4778
 
         //     \Log::info('Data Pemeriksaan Gigi berhasil disimpan: ' . json_encode($pgigi));
 
