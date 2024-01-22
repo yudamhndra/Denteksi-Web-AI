@@ -6,7 +6,7 @@
 <nav class="sidebar">
     <div class="sidebar-header">
         <a href="/" class="sidebar-brand">
-        <img class="img-fluid " src="{{asset('assets/images/logo-senyumin.png')}}" alt="" >
+        <img class="img-fluid mx-4" src="{{asset('assets/images/logo-denteksi-text.jpg')}}" width="100" alt="" >
         </a>
         <div class="sidebar-toggler not-active">
             <span></span>

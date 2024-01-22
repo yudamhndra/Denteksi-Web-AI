@@ -106,7 +106,9 @@
         <div class="page-wrapper full-page">
             <div class="page-content m-0 pb-3 pb-md-1 pt-4">
                 <div class="container d-flex justify-content-between align-items-center">
-                    <img src="{{asset('assets/images/logo-putih.png')}}" alt="logo" srcset="">
+                    <!-- <img src="{{asset('assets/images/logo-putih.png')}}" alt="logo" srcset=""> -->
+                    <img src="{{asset('assets/images/logo-denteksi-text-removebg.png')}}" width="110" alt="logo" srcset="">
+
                     {{-- <a href="/register" class="btn btn-login rounded-pill fw-bold text-light p-2 px-4">BUAT AKUN</a> --}}
                 </div>
             </div>
