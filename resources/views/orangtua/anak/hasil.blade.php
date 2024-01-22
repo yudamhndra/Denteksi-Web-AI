@@ -5,7 +5,6 @@
 
 <div class="card shadow p-3">
     <div class="card-body">
-        <form  enctype="multipart/form-data" id="pemeriksaan" files=true>
         <input type="hidden" id="id" value="{{$anak->id}}">
             @csrf
 
@@ -27,7 +26,7 @@
 
 
 
-                        <div class="row col-md-12 px-5">
+                        <div class="row col-md-12 mt-3 px-5">
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Nama </label>
                                 <input type="text" disabled class="form-control" id="nama" name="nama"
@@ -75,24 +74,36 @@
                 <a href="{{Route('view-riwayat')}}" class="btn btn-cancel wd-100 mt-3 button ml-auto" id="btn-cancel">
                     Kembali
                 </a>
-                <button type="submit" href="{{route('pdfStream')}}" onclick="cetakQR()" target="_blank" class="btn btn-primary wd-150 mt-3 button ml-2" style="margin-left: 10px;" id="btn-periksa"> <i class="fas fa-file" style="margin-right: 10px;"></i>
+                <a type="button" href="{{route('pdfResult')}}" onclick="cetakPdf()" target="_blank" class="btn btn-primary wd-150 mt-3 button ml-2" style="margin-left: 10px;" id="btn-periksa"> <i class="fas fa-file" style="margin-right: 10px;"></i>
                     Cetak Hasil
-                </button>
+                </a>
             </div>
-        </form>
     </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
 @endsection
+
+@push('after-script')
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script> -->
+<script type="text/javascript">
+
+    var nama = document.getElementById('nama').value
+    var tanggal_lahir = document.getElementById('tanggal_lahir').value
+    var no_whatsapp = document.getElementById('no_whatsapp').value
+    var hasil = document.getElementById('hasil').value
+    var rekomendasi = document.getElementById('rekomendasi').value
+
+    var selectedDataToSend = [{
+            nama: nama,
+            tanggal: tanggal_lahir,
+            whatsapp: no_whatsapp,
+            hasil: hasil,
+            rekomendasi: rekomendasi
+        }];
+
+    var dataInJson = JSON.stringify(selectedDataToSend);
+    var url = "/orangtua/cetakResult?data=" + encodeURIComponent(dataInJson);
+    // window.location.href = url;
+    window.open(url)
+</script>
+@endpush

@@ -134,6 +134,19 @@ class qrController extends Controller
         // }, 'qr_code_senyumin.pdf');
     }
 
+
+    public function formToPdf(Request $request){
+
+            $jsonData = $request->query('data');
+            $selectedData = json_decode($jsonData, true);
+
+            $pdf = Pdf::loadview('viewResultPDF', compact('selectedData'));
+            $pdfContent = $pdf->output();
+
+            return $pdf->stream();
+
+    }
+
     // public function viewPDF(Request $request){
     //     $jsonData = $request->query('data');
     //     $selectedData = json_decode($jsonData, true);

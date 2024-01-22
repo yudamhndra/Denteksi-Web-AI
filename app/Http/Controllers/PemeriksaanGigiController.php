@@ -114,6 +114,7 @@ class PemeriksaanGigiController extends Controller
 
             $pgigi->save();
 
+
         //     \Log::info('Data Pemeriksaan Gigi berhasil disimpan: ' . json_encode($pgigi));
 
         //     $kecamatan = $request->kelas

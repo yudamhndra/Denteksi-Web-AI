@@ -224,6 +224,7 @@ Route::group(['prefix' => 'dokter'], function () {
 
 
   Route::get('/get-pdf', [qrController::class, 'viewPDF'])->name('pdfStream');
+  Route::get('/get-pdf-result', [qrController::class, 'formToPdf'])->name('pdfResult');
 
 Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('cache:clear');
