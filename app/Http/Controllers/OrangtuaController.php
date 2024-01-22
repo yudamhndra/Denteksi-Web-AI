@@ -540,7 +540,8 @@ class OrangtuaController extends Controller
 
     public function hasilPeriksa($id){
         $anak = Anak::where('id',$id)->first();
-        return view('orangtua.anak.hasil', compact('anak'));
+        $periksa = PemeriksaanGigi::where('id_anak', $anak->id)->first();
+        return view('orangtua.anak.hasil', compact('anak','periksa'));
     }
 
 }

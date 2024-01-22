@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
-use Illuminate\Http\Response; 
+use Illuminate\Http\Response;
 use Carbon\Carbon;
 use Notification;
 use Illuminate\Support\Facades\Http;
@@ -87,7 +87,7 @@ class PemeriksaanGigiController extends Controller
 
             $idAnak = Session::get('id_anak');
             $anak = Anak::find($idAnak);
-    
+
             if (!$anak) {
                 return redirect()->back()->with('error', 'ID anak tidak valid');
             }
@@ -98,8 +98,8 @@ class PemeriksaanGigiController extends Controller
             // $pgigi->id_kelas = $request->kelas;
             $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
 
-            
-            $fieldName = 'gambar';
+
+            $fieldName = 'gambar1';
 
             if ($request->hasFile($fieldName)) {
                 $file = $request->file($fieldName);
@@ -109,8 +109,9 @@ class PemeriksaanGigiController extends Controller
 
                 Storage::put('public/gigi/' . $filename, File::get($file));
                 $pgigi->$fieldName = $filename;
+
             }
-            
+
 
 
             $pgigi->save();
@@ -227,7 +228,7 @@ class PemeriksaanGigiController extends Controller
             // $rk->save();
             // }
 
-            
+
             // $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
 
             // foreach ($imageArray as $key => $value) {
@@ -239,7 +240,7 @@ class PemeriksaanGigiController extends Controller
             //     );
             // }
 
-            
+
 
 
 //            $response= $response->request('GET','http://185.210.144.115:8014/api/status/',[
@@ -277,14 +278,14 @@ class PemeriksaanGigiController extends Controller
 //
 //            );
 
-       
+
 
 //        $dokter = User::whereHas('dokter',function($query) use($kecamatan){
 //            $query->where('id_kecamatan',$kecamatan);
 //        })->get();
 //        Notification::send($dokter, new \App\Notifications\PemeriksaanGigiNotification(PemeriksaanGigi::with('anak','sekolah')->find($pgigi->id)));
 //        return redirect()->route('view-riwayat')->with('success','sukses mengisi data pemeriksaan gigi');
-       
+
 
     /**
      * Display the specified resource.

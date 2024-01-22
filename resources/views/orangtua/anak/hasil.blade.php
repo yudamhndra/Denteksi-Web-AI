@@ -19,7 +19,7 @@
                 <div class="col-md-4 mt-5 mx-auto">
                     <div class="card text-center custom-card shadow w-100 py-2">
                         <div class="card-body">
-                            <img id="gigi-depan" src="{{ asset('assets/images/upload-foto.png') }}" class="img-fluid" style="width: 200px; height: 200px;" alt="image_cloud">
+                            <img id="gigi-depan" src="{{'/storage/gigi/'.$periksa->gambar1}}" class="img-fluid" style="width: 200px; height: 200px;" alt="image_cloud">
                         </div>
                     </div>
                 </div>
@@ -72,10 +72,10 @@
 
 
             <div class="d-flex justify-content-end mt-5">
-                <button type="button" class="btn btn-cancel wd-100 mt-3 button ml-auto" id="btn-cancel">
+                <a href="{{Route('view-riwayat')}}" class="btn btn-cancel wd-100 mt-3 button ml-auto" id="btn-cancel">
                     Kembali
-                </button>
-                <button type="submit" class="btn btn-primary wd-150 mt-3 button ml-2" style="margin-left: 10px;" id="btn-periksa">
+                </a>
+                <button type="submit" href="{{route('pdfStream')}}" onclick="cetakQR()" target="_blank" class="btn btn-primary wd-150 mt-3 button ml-2" style="margin-left: 10px;" id="btn-periksa"> <i class="fas fa-file" style="margin-right: 10px;"></i>
                     Cetak Hasil
                 </button>
             </div>
