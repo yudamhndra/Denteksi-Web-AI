@@ -30,7 +30,7 @@
                 <a class="nav-link active " id="gigi-line-tab" data-bs-toggle="tab" href="#gigi" role="tab"
                     aria-controls="gigi" aria-selected="false">Gigi</a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link " id="home-line-tab" data-bs-toggle="tab" href="#home" role="tab"
                     aria-controls="home" aria-selected="true">Fisik</a>
             </li>
@@ -41,7 +41,7 @@
             <li class="nav-item">
                 <a class="nav-link" id="contact-line-tab" data-bs-toggle="tab" href="#contact" role="tab"
                     aria-controls="contact" aria-selected="false">Telinga</a>
-            </li>
+            </li> --}}
 
         </ul>
         <div class="tab-content mt-3" id="lineTabContent">

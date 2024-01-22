@@ -446,7 +446,7 @@ class PemeriksaanFisikController extends Controller
             })
 
             ->addColumn('gambar',function($pemeriksaanGigi){
-                $url1= url('storage/gigi/'.$pemeriksaanGigi->gambar1 ?? "null");
+                $url1= url('storage/gigi/'.$pemeriksaanGigi->gambar1?? "null");
                 $url2= url('storage/gigi/'.$pemeriksaanGigi->gambar2?? "null");
                 $url3= url('storage/gigi/'.$pemeriksaanGigi->gambar3?? "null");
                 $url4= url('storage/gigi/'.$pemeriksaanGigi->gambar4?? "null");
@@ -496,7 +496,10 @@ class PemeriksaanFisikController extends Controller
             ->addColumn('rekomendasi',function($pemeriksaanGigi){
                 $rekomendasi = '';
 
-
+                // $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
+                // $response = $response->get(config('app.ai_url') . '/api/status/?pemeriksaan_id='.$pemeriksaanGigi->id)->throw()->json();
+    
+                //TODO : Sesuain sama response dari API 
                 if(!empty($pemeriksaanGigi->skriningIndeks->rekomendasi)){
                     if($pemeriksaanGigi->skriningIndeks->reservasi=="ya"){
 
