@@ -19,7 +19,9 @@
                 <div class="col-md-4 mt-5 mx-auto">
                     <div class="card text-center custom-card shadow w-100 py-2">
                         <div class="card-body">
-                            <img id="gigi-depan" src="{{'/storage/gigi/'.$periksa->gambar1}}" class="img-fluid" style="width: 200px; height: 200px;" alt="image_cloud">
+                            @if(!empty($decodedImage))
+                                <img src="data:image/jpeg;base64,{{ base64_encode($decodedImage) }}" class="img-fluid" style="width: 200px; height: 200px;" alt="Image">
+                            @endif
                         </div>
                     </div>
                 </div>

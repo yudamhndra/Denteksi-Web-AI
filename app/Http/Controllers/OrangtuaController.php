@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 use File;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Validator;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -539,9 +540,35 @@ class OrangtuaController extends Controller
     }
 
     public function hasilPeriksa($id){
-        $anak = Anak::where('id',$id)->first();
+        $anak = Anak::where('id', $id)->first();
         $periksa = PemeriksaanGigi::where('id_anak', $anak->id)->first();
-        return view('orangtua.anak.hasil', compact('anak','periksa'));
+        $url = config('app.ai_url') . "/api/result-image/?pemeriksaan_id=$id";
+        $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn')->get($url);
+
+        $decodedImage = null; // Initialize the variable
+
+        $responseData = $response->json();
+
+        // Check if the response contains 'status' and 'data' keys
+        if (isset($responseData['status']) && isset($responseData['data'])) {
+            $status = $responseData['status'];
+            $data = $responseData['data'];
+
+            // Check if the status is 'Success' and data is not empty
+            if ($status === 'Success' && !empty($data)) {
+                foreach ($data as $item) {
+                    $result = $item['result'];
+
+                    foreach ($result as $filename => $resultData) {
+                        $decodedImage = base64_decode($resultData);
+                        // Break out of the loop as you only want one image
+                        break;
+                    }
+                }
+            }
+        }
+
+        return view('orangtua.anak.hasil', compact('anak', 'periksa', 'decodedImage'));
     }
 
 }

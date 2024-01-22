@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Response;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\File as FacadesFile;
 use Notification;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
@@ -105,7 +106,7 @@ class PemeriksaanGigiController extends Controller
             if ($request->hasFile($fieldName)) {
                 $file = $request->file($fieldName);
 
-                Storage::put('public/gigi/' . $filename, File::get($file));
+                Storage::put('public/gigi/' . $filename, FacadesFile::get($file));
 
                 $pgigi->$fieldName = $filename;
                 $pgigi->gambar1 = $filename;
