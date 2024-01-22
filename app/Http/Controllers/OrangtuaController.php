@@ -401,7 +401,6 @@ class OrangtuaController extends Controller
         $messages = [
             'nama.required' => 'Nama wajib diisi.',
             'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi',
-            'tempat_lahir.required'  => 'Tempat lahir wajib diisi',
             'tanggal_lahir.required' => 'Tanggal lahir wajib diisi',
             'no_whatsapp.required' => 'nomor whatsapp wajib diisi',
             'no_whatsapp.starts_with:62' => 'nomor whatsapp wajib diawali dengan +62'
@@ -410,7 +409,6 @@ class OrangtuaController extends Controller
         $validator = $request->validate([
 
             'nama' => 'required',
-            'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'jenis_kelamin' => 'required',
             'no_whatsapp' => 'required',
@@ -426,7 +424,6 @@ class OrangtuaController extends Controller
         $anak->id_orangtua= $orangtua;
         $anak->nama = $request->nama;
         $anak->jenis_kelamin = $request->jenis_kelamin;
-        $anak->tempat_lahir = $request->tempat_lahir;
         $anak->tanggal_lahir = $request->tanggal_lahir;
         $anak->no_whatsapp = $request->no_whatsapp;
 
