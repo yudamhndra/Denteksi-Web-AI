@@ -81,7 +81,7 @@ class PemeriksaanGigiController extends Controller
             $uuid = Uuid::uuid4()->toString();
             $waktu_pemeriksaan = now();
 
-            // $imageArray = array();
+            // $imageArray = [];
             $pgigi = new PemeriksaanGigi();
             $pgigi->id = $uuid;
 
@@ -98,22 +98,18 @@ class PemeriksaanGigiController extends Controller
             // $pgigi->id_kelas = $request->kelas;
             $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
 
-            
-            $fieldName = 'gambar';
+            $filename = uniqid() . '.' . strtolower($request->file('gambar1')->getClientOriginalExtension());
+
+            $fieldName = 'gambar1';
 
             if ($request->hasFile($fieldName)) {
                 $file = $request->file($fieldName);
-                $extension = strtolower($file->getClientOriginalExtension());
-                $filename = uniqid() . '.' . $extension;
-                $imageArray[] = ['gambar' => $file, 'filename' => $filename];
 
                 Storage::put('public/gigi/' . $filename, File::get($file));
+
                 $pgigi->$fieldName = $filename;
+
             }
-            
-
-
-            $pgigi->save();
 
         //     \Log::info('Data Pemeriksaan Gigi berhasil disimpan: ' . json_encode($pgigi));
 
@@ -140,6 +136,8 @@ class PemeriksaanGigiController extends Controller
                 // 'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
                 // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
             ])->throw()->json();
+
+            $pgigi->save();
 
             return redirect()->route('view-riwayat')->with('success', 'Sukses mengisi data pemeriksaan gigi');
         // } catch (\Throwable $th) {
