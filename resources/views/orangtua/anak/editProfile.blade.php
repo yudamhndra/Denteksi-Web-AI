@@ -21,6 +21,7 @@
         @csrf
         @method('PUT')
 
+
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label @error('nama') is-invalid @enderror">Nama <span class="text-danger">*</span></label>
             <input type="text" class="form-control" id="nama" name="nama" autocomplete="off" value="{{$anak->nama}}" placeholder="Nama">
@@ -46,11 +47,12 @@
         </div>
 
         <div class="row col-md-10">
+
             <div class="col-md-6">
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" id="tempat_lahir" name="tempat_lahir" autocomplete="off" placeholder="Tempat Lahir" value="{{$anak->tempat_lahir}}">
-                    @error('tempat_lahir')
+                    <label for="exampleInputPassword1" class="form-label">Nomor Whatsapp <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control @error('no_whatsapp') is-invalid @enderror" id="no_whatsapp" name="no_whatsapp" autocomplete="off" placeholder="nomor whatsapp" value="{{$anak->no_whatsapp}}">
+                    @error('no_whatsapp')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
@@ -80,14 +82,12 @@
     var id = document.getElementById('id').value;
     var nama = document.getElementById('nama').value;
     var jenisKelamin = document.querySelector('input[name="jenis_kelamin"]:checked').value;
-    var tempatLahir = document.getElementById('tempat_lahir').value;
     var tanggalLahir = document.getElementById('tanggal_lahir').value;
 
     var anakData = [{
         id: id,
         nama: nama,
         jenis_kelamin: jenisKelamin,
-        tempat_lahir: tempatLahir,
         tanggal_lahir: tanggalLahir
     }];
 

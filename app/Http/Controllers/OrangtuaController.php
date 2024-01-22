@@ -10,8 +10,11 @@ use App\Models\Anak;
 use App\Models\Kelurahan;
 use App\Models\PemeriksaanFisik;
 use App\Models\PemeriksaanGigi;
+use Illuminate\Support\Facades\Response;
 use App\Models\Artikel;
+use Ramsey\Uuid\Uuid;
 use App\Models\Video;
+use Illuminate\Support\Facades\File as FacadesFile;
 use App\Models\SkriningIndeks;
 use Illuminate\Support\Facades\Auth;
 // use Auth;
@@ -335,7 +338,8 @@ class OrangtuaController extends Controller
         return datatables()->of($anak)
         ->addColumn('action', function($row){
 
-            $btn = '<a href="'.route('orangtua-anak.edit',$row->id).'" class="btn btn-info "><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Periksa</a>';
+            $btn = '<a href="'.route('orangtua-anak.edit',$row->id);
+            // $btn = '<a href="'.route('orangtua-anak.edit',$row->id).'" class="btn btn-info "><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Periksa</a>';
             $btn = $btn. ' <button title="Delete" id="btn-delete" class="delete-modal btn btn-danger mt-0"><i class="fa fa-trash " ></i>Hapus</button>';
             // Route belum bener
             $editProfilBtn = '<a href="'.route('orangtua-anak.editprofile',$row->id).'"  class="btn btn-warning "><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>';
@@ -403,7 +407,8 @@ class OrangtuaController extends Controller
             'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi',
             'tanggal_lahir.required' => 'Tanggal lahir wajib diisi',
             'no_whatsapp.required' => 'nomor whatsapp wajib diisi',
-            'no_whatsapp.starts_with:62' => 'nomor whatsapp wajib diawali dengan +62'
+            'no_whatsapp.starts_with' => 'nomor whatsapp wajib diawali dengan +62',
+            'no_whatsapp.numeric' => 'Nomor whatsapp harus berupa angka',
 
         ];
         $validator = $request->validate([
@@ -411,8 +416,7 @@ class OrangtuaController extends Controller
             'nama' => 'required',
             'tanggal_lahir' => 'required',
             'jenis_kelamin' => 'required',
-            'no_whatsapp' => 'required',
-            'no_whatsapp' => ['required', 'starts_with:+62'],
+            'no_whatsapp' => ['required', 'starts_with:+62','numeric'],
 
 
         ], $messages);
@@ -430,7 +434,57 @@ class OrangtuaController extends Controller
 
 
         $anak->save();
+
+        // from original pemeriksaangigicontroller.store
+        $uuid = Uuid::uuid4()->toString();
+        $waktu_pemeriksaan = now();
+
+        // $imageArray = [];
+        $pgigi = new PemeriksaanGigi();
+        $pgigi->id = $uuid;
+
+        $pgigi->id_anak = $anak->id;
+
+        $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
+
+
+
+        $fieldName = 'gambar1';
+
+        // jika upload gambar dari file
+        if ($request->hasFile($fieldName)) {
+            $filename = uniqid() . '.' . strtolower($request->file('gambar1')->getClientOriginalExtension());
+            $file = $request->file($fieldName);
+
+            Storage::put('public/gigi/' . $filename, FacadesFile::get($file));
+
+            $pgigi->$fieldName = $filename;
+            $pgigi->gambar1 = $filename;
+
+
+            $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
+            $response->attach(
+                'gambar[1]',
+                file_get_contents($request->gambar1),
+                $request->gambar1->getClientOriginalName()
+            );
+
+            $response = $response->post(config('app.ai_url') . '/api/detect', [
+                'pemeriksaan_id' => $pgigi->id,
+                'nama_anak' => $pgigi->anak->nama,
+                'nama_ortu' => $pgigi->anak->orangtua->nama,
+                // 'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
+                // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
+            ])->throw()->json();
+
+        }
+
+        $pgigi->save();
+
+
+
         Alert::success('Sukses', 'Data anak berhasil disimpan.');
+
         return redirect()->route('viewanak');
     }
 
@@ -457,32 +511,30 @@ class OrangtuaController extends Controller
         $messages = [
             'nama.required' => 'Nama wajib diisi.',
             'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi',
-            'tempat_lahir.required'  => 'Tempat lahir wajib diisi',
-            'tanggal_lahir.required' => 'Tanggal lahir wajib diisi'
+            'tanggal_lahir.required' => 'Tanggal lahir wajib diisi',
 
         ];
         $validator = $request->validate([
 
             'nama' => 'required',
-            'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
-            'jenis_kelamin' => 'required'
-
+            'jenis_kelamin' => 'required',
         ], $messages);
+
         $anak = Anak::find($id);
         $user = Auth::user();
         $orangtua = Orangtua::Where('id_users', Auth::user()->id)->value('id');
 
         $anak->nama = $request->nama;
         $anak->jenis_kelamin=$request->jenis_kelamin;
-        $anak->tempat_lahir=$request->tempat_lahir;
         $anak->tanggal_lahir=$request->tanggal_lahir;
+        $anak->no_whatsapp=$request->no_whatsapp;
+
 
 
         $anak->save();
         Alert::success('Sukses', 'Data anak berhasil diubah.');
         return redirect()->route('viewanak')->with('error',$messages);
-
     }
 
     public function deleteAnak($id){

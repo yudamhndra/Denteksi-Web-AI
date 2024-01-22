@@ -1,0 +1,27 @@
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Nomor Whatsapp <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control @error('no_whatsapp') is-invalid @enderror" id="no_whatsapp" name="no_whatsapp" autocomplete="off" placeholder="nomor whatsapp" value="{{$anak->no_whatsapp}}">
+                    @error('no_whatsapp')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+
+
+            'nama' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'jenis_kelamin' => 'required',
+            'no_whatsapp' => ['required', 'starts_with:+62','numeric'],
+        ], $messages);
+
+        $anak = Anak::find($id);
+        $user = Auth::user();
+        $orangtua = Orangtua::Where('id_users', Auth::user()->id)->value('id');
+
+        $anak->nama = $request->nama;
+        $anak->jenis_kelamin=$request->jenis_kelamin;
+        $anak->tempat_lahir=$request->tempat_lahir;
+        $anak->tanggal_lahir=$request->tanggal_lahir;
+        $anak->no_whatsapp=$request->no_whatsapp;
