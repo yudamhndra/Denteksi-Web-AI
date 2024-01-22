@@ -529,8 +529,8 @@ class PemeriksaanFisikController extends Controller
             // })
 
             ->addColumn('action', function($row) {
-                $url = url('orangtua-anak/edit/' . $row->id);
-                $btn = '<a href="' . $url . '" class="btn btn-info"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Lihat Hasil</a>';
+                $url = route('orangtua-anak.periksa' , $row->id_anak);
+                $btn = '<a href="' . $url . '" class="btn btn-info">Lihat Hasil</a>';
                 return $btn;
             })
 

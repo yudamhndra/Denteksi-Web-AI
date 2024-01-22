@@ -113,6 +113,7 @@ Route::group(['prefix' => 'orangtua'], function () {
     Route::get('/artikel-view/{id}',[ArtikelController::class, 'artikelView'])->name('baca-artikel');
     Route::get('/anak/{id}/editprofile',[OrangtuaController::class,'editAnakProfile'])->name('orangtua-anak.editprofile');
     Route::put('/anak/{id}/update',[OrangtuaController::class,'updateAnak'])->name('orangtua-anak.update');
+    Route::get('/hasil/{id}/periksa',[OrangtuaController::class,'hasilPeriksa'])->name('orangtua-anak.periksa');
 
     Route::resource('pemeriksaangigi', PemeriksaanGigiController::class)->except('destroy','create');
     Route::get('/pemeriksaan/riwayat',[PemeriksaanFisikController::class,'riwayat'])->name('view-riwayat');

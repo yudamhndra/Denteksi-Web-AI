@@ -538,4 +538,9 @@ class OrangtuaController extends Controller
         return view('orangtua.reservasi.create',compact('reservasi','pgigi','anak','klinik'));
     }
 
+    public function hasilPeriksa($id){
+        $anak = Anak::where('id',$id)->first();
+        return view('orangtua.anak.hasil', compact('anak'));
+    }
+
 }
