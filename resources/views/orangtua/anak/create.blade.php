@@ -86,7 +86,7 @@
                         <div class="row col-md-5 mb-3 mx-auto">
                             <button class="btn-create btn btn-submit-col" id="btn-use-camera"> GUNAKAN KAMERA</button>
                             <p class="text-center">atau</p>
-                            <button class="btn btn-submit-white mt-1" id="btn-ambil-dari-galeri"><i class="far fa-image"></i> AMBIL DARI GALERI</button>
+                            <button type="button" class="btn btn-submit-white mt-1" id="btn-ambil-dari-galeri"><i class="far fa-image"></i> AMBIL DARI GALERI</button>
                         </div>
                     </div>
 
