@@ -8,6 +8,7 @@ use Barryvdh\DomPDF\Facade;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use SimpleSoftwareIO\QrCode\Generator;
@@ -139,9 +140,33 @@ class qrController extends Controller
 
             $jsonData = $request->query('data');
             $selectedData = json_decode($jsonData, true);
+            $selectedData = $selectedData[0];
+            $url = config('app.ai_url') . "/api/result-image/?pemeriksaan_id=" . $selectedData['id'];
+            $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn')->get($url);
 
-            $pdf = Pdf::loadview('viewResultPDF', compact('selectedData'));
-            $pdfContent = $pdf->output();
+            $decodedImage = null; // Initialize the variable
+
+            $responseData = $response->json();
+
+            if (isset($responseData['status']) && isset($responseData['data'])) {
+                $status = $responseData['status'];
+                $data = $responseData['data'];
+    
+                // Check if the status is 'Success' and data is not empty
+                if ($status === 'Success' && !empty($data)) {
+                    foreach ($data as $item) {
+                        $result = $item['result'];
+    
+                        foreach ($result as $filename => $resultData) {
+                            $decodedImage = base64_decode($resultData);
+                            // Break out of the loop as you only want one image
+                            break;
+                        }
+                    }
+                }
+            }
+    
+            $pdf = Pdf::loadview('viewResultPDF', compact('selectedData', 'decodedImage'));
 
             return $pdf->stream();
 

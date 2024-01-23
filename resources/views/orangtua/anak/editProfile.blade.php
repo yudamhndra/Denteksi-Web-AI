@@ -83,12 +83,14 @@
     var nama = document.getElementById('nama').value;
     var jenisKelamin = document.querySelector('input[name="jenis_kelamin"]:checked').value;
     var tanggalLahir = document.getElementById('tanggal_lahir').value;
+    var whatsapp = document.getElementById('no_whatsapp').value;
 
     var anakData = [{
         id: id,
         nama: nama,
         jenis_kelamin: jenisKelamin,
-        tanggal_lahir: tanggalLahir
+        tanggal: tanggalLahir,
+        whatsapp: whatsapp
     }];
 
     var dataInJson = JSON.stringify(anakData);

@@ -5,6 +5,7 @@
 
 <div class="card shadow p-3">
     <div class="card-body">
+        <input type="hidden" id="id_periksa" value="{{$periksa->id}}">
         <input type="hidden" id="id" value="{{$anak->id}}">
             @csrf
 
@@ -17,10 +18,7 @@
             <div class="col-md-4 mt-5 mx-auto">
                     <div class="card text-center custom-card shadow w-100 py-2">
                         <div class="card-body">
-                            <img id="gigi-depan" src="{{'/storage/gigi/'.$periksa->gambar1}}" class="img-fluid" style="width: 200px; height: 200px;" alt="no file">
-                            @if(!empty($decodedImage))
-                                <img src="data:image/jpeg;base64,{{ base64_encode($decodedImage) }}" class="img-fluid" style="width: 200px; height: 200px;" alt="Image">
-                            @endif
+                             <img id="gigi-depan" src="data:image/jpeg;base64,{{ base64_encode($decodedImage) }}" class="img-fluid" style="width: 200px; height: 200px;" alt="{{$url}}" val>
                         </div>
                     </div>
                 </div>
@@ -73,7 +71,7 @@
                 <a href="{{Route('view-riwayat')}}" class="btn btn-cancel wd-100 mt-3 button ml-auto" id="btn-cancel">
                     Kembali
                 </a>
-                <a type="button" href="{{route('pdfResult')}}" onclick="cetakPdf()" target="_blank" class="btn btn-primary wd-150 mt-3 button ml-2" style="margin-left: 10px;" id="btn-periksa"> <i class="fas fa-file" style="margin-right: 10px;"></i>
+                <a type="button" onclick="cetakPdf()" target="_blank" class="btn btn-primary wd-150 mt-3 button ml-2" style="margin-left: 10px;" id="btn-periksa"> <i class="fas fa-file" style="margin-right: 10px;"></i>
                     Cetak Hasil
                 </a>
             </div>
@@ -86,23 +84,32 @@
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script> -->
 <script type="text/javascript">
 
-    var nama = document.getElementById('nama').value
-    var tanggal_lahir = document.getElementById('tanggal_lahir').value
-    var no_whatsapp = document.getElementById('no_whatsapp').value
-    var hasil = document.getElementById('hasil').value
-    var rekomendasi = document.getElementById('rekomendasi').value
+    function cetakPdf() {
+        var nama = document.getElementById('nama').value;
+        var tanggal_lahir = document.getElementById('tanggal_lahir').value;
+        var no_whatsapp = document.getElementById('no_whatsapp').value;
+        var hasil = document.getElementById('hasil').value;
+        var rekomendasi = document.getElementById('rekomendasi').value;
+        var gambar = document.getElementById('gigi-depan').src;
+        var id_periksa = document.getElementById('id_periksa').value
+        
 
-    var selectedDataToSend = [{
-            nama: nama,
-            tanggal: tanggal_lahir,
-            whatsapp: no_whatsapp,
-            hasil: hasil,
-            rekomendasi: rekomendasi
-        }];
+        var selectedDataToSend = [{
+                id : id_periksa,
+                nama: nama,
+                tanggal: tanggal_lahir,
+                whatsapp: no_whatsapp,
+                hasil: hasil,
+                rekomendasi: rekomendasi,
+                // gambar: gambar
+            }];
 
-    var dataInJson = JSON.stringify(selectedDataToSend);
-    var url = "/orangtua/cetakResult?data=" + encodeURIComponent(dataInJson);
-    // window.location.href = url;
-    window.open(url)
-</script>
+        var dataInJson = JSON.stringify(selectedDataToSend);
+        // var url = "/orangtua/dashboard"
+        var url = "/orangtua/get-pdf-result?data=" + encodeURIComponent(dataInJson);
+        // window.location.href = url;
+        window.open(url);  
+    }    
+
+    </script>
 @endpush

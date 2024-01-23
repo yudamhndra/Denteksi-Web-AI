@@ -590,7 +590,7 @@ class OrangtuaController extends Controller
     public function hasilPeriksa($id){
         $anak = Anak::where('id', $id)->first();
         $periksa = PemeriksaanGigi::where('id_anak', $anak->id)->first();
-        $url = config('app.ai_url') . "/api/result-image/?pemeriksaan_id=$id";
+        $url = config('app.ai_url') . "/api/result-image/?pemeriksaan_id=$periksa->id";
         $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn')->get($url);
 
         $decodedImage = null; // Initialize the variable
@@ -616,7 +616,7 @@ class OrangtuaController extends Controller
             }
         }
 
-        return view('orangtua.anak.hasil', compact('anak', 'periksa', 'decodedImage'));
+        return view('orangtua.anak.hasil', compact('anak', 'periksa', 'decodedImage', 'url'));
     }
 
 }

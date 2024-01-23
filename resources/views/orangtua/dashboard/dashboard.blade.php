@@ -235,7 +235,7 @@ function onScanSuccess(decodedText, decodedResult) {
   console.log(`Code matched = ${decodedText}`, decodedResult);
   document.getElementById("text_scan_input").value = decodedText;
   url_code = decodedText;
-  window.open("http://127.0.0.1:8000/orangtua/pemeriksaanfisik/create/" + decodedText, "_self")
+  window.open("http://127.0.0.1:8000/orangtua/anak/" + decodedText + "/editprofile", "_self")
 }
 
 function browse_url(){
