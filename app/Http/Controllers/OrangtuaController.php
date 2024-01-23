@@ -484,7 +484,7 @@ class OrangtuaController extends Controller
 
         Alert::success('Sukses', 'Data pasien berhasil disimpan.');
 
-        return redirect()->route('viewanak');
+        return redirect()->back();
     }
 
     public function editAnak($id){
