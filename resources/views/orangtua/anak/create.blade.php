@@ -7,7 +7,7 @@
         <div class="card">
             <div class="row mt-5">
                 <div class="col-md-6 mx-3 mb-3 align-self-center">
-                    <h5 class="mb-3 mb-md-0 text-left">TAMBAH ANAK</h5>
+                    <h5 class="mb-3 mb-md-0 text-left">TAMBAH PASIEN</h5>
                 </div>
             </div>
             <div class="card-body">

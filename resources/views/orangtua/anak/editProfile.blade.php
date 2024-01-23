@@ -16,7 +16,7 @@
     </div>
 
     <form action="{{ route('orangtua-anak.update',$anak->id) }}" id="form-anak" class="forms-sample py-4 px-3" method="post" enctype="multipart/form-data" files=true>
-    <h6 class="text-left h4 mb-3">Data Anak</h6>
+    <h6 class="text-left h4 mb-3">Data Pasien</h6>
         <input type="hidden" id="id" value="{{$anak->id}}">
         @csrf
         @method('PUT')
