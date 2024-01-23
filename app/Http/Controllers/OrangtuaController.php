@@ -338,10 +338,9 @@ class OrangtuaController extends Controller
         return datatables()->of($anak)
         ->addColumn('action', function($row){
 
-            $btn = '<a href="'.route('orangtua-anak.edit',$row->id);
+            // $btn = '<a href="'.route('orangtua-anak.edit',$row->id);
             // $btn = '<a href="'.route('orangtua-anak.edit',$row->id).'" class="btn btn-info "><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Periksa</a>';
-            $btn = $btn. ' <button title="Delete" id="btn-delete" class="delete-modal btn btn-danger mt-0"><i class="fa fa-trash " ></i>Hapus</button>';
-            // Route belum bener
+            $btn =' <button type="submit"  action="'.route('orangtua-anak.destroy', $row->id).'" title="Delete" id="btn-delete" class="delete-modal btn btn-danger mt-0"><i class="fa fa-trash " ></i>Hapus</button>';
             $editProfilBtn = '<a href="'.route('orangtua-anak.editprofile',$row->id).'"  class="btn btn-warning "><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>';
 
 
