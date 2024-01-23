@@ -22,7 +22,7 @@
         @method('PUT')
 
 
-        <div class="mb-3">
+        <div class="mb-3 col-md-10">
             <label for="exampleInputPassword1" class="form-label @error('nama') is-invalid @enderror">Nama <span class="text-danger">*</span></label>
             <input type="text" class="form-control" id="nama" name="nama" autocomplete="off" value="{{$anak->nama}}" placeholder="Nama">
             @error('nama')
@@ -66,6 +66,34 @@
                     @enderror
                 </div>
             </div>
+            <div class="row mt-3">
+                        <h5 class="mb-3 mb-md-0 text-left">TAMBAH FOTO</h5>
+                    </div>
+
+                    <div class="row">
+                        <div class="row col-md-8 mt-5 mx-auto">
+                            <div class="card text-center custom-card shadow py-2">
+                                <div class="card-body">
+                                    <div class="row mt-3">
+                                        <h6 class="mb-3 mb-md-0 text-left">PREVIEW</h6>
+                                    </div>
+                                    <img id="gigi-depan"  src="{{'/storage/gigi/'.$periksa->gambar1}}" class="img-fluid mt-3" style="width: 400px; height: 200px;" alt="foto belum diambil">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-5">
+                        <div class="row col-md-5 mb-3 mx-auto">
+                            <button type="button" class="btn-create btn btn-submit-col" id="btn-use-camera"> GUNAKAN KAMERA</button>
+                            <p class="text-center">atau</p>
+                        <label for="fileInput" class="btn btn-submit-white mt-1">
+                            <i class="far fa-image"></i> AMBIL DARI GALERI
+                            <input id="fileInput" onchange="readURL(this, 'gigi-depan');" type="file" name="gambar1" accept="image/*" style="display: none;">
+                        </label>
+                        </div>
+                    </div>
+
         </div>
         <div style="float:right">
             <button  type="submit" id="btn-create" class="btn btn-submit-col btn-rounded">
@@ -77,7 +105,7 @@
     </form>
 </div>
 
-<script>
+<script type="text/javascript">
     function cetakQR() {
     var id = document.getElementById('id').value;
     var nama = document.getElementById('nama').value;
@@ -96,6 +124,47 @@
     // window.location.href = url;
     window.open(url)
 }
+
+
+function ambilDariGaleri() {
+        // Membuat input file
+        var inputFile = document.createElement('input');
+        inputFile.type = 'file';
+        inputFile.accept = 'image/*';
+        inputFile.style.display = 'none';
+        inputFile.name = 'gambar1'
+
+        // Menambahkan event listener untuk perubahan input file
+        inputFile.addEventListener('change', function (event) {
+            var file = event.target.files[0];
+
+            // Membaca file gambar menggunakan FileReader
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                // Menampilkan pratinjau gambar
+                $('#gigi-depan').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Menambahkan input file ke dalam dokumen dan memicu klik
+        document.body.appendChild(inputFile);
+        inputFile.click();
+
+        // Menghapus input file setelah digunakan
+        document.body.removeChild(inputFile);
+    }
+
+    function readURL(input, imageId) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#' + imageId).attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
 </script>
 
 
