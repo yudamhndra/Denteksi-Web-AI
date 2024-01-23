@@ -7,7 +7,7 @@
         <div class="card">
             <div class="row mt-5">
                 <div class="col-md-6 mx-3 mb-3 align-self-center">
-                    <h5 class="mb-3 mb-md-0 text-left">TAMBAH ANAK</h5>
+                    <h5 class="mb-3 mb-md-0 text-left">TAMBAH PASIEN</h5>
                 </div>
             </div>
             <div class="card-body">
@@ -84,9 +84,13 @@
 
                     <div class="row mt-5">
                         <div class="row col-md-5 mb-3 mx-auto">
-                            <button class="btn-create btn btn-submit-col" id="btn-use-camera"> GUNAKAN KAMERA</button>
+                            <button type="button" class="btn-create btn btn-submit-col" id="btn-use-camera"> GUNAKAN KAMERA</button>
                             <p class="text-center">atau</p>
-                            <button class="btn btn-submit-white mt-1" id="btn-ambil-dari-galeri"><i class="far fa-image"></i> AMBIL DARI GALERI</button>
+                            <!-- <button type="button" class="btn btn-submit-white mt-1" id="btn-ambil-dari-galeri"><i class="far fa-image"></i> AMBIL DARI GALERI</button> -->
+                        <label for="fileInput" class="btn btn-submit-white mt-1">
+                            <i class="far fa-image"></i> AMBIL DARI GALERI
+                            <input id="fileInput" onchange="readURL(this, 'gigi-depan');" type="file" name="gambar1" accept="image/*" style="display: none;">
+                        </label>
                         </div>
                     </div>
 
@@ -128,6 +132,7 @@ function readURL(input, imageId) {
         inputFile.type = 'file';
         inputFile.accept = 'image/*';
         inputFile.style.display = 'none';
+        inputFile.name = 'gambar1';
 
         // Menambahkan event listener untuk perubahan input file
         inputFile.addEventListener('change', function (event) {

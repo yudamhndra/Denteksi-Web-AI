@@ -482,9 +482,9 @@ class OrangtuaController extends Controller
 
 
 
-        Alert::success('Sukses', 'Data anak berhasil disimpan.');
+        Alert::success('Sukses', 'Data pasien berhasil disimpan.');
 
-        return redirect()->route('viewanak');
+        return redirect()->back();
     }
 
     public function editAnak($id){
@@ -493,7 +493,8 @@ class OrangtuaController extends Controller
     }
     public function editAnakProfile($id){
         $anak = Anak::find($id);
-        return view('orangtua.anak.editProfile',compact('anak'));
+        $periksa = PemeriksaanGigi::where('id_anak', $anak->id)->latest()->first();
+        return view('orangtua.anak.editProfile',compact('anak', 'periksa'));
     }
 
     public function pemeriksaanAnak($id)
@@ -529,10 +530,47 @@ class OrangtuaController extends Controller
         $anak->tanggal_lahir=$request->tanggal_lahir;
         $anak->no_whatsapp=$request->no_whatsapp;
 
+        $pgigi = new PemeriksaanGigi();
 
+        $uuid = Uuid::uuid4()->toString();
+        $waktu_pemeriksaan = now();
+        $pgigi->id = $uuid;
+        $pgigi->id_anak = $anak->id;
+        $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
+
+        $fieldName = 'gambar1';
+
+        // jika upload gambar dari file
+        if ($request->hasFile($fieldName)) {
+            $filename = uniqid() . '.' . strtolower($request->file('gambar1')->getClientOriginalExtension());
+            $file = $request->file($fieldName);
+
+            Storage::put('public/gigi/' . $filename, FacadesFile::get($file));
+
+            $pgigi->$fieldName = $filename;
+            $pgigi->gambar1 = $filename;
+
+            $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
+            $response->attach(
+                'gambar[1]',
+                file_get_contents($request->gambar1),
+                $request->gambar1->getClientOriginalName()
+            );
+
+            $response = $response->post(config('app.ai_url') . '/api/detect', [
+                'pemeriksaan_id' => $pgigi->id,
+                'nama_anak' => $pgigi->anak->nama,
+                'nama_ortu' => $pgigi->anak->orangtua->nama,
+                // 'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
+                // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
+            ])->throw()->json();
+
+        }
+
+        $pgigi->save();
 
         $anak->save();
-        Alert::success('Sukses', 'Data anak berhasil diubah.');
+        Alert::success('Sukses', 'Data pasien berhasil diubah.');
         return redirect()->route('viewanak')->with('error',$messages);
     }
 
@@ -589,8 +627,8 @@ class OrangtuaController extends Controller
 
     public function hasilPeriksa($id){
         $anak = Anak::where('id', $id)->first();
-        $periksa = PemeriksaanGigi::where('id_anak', $anak->id)->first();
-        $url = config('app.ai_url') . "/api/result-image/?pemeriksaan_id=$periksa->id";
+        $periksa = PemeriksaanGigi::where('id_anak', $anak->id)->latest()->first();
+        $url = config('app.ai_url') . "/api/result-image/?pemeriksaan_id=$id";
         $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn')->get($url);
 
         $decodedImage = null; // Initialize the variable
