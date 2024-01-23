@@ -14,7 +14,7 @@
             </div>
             <div class="col-md-2 col-sm-6">
                 <select class=" form-select" id="anak" name="anak" data-width="100%">
-                    <option value="clear">Pilih Anak</option>
+                    <option value="clear">Pilih Pasien</option>
                     @foreach($anak as $anak)
 
                     <option value="{{$anak->id}}">{{$anak->nama}}</option>
@@ -183,7 +183,7 @@
             }).clear();
             $('#table-gigi').DataTable({
                 "oLanguage": {
-                    "sEmptyTable": "Silakan pilih anak terlebih dahulu",
+                    "sEmptyTable": "Silakan pilih pasien terlebih dahulu",
                 },
             }).clear();
 

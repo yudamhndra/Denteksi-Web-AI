@@ -482,7 +482,7 @@ class OrangtuaController extends Controller
 
 
 
-        Alert::success('Sukses', 'Data anak berhasil disimpan.');
+        Alert::success('Sukses', 'Data pasien berhasil disimpan.');
 
         return redirect()->route('viewanak');
     }
@@ -570,7 +570,7 @@ class OrangtuaController extends Controller
         $pgigi->save();
 
         $anak->save();
-        Alert::success('Sukses', 'Data anak berhasil diubah.');
+        Alert::success('Sukses', 'Data pasien berhasil diubah.');
         return redirect()->route('viewanak')->with('error',$messages);
     }
 
