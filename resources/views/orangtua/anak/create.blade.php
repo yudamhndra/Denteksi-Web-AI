@@ -62,7 +62,7 @@
                             </div>
                         </div>
                     </div>
-                
+
 
                     <!-- Upload image -->
                     <div class="row mt-3">
@@ -70,22 +70,23 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-8 mt-5 mx-auto">
+                        <div class="row col-md-8 mt-5 mx-auto">
                             <div class="card text-center custom-card shadow py-2">
                                 <div class="card-body">
                                     <div class="row mt-3">
                                         <h6 class="mb-3 mb-md-0 text-left">PREVIEW</h6>
                                     </div>
                                     <img id="gigi-depan" src="{{ asset('assets/images/take-a-pict.png') }}" class="img-fluid mt-3" style="width: 400px; height: 200px;" alt="image_cloud">
-                                    <div class="row px-6 mt-3">
-                                        <button class="btn-create btn btn-submit-col" id="btn-use-camera"> GUNAKAN KAMERA
-                                            <input type="file" name="gambar1" class="form-control" accept="image/*" id="file-input-camera" onchange="readURL(this, 'gigi-depan');">
-                                        </button>
-                                        <p class="col mt-1">atau</p>
-                                        <button class="btn btn-submit-white mt-1" id="btn-ambil-dari-galeri"><i class="far fa-image" style="margin-right: 10px;"></i> AMBIL DARI GALERI</button>
-                                    </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-5">
+                        <div class="row col-md-5 mb-3 mx-auto">
+                            <button class="btn-create btn btn-submit-col" id="btn-use-camera"> GUNAKAN KAMERA</button>
+                            <p class="text-center">atau</p>
+                            <button class="btn btn-submit-white mt-1" id="btn-ambil-dari-galeri"><i class="far fa-image"></i> AMBIL DARI GALERI</button>
                         </div>
                     </div>
 
@@ -108,6 +109,8 @@
 @push('after-script')
 
 <script type="text/javascript">
+
+// onchange="readURL(this, 'gigi-depan');"
 
 function readURL(input, imageId) {
         if (input.files && input.files[0]) {
@@ -233,6 +236,8 @@ function readURL(input, imageId) {
                 alert('Izin kamera diperlukan untuk menggunakan fitur ini.');
             });
     }
+
+
 
 </script>
 
