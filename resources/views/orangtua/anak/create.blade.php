@@ -37,7 +37,7 @@
                                 Perempuan
                             </label>
                         </div>
-                        <div class="error-placement"></div> <!-- Menambahkan elemen div untuk menampilkan pesan error -->
+                        <div class="error-placement"></div>
                     </div>
 
                     <div class="row col-md-12">
@@ -63,7 +63,6 @@
                         </div>
                     </div>
 
-
                     <!-- Upload image -->
                     <div class="row mt-3">
                         <h5 class="mb-3 mb-md-0 text-left">TAMBAH FOTO</h5>
@@ -86,11 +85,10 @@
                         <div class="row col-md-5 mb-3 mx-auto">
                             <button type="button" class="btn-create btn btn-submit-col" id="btn-use-camera"> GUNAKAN KAMERA</button>
                             <p class="text-center">atau</p>
-                            <!-- <button type="button" class="btn btn-submit-white mt-1" id="btn-ambil-dari-galeri"><i class="far fa-image"></i> AMBIL DARI GALERI</button> -->
-                        <label for="fileInput" class="btn btn-submit-white mt-1">
-                            <i class="far fa-image"></i> AMBIL DARI GALERI
-                            <input id="fileInput" onchange="readURL(this, 'gigi-depan');" type="file" name="gambar1" accept="image/*" style="display: none;">
-                        </label>
+                            <label for="fileInput" class="btn btn-submit-white mt-1">
+                                <i class="far fa-image"></i> AMBIL DARI GALERI
+                                <input id="fileInput" onchange="readURL(this, 'gigi-depan');" type="file" name="gambar1" accept="image/*" style="display: none;">
+                            </label>
                         </div>
                     </div>
 
@@ -107,16 +105,37 @@
         </div>
     </div>
 </div>
-@endsection
 
+<!-- Modal preview cam -->
+<div class="modal fade" id="cameraModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body">
+                <video id="camera-preview" class="img-fluid mt-3" style="width: 100%; height: auto;" autoplay playsinline></video>
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary mt-2" id="btn-switch-camera">
+                    Switch Kamera
+                </button>
+                <button type="button" class="btn btn-secondary mt-2" id="btn-take-picture">
+                    Snapshoot
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="stopCameraPreview()">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection
 
 @push('after-script')
 
 <script type="text/javascript">
-
-// onchange="readURL(this, 'gigi-depan');"
-
-function readURL(input, imageId) {
+    function readURL(input, imageId) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
@@ -127,31 +146,24 @@ function readURL(input, imageId) {
     }
 
     function ambilDariGaleri() {
-        // Membuat input file
         var inputFile = document.createElement('input');
         inputFile.type = 'file';
         inputFile.accept = 'image/*';
         inputFile.style.display = 'none';
         inputFile.name = 'gambar1';
 
-        // Menambahkan event listener untuk perubahan input file
         inputFile.addEventListener('change', function (event) {
             var file = event.target.files[0];
 
-            // Membaca file gambar menggunakan FileReader
             var reader = new FileReader();
             reader.onload = function (e) {
-                // Menampilkan pratinjau gambar
                 $('#gigi-depan').attr('src', e.target.result);
             };
             reader.readAsDataURL(file);
         });
 
-        // Menambahkan input file ke dalam dokumen dan memicu klik
         document.body.appendChild(inputFile);
         inputFile.click();
-
-        // Menghapus input file setelah digunakan
         document.body.removeChild(inputFile);
     }
 
@@ -175,9 +187,9 @@ function readURL(input, imageId) {
         $("#form-anak").validate({
             rules: {
                 nama: "required",
-                tempat_lahir:"required",
-                tanggal_lahir:"required",
-                jenis_kelamin:"required",
+                tempat_lahir: "required",
+                tanggal_lahir: "required",
+                jenis_kelamin: "required",
             },
             messages: {
                 nama: "Nama wajib diisi",
@@ -185,55 +197,57 @@ function readURL(input, imageId) {
                 tanggal_lahir: "Tanggal lahir wajib diisi",
                 jenis_kelamin: "Jenis kelamin wajib diisi",
             },
-            errorPlacement: function(error, element) {
+            errorPlacement: function (error, element) {
                 if (element.attr("name") == "jenis_kelamin") {
                     error.appendTo(element.parents('.gender').find('.error-placement'));
                 } else {
                     error.insertAfter(element);
                 }
             },
-            submitHandler: function(form) {
+            submitHandler: function (form) {
                 form.submit();
             }
         });
 
-        // Memanggil fungsi ambilDariGaleri saat tombol "AMBIL DARI GALERI" diklik
         $('#btn-ambil-dari-galeri').on('click', function () {
             ambilDariGaleri();
         });
 
     });
 
-    $(document).ready(function() {
-        $('#btn-cancel').on('click', function() {
+    $(document).ready(function () {
+        $('#btn-cancel').on('click', function () {
             window.history.back();
         });
+
+        $('#btn-use-camera').on('click', function () {
+            requestCameraPermission();
+            $(this).prop('disabled', true);
+        });
+
+        $('#btn-switch-camera').on('click', function () {
+            switchCamera();
+        });
+
+        $('#btn-take-picture').on('click', function () {
+            takePicture();
+        });
+
     });
 
-    // Session camera
-    var useCameraButton = document.getElementById('btn-use-camera');
-    useCameraButton.addEventListener('click', function () {
-        requestCameraPermission();
-    });
+    var currentStream;
+    var videoElement = document.getElementById('camera-preview');
 
     function requestCameraPermission() {
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(function (stream) {
-                var videoElement = document.createElement('video');
+                currentStream = stream;
                 videoElement.srcObject = stream;
-                videoElement.autoplay = true;
-                videoElement.style.width = '100%';
-
-                var modalContent = document.createElement('div');
-                modalContent.appendChild(videoElement);
 
                 $('#cameraModal').modal('show');
-                $('#cameraModal .modal-body').html(modalContent);
 
                 $('#cameraModal').on('hidden.bs.modal', function () {
-                    stream.getTracks().forEach(function (track) {
-                        track.stop();
-                    });
+                    stopCameraPreview();
                 });
             })
             .catch(function (error) {
@@ -242,7 +256,99 @@ function readURL(input, imageId) {
             });
     }
 
+    function switchCamera() {
+        if (currentStream) {
+            currentStream.getTracks().forEach(function (track) {
+                track.stop();
+            });
+        }
 
+        requestCameraPermission();
+    }
+
+    function takePicture() {
+        console.log('Take Picture called');
+        if (currentStream) {
+            var canvas = document.createElement('canvas');
+            canvas.width = videoElement.videoWidth;
+            canvas.height = videoElement.videoHeight;
+            var context = canvas.getContext('2d');
+            context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+
+            canvas.toBlob(function (blob) {
+                var formData = new FormData(document.getElementById('form-anak'));
+                formData.append('gambar1', blob, 'image.png');
+
+                updatePreviewCard(blob);
+                stopCameraPreview();
+
+                $.ajax({
+                    url: "{{ route('tambahanak.store') }}",
+                    method: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        console.log(response);
+                    },
+                    error: function (error) {
+                        console.error('Error uploading image: ', error);
+                    }
+                });
+            }, 'image/png');
+        }
+    }
+
+    function updatePreviewCard(blob) {
+        var cardElement = document.querySelector('.custom-card');
+        var previewImageElement = cardElement.querySelector('img');
+
+        var imageUrl = URL.createObjectURL(blob);
+        previewImageElement.src = imageUrl;
+    }
+
+    function stopCameraPreview() {
+        if (currentStream) {
+            var tracks = currentStream.getTracks();
+
+            tracks.forEach(function (track) {
+                track.stop();
+            });
+
+            videoElement.srcObject = null;
+            $('#cameraModal').modal('hide');
+        }
+    }
+
+    let mediaRecorder;
+    let recordedChunks = [];
+
+    function startRecording(stream) {
+        mediaRecorder = new MediaRecorder(stream);
+
+        mediaRecorder.ondataavailable = function (event) {
+            if (event.data.size > 0) {
+                recordedChunks.push(event.data);
+            }
+        };
+
+        mediaRecorder.onstop = function () {
+            var blob = new Blob(recordedChunks, { type: 'image/png' });
+            var url = URL.createObjectURL(blob);
+
+            $('#gigi-depan').attr('src', url);
+
+            recordedChunks = [];
+        };
+
+        mediaRecorder.start();
+    }
+
+    function stopRecording() {
+        if (mediaRecorder.state === 'recording') {
+            mediaRecorder.stop
+            }
+        }
 
 </script>
 
