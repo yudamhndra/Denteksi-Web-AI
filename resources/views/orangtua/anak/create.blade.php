@@ -276,11 +276,13 @@
             context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
 
             canvas.toBlob(function (blob) {
+
                 var formData = new FormData(document.getElementById('form-anak'));
                 formData.append('gambar1', blob, 'image.png');
 
                 updatePreviewCard(blob);
                 stopCameraPreview();
+
 
                 $.ajax({
                     url: "{{ route('tambahanak.store') }}",
@@ -290,6 +292,16 @@
                     contentType: false,
                     success: function (response) {
                         console.log(response);
+                        Swal.fire({
+                        title: 'Sukses!',
+                        text: 'Gambar berhasil diupload.',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed || result.isDismissed) {
+                            location.reload();
+                        }
+                        });
                     },
                     error: function (error) {
                         console.error('Error uploading image: ', error);
@@ -305,6 +317,7 @@
 
         var imageUrl = URL.createObjectURL(blob);
         previewImageElement.src = imageUrl;
+
     }
 
     function stopCameraPreview() {
@@ -349,6 +362,11 @@
             mediaRecorder.stop
             }
         }
+
+
+
+
+
 
 </script>
 
