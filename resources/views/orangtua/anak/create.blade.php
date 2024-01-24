@@ -70,7 +70,7 @@
                         <h5 class="mb-3 mb-md-0 text-left">TAMBAH FOTO</h5>
                     </div>
 
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="row col-md-8 mt-5 mx-auto">
                             <div class="card text-center custom-card shadow py-2">
                                 <div class="card-body">
@@ -81,17 +81,26 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="row mt-5">
-                        <div class="row col-md-5 mb-3 mx-auto">
+                        
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Foto gigi dari sisi depan</label>
+                            <input type="file"  class="form-control dropify"  data-show-loader="true" data-allowed-file-extensions="jpg png jpeg svg" id="gambar1" name="gambar1" placeholder="masukkan gambar">
+                            @error('gambar1')
+                            <div class="badge bg-danger mt-2 ">{{ $message }}</div>
+                            @enderror
+                        </div>
+                     
+                        {{-- <div class="row col-md-5 mb-3 mx-auto">
                             <button type="button" class="btn-create btn btn-submit-col" id="btn-use-camera"> GUNAKAN KAMERA</button>
                             <p class="text-center">atau</p>
                             <label for="fileInput" class="btn btn-submit-white mt-1">
                                 <i class="far fa-image"></i> AMBIL DARI GALERI
                                 <input id="fileInput" onchange="readURL(this, 'gigi-depan');" type="file" name="gambar1" accept="image/*" style="display: none;">
                             </label>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="d-flex justify-content-end mt-5">
@@ -170,6 +179,20 @@
     }
 
     $(document).ready(function () {
+        $('.dropify').dropify({
+                messages: {
+                    'default': 'Drag and drop a file here or click',
+                    'replace': 'Drag and drop or click to replace',
+                    'remove':  'Hapus',
+
+                },
+                error: {
+
+                    'imageFormat': 'Format yang diizinkan hanya jpg , jpeg, png , dan svg.'
+                }
+            });
+
+
         $('#tempat_lahir,#nama').on('input', function () {
             var currentVal = $(this).val();
             var capitalizedVal = capitalizeAfterSpace(currentVal);
