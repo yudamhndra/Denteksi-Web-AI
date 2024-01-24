@@ -108,7 +108,7 @@ class AnakController extends Controller
     {
         $pasien = Pasien::find($id);
 
-        return view('admin.anak.edit',compact('anak'));
+        return view('admin.anak.edit',compact('pasien'));
     }
 
     /**
@@ -137,7 +137,7 @@ class AnakController extends Controller
         ], $messages);
         $pasien = Pasien::find($id);
 
-        $pasien->id_orangtua=$request->orangtua;
+        $pasien->id_dokter=$request->orangtua;
         $pasien->nama = $request->nama;
         $pasien->jenis_kelamin = $request->jenis_kelamin;
         $pasien->tempat_lahir = $request->tempat_lahir;

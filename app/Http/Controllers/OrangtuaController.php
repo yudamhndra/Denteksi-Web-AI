@@ -207,23 +207,23 @@ class OrangtuaController extends Controller
         DB::beginTransaction();
 
         try {
-            $orangtua = Orangtua::find($id);
+            $dokter = Dokter::find($id);
 
             if (!empty($request->password)) {
-                $user = User::where('id', $orangtua->id_users)->update([
+                $user = User::where('id', $dokter->id_users)->update([
                     // 'email' => $request->email,
                     'password' => bcrypt($request->password),
                     'role' => 'orangtua'
                 ]);
             } else {
-                $user = User::where('id', $orangtua->id_users)->update([
+                $user = User::where('id', $dokter->id_users)->update([
                     // 'email' => $request->email,
                     'role' => 'orangtua'
                 ]);
             }
 
             if ($user) {
-                $orangtua->update([
+                $dokter->update([
                     'nama' => $request->nama,
                     'alamat' => $request->alamat,
                     'id_kecamatan' => $request->id_kecamatan,
@@ -304,24 +304,24 @@ class OrangtuaController extends Controller
 
             $user->save();
 
-            $orangtua = new Dokter();
-            $orangtua->id_users=$user->id;
-            $orangtua->nama = $request->nama;
-            $orangtua->id_kecamatan = $request->id_kecamatan;
-            $orangtua->id_kelurahan = $request->id_kelurahan;
-            $orangtua->tempat_lahir = $request->tempat_lahir;
-            $orangtua->tanggal_lahir = $request->tanggal_lahir;
-            $orangtua->alamat = $request->alamat;
-            $orangtua->pendidikan = $request->pendidikan;
+            $dokter = new Dokter();
+            $dokter->id_users=$user->id;
+            $dokter->nama = $request->nama;
+            $dokter->id_kecamatan = $request->id_kecamatan;
+            $dokter->id_kelurahan = $request->id_kelurahan;
+            $dokter->tempat_lahir = $request->tempat_lahir;
+            $dokter->tanggal_lahir = $request->tanggal_lahir;
+            $dokter->alamat = $request->alamat;
+            $dokter->pendidikan = $request->pendidikan;
             if(!empty($request->foto)){
                 $file = $request->file('foto');
                 $extension = strtolower($file->getClientOriginalExtension());
                 $filename = uniqid() . '.' . $extension;
                 Storage::put('public/orangtua/' . $filename, File::get($file));
-               $orangtua->foto=$filename;
+               $dokter->foto=$filename;
             }
 
-            $orangtua->save();
+            $dokter->save();
             DB::commit();
             Auth::loginUsingId($user->id);
             return redirect('/');
@@ -424,17 +424,23 @@ class OrangtuaController extends Controller
 
         $user = Auth::user();
         $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
+        $pasien = Pasien::Where('nama', $request->nama)
+        ->Where('no_whatsapp', $request->no_whatsapp)
+        ->first();
 
-        $pasien = new Pasien();
-        $pasien->id_dokter = $dokter;
-        $pasien->nama = $request->nama;
-        $pasien->jenis_kelamin = $request->jenis_kelamin;
-        $pasien->tanggal_lahir = $request->tanggal_lahir;
-        $pasien->no_whatsapp = $request->no_whatsapp;
+        if($pasien == null){
+            
+            $pasien = new Pasien();
+            $pasien->id_dokter = $dokter;
+            $pasien->nama = $request->nama;
+            $pasien->jenis_kelamin = $request->jenis_kelamin;
+            $pasien->tanggal_lahir = $request->tanggal_lahir;
+            $pasien->no_whatsapp = $request->no_whatsapp;
+            $pasien->save();
+
+        }
 
 
-
-        $pasien->save();
 
         // from original pemeriksaangigicontroller.store
         $uuid = Uuid::uuid4()->toString();
@@ -461,20 +467,20 @@ class OrangtuaController extends Controller
             $pgigi->gambar1 = $filename;
 
 
-            $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
-            $response->attach(
-                'gambar[1]',
-                file_get_contents($request->gambar1),
-                $request->gambar1->getClientOriginalName()
-            );
+            // $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
+            // $response->attach(
+            //     'gambar[1]',
+            //     file_get_contents($request->gambar1),
+            //     $request->gambar1->getClientOriginalName()
+            // );
 
-            $response = $response->post(config('app.ai_url') . '/api/detect', [
-                'pemeriksaan_id' => $pgigi->id,
-                'nama_anak' => $pgigi->pasien->nama,
-                'nama_ortu' => $pgigi->pasien->dokter->nama,
-                // 'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
-                // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
-            ])->throw()->json();
+            // $response = $response->post(config('app.ai_url') . '/api/detect', [
+            //     'pemeriksaan_id' => $pgigi->id,
+            //     'nama_anak' => $pgigi->pasien->nama,
+            //     'nama_ortu' => $pgigi->pasien->dokter->nama,
+            //     // 'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
+            //     // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
+            // ])->throw()->json();
 
         }
 
@@ -572,6 +578,7 @@ class OrangtuaController extends Controller
                 'pemeriksaan_id' => $pgigi->id,
                 'nama_anak' => $pgigi->pasien->nama,
                 'nama_ortu' => $pgigi->pasien->dokter->nama,
+                'platform' => 'denteksi'
                 // 'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
                 // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
             ])->throw()->json();
@@ -641,7 +648,7 @@ class OrangtuaController extends Controller
     public function hasilPeriksa($id){
         $pasien = Pasien::where('id', $id)->first();
         $periksa = PemeriksaanGigi::where('id_pasien', $pasien->id)->latest()->first();
-        $url = config('app.ai_url') . "/api/result-image/?pemeriksaan_id=$id";
+        $url = config('app.ai_url') . "/api/result-image/?pemeriksaan_id=" . $periksa -> id;
         $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn')->get($url);
 
         $decodedImage = null; // Initialize the variable

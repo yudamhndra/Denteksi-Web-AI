@@ -42,14 +42,14 @@
                                     <label for="nama" class="col-sm-3 col-form-label">Nama</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" name="nama" id="nama"
-                                            value="{{ $user->profilorangtua -> nama ?? " "}}" >
+                                            value="{{ $user->profildokter -> nama ?? " "}}" >
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="tempatlahir" class="col-sm-3 col-form-label">Tempat Lahir</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" name="tempat_lahir"
-                                            autocomplete="off" value="{{ $user->profilorangtua -> tempat_lahir ?? " " }}" placeholder="Tempat Tanggal Lahir">
+                                            autocomplete="off" value="{{ $user->profildokter -> tempat_lahir ?? " " }}" placeholder="Tempat Tanggal Lahir">
                                     </div>
                                </div>
                                 <div class="row mb-3">
@@ -57,7 +57,7 @@
                                         Lahir</label>
                                     <div class="col-sm-9">
                                         <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir"
-                                            autocomplete="off"  placeholder="Tempat Tanggal Lahir" value="{{$user->profilorangtua->tanggal_lahir ?? " "}}" >
+                                            autocomplete="off"  placeholder="Tempat Tanggal Lahir" value="{{$user->profildokter->tanggal_lahir ?? " "}}" >
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -65,16 +65,16 @@
                                     <div class="col-sm-9">
                                         <select class="form-select" name="pendidikan" id="pendidikan" data-width="100%" required>
                                             <option selected disabled>Pilih Pendidikan</option>
-                                            <option value="SD" {{ optional($user->profilorangtua)->pendidikan=="SD" ? 'selected' : ''}}>SD</option>
-                                            <option value="SMP"{{ optional($user->profilorangtua)->pendidikan=="SMP" ? 'selected' : ''}}>SMP</option>
-                                            <option value="SMA"{{ optional($user->profilorangtua)->pendidikan=="SMA" ? 'selected' : ''}}>SMA/SMK</option>
-                                            <option value="D1" {{ optional($user->profilorangtua)->pendidikan=="D1" ? 'selected' : ''}}>D1</option>
-                                            <option value="D2" {{ optional($user->profilorangtua)->pendidikan=="D2" ? 'selected' : ''}}>D2</option>
-                                            <option value="D3" {{ optional($user->profilorangtua)->pendidikan=="D3" ? 'selected' : ''}}>D3</option>
-                                            <option value="D4" {{ optional($user->profilorangtua)->pendidikan=="D4" ? 'selected' : ''}}>D4</option>
-                                            <option value="S1" {{ optional($user->profilorangtua)->pendidikan=="S1" ? 'selected' : ''}}>S1</option>
-                                            <option value="S2" {{ optional($user->profilorangtua)->pendidikan=="S2" ? 'selected' : ''}}>S2</option>
-                                            <option value="S3" {{ optional($user->profilorangtua)->pendidikan=="S3" ? 'selected' : ''}}>S3</option>
+                                            <option value="SD" {{ optional($user->profildokter)->pendidikan=="SD" ? 'selected' : ''}}>SD</option>
+                                            <option value="SMP"{{ optional($user->profildokter)->pendidikan=="SMP" ? 'selected' : ''}}>SMP</option>
+                                            <option value="SMA"{{ optional($user->profildokter)->pendidikan=="SMA" ? 'selected' : ''}}>SMA/SMK</option>
+                                            <option value="D1" {{ optional($user->profildokter)->pendidikan=="D1" ? 'selected' : ''}}>D1</option>
+                                            <option value="D2" {{ optional($user->profildokter)->pendidikan=="D2" ? 'selected' : ''}}>D2</option>
+                                            <option value="D3" {{ optional($user->profildokter)->pendidikan=="D3" ? 'selected' : ''}}>D3</option>
+                                            <option value="D4" {{ optional($user->profildokter)->pendidikan=="D4" ? 'selected' : ''}}>D4</option>
+                                            <option value="S1" {{ optional($user->profildokter)->pendidikan=="S1" ? 'selected' : ''}}>S1</option>
+                                            <option value="S2" {{ optional($user->profildokter)->pendidikan=="S2" ? 'selected' : ''}}>S2</option>
+                                            <option value="S3" {{ optional($user->profildokter)->pendidikan=="S3" ? 'selected' : ''}}>S3</option>
                                         </select>
                                     </div>
                                 </div>
@@ -83,7 +83,7 @@
                                         </label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control"  name="alamat"
-                                            placeholder="alamat" value="{{ $user->profilorangtua ->alamat ?? " "}}" >
+                                            placeholder="alamat" value="{{ $user->profildokter ->alamat ?? " "}}" >
                                     </div>
                                 </div>
 
@@ -93,8 +93,8 @@
                                 <div class="row mb-3">
                                     <label for="tempatlahir" class="col-sm-3 col-form-label">Foto Gigi</label>
                                     <div class="col-sm-9">
-                                        @if($user->profilorangtua)
-                                            <input type="file"  class="form-control dropify" name="foto" placeholder="masukkan gambar" data-default-file="{{url ('storage/orangtua/'.$user->profilorangtua ->foto) ?? ''}}">
+                                        @if($user->profildokter)
+                                            <input type="file"  class="form-control dropify" name="foto" placeholder="masukkan gambar" data-default-file="{{url ('storage/orangtua/'.$user->profildokter ->foto) ?? ''}}">
                                         @else
                                             <input type="file"  class="form-control dropify" name="foto" placeholder="masukkan gambar" >
                                         @endif

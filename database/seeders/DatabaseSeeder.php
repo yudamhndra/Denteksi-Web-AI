@@ -39,6 +39,11 @@ class DatabaseSeeder extends Seeder
             'role'      => 'orangtua'
         ]);
 
+        Dokter::create([
+            'id_users' => 2,
+            'nama' => 'dokter',
+        ]);
+
         // User::create([
         //     'email' => 'dokter@dokter.com',
         //     'password' => bcrypt('dokter1234'),
@@ -52,15 +57,15 @@ class DatabaseSeeder extends Seeder
 
         // $this->call(HariSeeder::class);
 
-        // $kecamatan = Kecamatan::create([
-        //     'nama'     => 'Tambun',
+        $kecamatan = Kecamatan::create([
+            'nama'     => 'Tambun',
 
-        // ]);
-        // $kelurahan = Kelurahan::create([
-        //     'nama'     => 'Mekarsari',
-        //     'id_kecamatan' => 1,
+        ]);
+        $kelurahan = Kelurahan::create([
+            'nama'     => 'Mekarsari',
+            'id_kecamatan' => 1,
 
-        // ]);
+        ]);
 
         // $sekolah = Sekolah::create([
         //     'id_kelurahan'     => '1',

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Anak;
+use App\Models\Dokter;
 use App\Models\Orangtua;
+use App\Models\Pasien;
 use Barryvdh\DomPDF\Facade;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -25,9 +27,9 @@ class qrController extends Controller
     public function index($id)
     {
         $user = Auth::user();
-        $orangtua = Orangtua::Where('id_users', Auth::user()->id)->value('id');
-        $anak = Anak::Where('id_orangtua',$orangtua)->get();  //mendapatkan list anak berdasarkan id orangtua yang login
-        $autoAnak = $anak[(int)$id - 1];
+        $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
+        $pasien = Pasien::Where('id_dokter',$dokter)->get();  //mendapatkan list anak berdasarkan id orangtua yang login
+        $autoAnak = $pasien[(int)$id - 1];
         $QRGenerator = new Generator;
         $logoPath = asset('assets/logo-senyumin-black.png');
         // Dikasih UQ biar tiap QR yang digenerate beda

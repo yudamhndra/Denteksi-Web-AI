@@ -16,7 +16,7 @@ class Pasien extends Model
     protected $dates = ['tanggal_lahir'];
 
     public function dokter(){
-        return $this->belongsTo('App\Models\Dokter', 'id_orangtua');
+        return $this->belongsTo('App\Models\Dokter', 'id_dokter');
     }
 
 }

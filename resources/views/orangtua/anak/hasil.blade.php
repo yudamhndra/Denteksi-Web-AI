@@ -6,7 +6,7 @@
 <div class="card shadow p-3">
     <div class="card-body">
         <input type="hidden" id="id_periksa" value="{{$periksa->id}}">
-        <input type="hidden" id="id" value="{{$anak->id}}">
+        {{-- <input type="hidden" id="id" value="{{$anak->id}}"> --}}
             @csrf
 
             <div class="row mt-5">
@@ -27,7 +27,7 @@
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Nama </label>
                                 <input type="text" disabled class="form-control" id="nama" name="nama"
-                                    autocomplete="off" placeholder="masukkan nama" value="{{$anak->nama}}">
+                                    autocomplete="off" placeholder="masukkan nama" value="{{$pasien->nama}}">
                             </div>
                         </div>
 
@@ -38,14 +38,14 @@
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Tanggal Lahir </label>
                                 <input type="type" disabled class="form-control @error('tanggal_lahir') is-invalid @enderror" id="tanggal_lahir" name="tanggal_lahir"
-                                    autocomplete="off" placeholder="masukkan tanggal lahir"value="{{$anak->tanggal_lahir}}" >
+                                    autocomplete="off" placeholder="masukkan tanggal lahir"value="{{$pasien->tanggal_lahir}}" >
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Nomor Whatsapp </label>
                                 <input type="text" disabled class="form-control @error('no_whatsapp') is-invalid @enderror" id="no_whatsapp" name="no_whatsapp"
-                                    autocomplete="off" placeholder="masukkan nomor whatsapp" value="{{$anak->no_whatsapp}}">
+                                    autocomplete="off" placeholder="masukkan nomor whatsapp" value="{{$pasien->no_whatsapp}}">
                             </div>
                         </div>
             </div>

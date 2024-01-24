@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use File;
 use Auth;
 use App\Models\User;
-use App\Models\Orangtua;
-use App\Models\Anak;
 use App\Models\Kelurahan;
 use App\Models\ResikoKaries;
 use App\Models\Dokter;
@@ -48,7 +46,7 @@ class PemeriksaanGigiController extends Controller
     {
         $user = Auth::user();
         $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
-        $pasien = Pasien::Where('id_orangtua',$dokter)->get();
+        $pasien = Pasien::Where('id_dokter',$dokter)->get();
         $kelurahan=Kelurahan::all()->pluck('nama','id');
         return view('orangtua.pemeriksaan.pemeriksaanGigi',compact('anak','kelurahan'));
     }
