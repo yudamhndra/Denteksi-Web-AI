@@ -459,7 +459,7 @@ class OrangtuaController extends Controller
             $pgigi = new PemeriksaanGigi();
             $pgigi->id = $uuid;
 
-            $pgigi->id_anak = $pasien->id;
+            $pgigi->id_pasien = $pasien->id;
 
             $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
 
@@ -562,7 +562,7 @@ class OrangtuaController extends Controller
             // $pgigi = new PemeriksaanGigi();
 
             $waktu_pemeriksaan = now();
-            $pgigi->id_anak = $pasien->id;
+            $pgigi->id_pasien = $pasien->id;
             $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
 
             $pgigi->$fieldName = $filename;
