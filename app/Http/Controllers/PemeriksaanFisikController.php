@@ -11,9 +11,11 @@ use App\Models\PemeriksaanGigi;
 use App\Models\User;
 use App\Models\Orangtua;
 use App\Models\Anak;
+use App\Models\Dokter;
 use App\Models\Kelurahan;
 use App\Models\Sekolah;
 use App\Models\Kelas;
+use App\Models\Pasien;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -323,9 +325,9 @@ class PemeriksaanFisikController extends Controller
     // ----------- HALAMAN ORANGTUA - > RIWAYAT --------------//
     public function riwayat(){
         $user = Auth::user();
-        $orangtua = Orangtua::Where('id_users', Auth::user()->id)->value('id');
-        $anak = Anak::Where('id_orangtua',$orangtua)->get();
-        return view('orangtua.pemeriksaan.riwayat',compact('anak'));
+        $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
+        $pasien = Pasien::Where('id_dokter',$dokter)->get();
+        return view('orangtua.pemeriksaan.riwayat',compact('pasien'));
     }
 
     // ----------- HALAMAN ORANGTUA - > RIWAYAT -> RIWAYAT FISIK --------------//
@@ -427,10 +429,10 @@ class PemeriksaanFisikController extends Controller
     }
     public function riwayatgigi(Request $request){
         $user = Auth::user();
-        $orangtua = Orangtua::Where('id_users', Auth::user()->id)->value('id');
-        $anak = Anak::Where('id_orangtua',$orangtua)->get();
+        $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
+        $pasien = Pasien::Where('id_dokter',$dokter)->get();
         if(!empty($request->anak)){
-            $pemeriksaanGigi = PemeriksaanGigi::Where('id_anak',$request->anak)->orderBy('waktu_pemeriksaan', 'desc')->get();
+            $pemeriksaanGigi = PemeriksaanGigi::Where('id_pasien',$request->anak)->orderBy('waktu_pemeriksaan', 'desc')->get();
 
         }else{
             $pemeriksaanGigi = PemeriksaanGigi::all();
@@ -532,7 +534,7 @@ class PemeriksaanFisikController extends Controller
             // })
 
             ->addColumn('action', function($row) {
-                $url = route('orangtua-anak.periksa' , $row->id_anak);
+                $url = route('orangtua-anak.periksa' , $row->id_pasien);
                 $btn = '<a href="' . $url . '" class="btn btn-info">Lihat Hasil</a>';
                 return $btn;
             })

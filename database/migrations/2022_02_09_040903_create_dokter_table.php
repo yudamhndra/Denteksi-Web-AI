@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrangtuaTable extends Migration
+class CreateDokterTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateOrangtuaTable extends Migration
      */
     public function up()
     {
-        Schema::create('orangtua', function (Blueprint $table) {
+        Schema::create('dokter', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_users')->nullable();
             $table->unsignedBigInteger('id_kecamatan')->nullable();
@@ -38,6 +38,6 @@ class CreateOrangtuaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orangtua');
+        Schema::dropIfExists('dokter');
     }
 }

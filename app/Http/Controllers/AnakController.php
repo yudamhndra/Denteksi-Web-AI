@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Anak;
+use App\Models\Pasien;
 
 class AnakController extends Controller
 {
@@ -15,10 +16,10 @@ class AnakController extends Controller
      */
 
     public function data(){
-        $anak = Anak::with('orangtua')->whereHas('orangtua', function ($q) {
+        $pasien = Pasien::with('dokter')->whereHas('dokter', function ($q) {
             $q->whereNotNull('nama');
         })->get();
-        return datatables()->of($anak)
+        return datatables()->of($pasien)
             ->addColumn('action', function($row){
                 $editBtn = '<a href="'.route('anak.edit',$row->id).'"
                     class="btn btn-warning "><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>';
@@ -28,7 +29,7 @@ class AnakController extends Controller
                 return $editBtn . ' ' . $deleteBtn;
             })
             ->addColumn('orangtua',function($row){
-                return $row->orangtua->nama ??" ";
+                return $row->dokter->nama ??" ";
             })
             ->rawColumns(['action'])
             ->addIndexColumn()
@@ -74,13 +75,13 @@ class AnakController extends Controller
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
         ], $messages);
-            $anak = new Anak();
-            $anak->id_orangtua=$request->orangtua;
-            $anak->nama = $request->nama;
-            $anak->jenis_kelamin = $request->jenis_kelamin;
-            $anak->tempat_lahir = $request->tempat_lahir;
-            $anak->tanggal_lahir = $request->tanggal_lahir;
-            $anak->save();
+            $pasien = new Pasien();
+            $pasien->id_dokter=$request->dokter;
+            $pasien->nama = $request->nama;
+            $pasien->jenis_kelamin = $request->jenis_kelamin;
+            $pasien->tempat_lahir = $request->tempat_lahir;
+            $pasien->tanggal_lahir = $request->tanggal_lahir;
+            $pasien->save();
             return redirect()->route('anak.index')->with('success','data berhasil ditambahkan');
 
 
@@ -105,7 +106,7 @@ class AnakController extends Controller
      */
     public function edit($id)
     {
-        $anak = Anak::find($id);
+        $pasien = Pasien::find($id);
 
         return view('admin.anak.edit',compact('anak'));
     }
@@ -134,16 +135,16 @@ class AnakController extends Controller
             'jenis_kelamin' => 'required'
 
         ], $messages);
-        $anak = Anak::find($id);
+        $pasien = Pasien::find($id);
 
-        $anak->id_orangtua=$request->orangtua;
-        $anak->nama = $request->nama;
-        $anak->jenis_kelamin = $request->jenis_kelamin;
-        $anak->tempat_lahir = $request->tempat_lahir;
-        $anak->tanggal_lahir = $request->tanggal_lahir;
+        $pasien->id_orangtua=$request->orangtua;
+        $pasien->nama = $request->nama;
+        $pasien->jenis_kelamin = $request->jenis_kelamin;
+        $pasien->tempat_lahir = $request->tempat_lahir;
+        $pasien->tanggal_lahir = $request->tanggal_lahir;
 
 
-        $anak->save();
+        $pasien->save();
         return redirect()->route('anak.index');
     }
 
@@ -155,14 +156,14 @@ class AnakController extends Controller
      */
     public function destroy($id)
     {
-        $anak = Anak::find($id);
-        $anak->delete();
+        $pasien = Pasien::find($id);
+        $pasien->delete();
         return response()->json('success delete');
     }
 
     public function listAnakByOrangtua($id)
     {
-        $anak = Anak::Where('id_orangtua',$id)->get();
-        return response()->json($anak);
+        $pasien = Pasien::Where('id_dokter',$id)->get();
+        return response()->json($pasien);
     }
 }
