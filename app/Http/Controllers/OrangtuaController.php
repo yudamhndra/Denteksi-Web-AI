@@ -436,9 +436,17 @@ class OrangtuaController extends Controller
 
         $pasien->save();
 
+        // from original pemeriksaangigicontroller.store
+        $uuid = Uuid::uuid4()->toString();
+        $waktu_pemeriksaan = now();
+
+        // $imageArray = [];
 
 
-
+        $pgigi = new PemeriksaanGigi();
+        $pgigi->id = $uuid;
+        $pgigi->id_pasien = $pasien->id;
+        $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
 
         $fieldName = 'gambar1';
 
@@ -448,20 +456,6 @@ class OrangtuaController extends Controller
             $file = $request->file($fieldName);
 
             Storage::put('public/gigi/' . $filename, FacadesFile::get($file));
-
-            // from original pemeriksaangigicontroller.store
-            $uuid = Uuid::uuid4()->toString();
-            $waktu_pemeriksaan = now();
-
-            // $imageArray = [];
-
-
-            $pgigi = new PemeriksaanGigi();
-            $pgigi->id = $uuid;
-
-            $pgigi->id_pasien = $pasien->id;
-
-            $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
 
             $pgigi->$fieldName = $filename;
             $pgigi->gambar1 = $filename;
@@ -482,10 +476,9 @@ class OrangtuaController extends Controller
                 // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
             ])->throw()->json();
 
-            $pgigi->save();
-
         }
 
+        $pgigi->save();
 
 
 
