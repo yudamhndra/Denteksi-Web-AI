@@ -11,7 +11,7 @@
     <meta name="keywords"
         content="nobleui, bootstrap, bootstrap 5, bootstrap5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
-    <title>Senyumin- Login </title>
+    <title>Denteksi - Login </title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/demo1/style.css')}}">
     <!-- End layout styles -->
 
-    <link rel="shortcut icon" href="{{asset('assets/images/logo-senyumin.png')}}" />
+    <link rel="shortcut icon" href="{{asset('assets/images/logo-denteksi-removebg.png')}}" />
 </head>
 <style>
 
@@ -104,15 +104,13 @@
 <body>
     <div class="main-wrapper">
         <div class="page-wrapper full-page">
-            <div class="page-content m-0 pb-3 pb-md-1 pt-4">
+            {{-- <div class="page-content m-0 pb-3 pb-md-1 pt-4">
                 <div class="container d-flex justify-content-between align-items-center">
                     <!-- <img src="{{asset('assets/images/logo-putih.png')}}" alt="logo" srcset=""> -->
                     <img src="{{asset('assets/images/logo-denteksi-text-removebg.png')}}" width="110" alt="logo" srcset="">
-
-                    {{-- <a href="/register" class="btn btn-login rounded-pill fw-bold text-light p-2 px-4">BUAT AKUN</a> --}}
                 </div>
-            </div>
-            <div class="page-content d-flex align-items-center justify-content-center pt-0 pb-4">
+            </div> --}}
+            <div class="page-content d-flex align-items-center justify-content-center py-0">
                 <div class="row mx-0 auth-page ">
                     <div class="col-sm-8 col-md-12 col col-lg-10 col-xl-8 col-xxl-6 mx-auto">
                         <div class="card shadow px-3 py-1 rounded">
@@ -121,6 +119,7 @@
                                     <div class="auth-form-wrapper px-0 px-md-4 py-3">
                                         <div class="text-center p-3">
                                             {{-- <img class="w-50 mb-3" src="{{asset('assets/images/logo-senyumin.png')}}" alt="" srcset=""> --}}
+                                            <img class="mb-4" src="{{asset('assets/images/logo-denteksi-d.jpg')}}" width="80" alt="logo" srcset="">
                                             <h1 class="mb-1 fw-bolder">Selamat Datang!</h1>
                                             <p>Silahkan masuk untuk melanjutkan</p>
                                         </div>
@@ -170,7 +169,7 @@
                                             <div class="text-center p-2 mt-2">
                                                 <button type="submit" class="btn btn-fill w-100 me-2 mb-2 mb-md-0 text-white rounded-pill">MASUK</button>
                                             </div>
-                                            <div class="d-flex align-items-center">
+                                            {{-- <div class="d-flex align-items-center">
                                                 <hr class="flex-grow-1 mx-2">atau<hr class="flex-grow-1 mx-2">
                                             </div>
                                             <a href="{{route('auth.google')}}" class="btn btn-outline rounded-pill d-flex justify-content-between w-100 ps-2 mt-1">
@@ -179,7 +178,7 @@
                                                 <div></div>
                                             </a>
                                             <p class="text-center mt-5 mb-2">Belum punya akun?</p>
-                                            <a href="/register" class="btn btn-outline rounded-pill w-100">Buat Akun</a>
+                                            <a href="/register" class="btn btn-outline rounded-pill w-100">Buat Akun</a> --}}
                                         </form>
                                     </div>
                                 </div>

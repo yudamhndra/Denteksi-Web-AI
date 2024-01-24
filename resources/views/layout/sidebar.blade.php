@@ -146,7 +146,7 @@
             <!-- <li class="nav-item nav-category">Pemeriksaan</li> -->
             <li class="nav-item">
                 <!-- <a href="{{route('pemeriksaanfisik.create')}}" class="nav-link"> -->
-                <a href="{{route('viewanak')}}" class="nav-link">
+                <a href="{{ route('view-anak.create') }}" class="nav-link">
                     <i class="link-icon">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8 3C8.69036 3 9.25 2.44036 9.25 1.75C9.25 1.05964 8.69036 0.5 8 0.5C7.30964 0.5 6.75 1.05964 6.75 1.75C6.75 2.44036 7.30964 3 8 3Z" stroke="currentColor" stroke-linejoin="round"/>
