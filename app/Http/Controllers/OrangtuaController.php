@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Session;
 use Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
+use function PHPUnit\Framework\isNull;
+
 class OrangtuaController extends Controller
 {
     /**
@@ -434,17 +436,7 @@ class OrangtuaController extends Controller
 
         $anak->save();
 
-        // from original pemeriksaangigicontroller.store
-        $uuid = Uuid::uuid4()->toString();
-        $waktu_pemeriksaan = now();
 
-        // $imageArray = [];
-        $pgigi = new PemeriksaanGigi();
-        $pgigi->id = $uuid;
-
-        $pgigi->id_anak = $anak->id;
-
-        $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
 
 
 
@@ -456,6 +448,20 @@ class OrangtuaController extends Controller
             $file = $request->file($fieldName);
 
             Storage::put('public/gigi/' . $filename, FacadesFile::get($file));
+
+            // from original pemeriksaangigicontroller.store
+            $uuid = Uuid::uuid4()->toString();
+            $waktu_pemeriksaan = now();
+
+            // $imageArray = [];
+
+
+            $pgigi = new PemeriksaanGigi();
+            $pgigi->id = $uuid;
+
+            $pgigi->id_anak = $anak->id;
+
+            $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
 
             $pgigi->$fieldName = $filename;
             $pgigi->gambar1 = $filename;
@@ -476,9 +482,11 @@ class OrangtuaController extends Controller
                 // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
             ])->throw()->json();
 
+            $pgigi->save();
+
         }
 
-        $pgigi->save();
+
 
 
 
@@ -522,6 +530,7 @@ class OrangtuaController extends Controller
         ], $messages);
 
         $anak = Anak::find($id);
+        $periksa = PemeriksaanGigi::Where('id_anak', $anak->id)->latest()->first();
         $user = Auth::user();
         $orangtua = Orangtua::Where('id_users', Auth::user()->id)->value('id');
 
@@ -530,13 +539,7 @@ class OrangtuaController extends Controller
         $anak->tanggal_lahir=$request->tanggal_lahir;
         $anak->no_whatsapp=$request->no_whatsapp;
 
-        $pgigi = new PemeriksaanGigi();
 
-        $uuid = Uuid::uuid4()->toString();
-        $waktu_pemeriksaan = now();
-        $pgigi->id = $uuid;
-        $pgigi->id_anak = $anak->id;
-        $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
 
         $fieldName = 'gambar1';
 
@@ -546,6 +549,21 @@ class OrangtuaController extends Controller
             $file = $request->file($fieldName);
 
             Storage::put('public/gigi/' . $filename, FacadesFile::get($file));
+
+            if($periksa == null){
+                $pgigi = new PemeriksaanGigi();
+                $uuid = Uuid::uuid4()->toString();
+                $pgigi->id = $uuid;
+            }
+            if($periksa != null){
+                $pgigi = $periksa;
+            }
+
+            // $pgigi = new PemeriksaanGigi();
+
+            $waktu_pemeriksaan = now();
+            $pgigi->id_anak = $anak->id;
+            $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
 
             $pgigi->$fieldName = $filename;
             $pgigi->gambar1 = $filename;
@@ -565,9 +583,11 @@ class OrangtuaController extends Controller
                 // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
             ])->throw()->json();
 
+            $pgigi->save();
+
         }
 
-        $pgigi->save();
+
 
         $anak->save();
         Alert::success('Sukses', 'Data pasien berhasil diubah.');

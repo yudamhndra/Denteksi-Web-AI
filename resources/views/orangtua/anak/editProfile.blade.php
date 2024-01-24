@@ -77,7 +77,11 @@
                                     <div class="row mt-3">
                                         <h6 class="mb-3 mb-md-0 text-left">PREVIEW</h6>
                                     </div>
+                                    @if($periksa == null)
+                                    <img id="gigi-depan"  src="{{ asset('assets/images/take-a-pict.png') }}" class="img-fluid mt-3" style="width: 400px; height: 200px;" alt="foto belum diambil">
+                                    @else
                                     <img id="gigi-depan"  src="{{'/storage/gigi/'.$periksa->gambar1}}" class="img-fluid mt-3" style="width: 400px; height: 200px;" alt="foto belum diambil">
+                                    @endif
                                 </div>
                             </div>
                         </div>
