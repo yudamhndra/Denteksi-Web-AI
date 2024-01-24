@@ -268,41 +268,41 @@ class OrangtuaController extends Controller
     public function registerUser(Request $request)
     {
         $messages = [
-            'nama.required' => 'Nama wajib diisi.',
-            'email.required' => 'Email wajib diisi.',
+        //     'nama.required' => 'Nama wajib diisi.',
+        //     'email.required' => 'Email wajib diisi.',
             'email.unique' => 'Email sudah terdaftar.',
-            'password.required' => 'Password wajib diisi.',
-            'id_kecamatan.required' => 'Kecamatan wajib diisi.',
-            'id_kelurahan.required' => 'Kelurahan wajib diisi.',
-            'alamat.required' => 'Alamat wajib diisi.',
-            'tanggal_lahir.required' => 'Tanggal lahir wajib diisi.',
-            'tempat_lahir.required' => 'Tempat lahir wajib diisi.',
-            'pendidikan.required' => 'Pendidikan wajib diisi.'
+        //     'password.required' => 'Password wajib diisi.',
+        //     'id_kecamatan.required' => 'Kecamatan wajib diisi.',
+        //     'id_kelurahan.required' => 'Kelurahan wajib diisi.',
+        //     'alamat.required' => 'Alamat wajib diisi.',
+        //     'tanggal_lahir.required' => 'Tanggal lahir wajib diisi.',
+        //     'tempat_lahir.required' => 'Tempat lahir wajib diisi.',
+        //     'pendidikan.required' => 'Pendidikan wajib diisi.'
         ];
 
         $validator = $request->validate([
-            'nama' => 'required|min:3',
+        //     'nama' => 'required|min:3',
             'email' => ['required', 'email', Rule::unique('users', 'email')],
-            'password' => 'required',
-            'id_kecamatan' => 'required',
-            'id_kelurahan' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
-            'alamat' => 'required',
-            'pendidikan' => 'required'
+        //     'password' => 'required',
+        //     'id_kecamatan' => 'required',
+        //     'id_kelurahan' => 'required',
+        //     'tempat_lahir' => 'required',
+        //     'tanggal_lahir' => 'required',
+        //     'alamat' => 'required',
+        //     'pendidikan' => 'required'
         ], $messages);
+
         DB::beginTransaction();
-        try{
-        $user = New User();
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->role ="orangtua";
-        if(!empty($request->google_id)) {
-            $user->google_id = $request->google_id;
-        }
+        try {
+            $user = New User();
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->role = "orangtua";
+            if(!empty($request->google_id)) {
+                $user->google_id = $request->google_id;
+            }
 
-        $user->save();
-
+            $user->save();
 
             $orangtua = new Dokter();
             $orangtua->id_users=$user->id;
@@ -312,7 +312,7 @@ class OrangtuaController extends Controller
             $orangtua->tempat_lahir = $request->tempat_lahir;
             $orangtua->tanggal_lahir = $request->tanggal_lahir;
             $orangtua->alamat = $request->alamat;
-            $orangtua->pendidikan= $request->pendidikan;
+            $orangtua->pendidikan = $request->pendidikan;
             if(!empty($request->foto)){
                 $file = $request->file('foto');
                 $extension = strtolower($file->getClientOriginalExtension());
@@ -321,11 +321,11 @@ class OrangtuaController extends Controller
                $orangtua->foto=$filename;
             }
 
-
             $orangtua->save();
             DB::commit();
             Auth::loginUsingId($user->id);
             return redirect('/');
+
         }catch(Exception $e){
             DB::rollback();
             return redirect('/register')->with('error','Gagal menambahkan data');

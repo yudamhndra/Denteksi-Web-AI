@@ -227,7 +227,6 @@
     }
 
     $(document).ready(function () {
-        // Request camera access when the page is loaded
         requestCameraAccess();
 
         $("#btn-cancel").on("click", function () {
