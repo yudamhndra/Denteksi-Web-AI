@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddFotoToOrangtua extends Migration
+class AddWaNumberToPasien extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddFotoToOrangtua extends Migration
      */
     public function up()
     {
-        Schema::table('orangtua', function (Blueprint $table) {
-            $table->string('foto')->nullable();
+        Schema::table('pasien', function (Blueprint $table) {
+            $table -> string('no_whatsapp');
         });
     }
 
@@ -25,7 +25,7 @@ class AddFotoToOrangtua extends Migration
      */
     public function down()
     {
-        Schema::table('orangtua', function (Blueprint $table) {
+        Schema::table('anak', function (Blueprint $table) {
             //
         });
     }

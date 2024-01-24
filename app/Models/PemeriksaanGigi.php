@@ -16,9 +16,9 @@ class PemeriksaanGigi extends Model
 
     protected $guarded = ['created_at', 'updated_at'];
 
-    public function anak()
+    public function pasien()
     {
-        return $this->belongsTo(Anak::class, 'id_anak');
+        return $this->belongsTo(Pasien::class, 'id_pasien');
     }
     public function resikoKaries()
     {

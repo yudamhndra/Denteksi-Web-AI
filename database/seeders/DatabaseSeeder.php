@@ -39,15 +39,15 @@ class DatabaseSeeder extends Seeder
             'role'      => 'orangtua'
         ]);
 
-        User::create([
-            'email' => 'dokter@dokter.com',
-            'password' => bcrypt('dokter1234'),
-            'role' => 'dokter',
-        ])->dokter()->create([
-            'nama' => 'dokter',
-            'jenis_kelamin' => 'perempuan',
+        // User::create([
+        //     'email' => 'dokter@dokter.com',
+        //     'password' => bcrypt('dokter1234'),
+        //     'role' => 'dokter',
+        // ])->dokter()->create([
+        //     'nama' => 'dokter',
+        //     'jenis_kelamin' => 'perempuan',
 
-        ]);
+        // ]);
 
 
         // $this->call(HariSeeder::class);

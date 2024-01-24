@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Poli;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Orangtua;
-use App\Models\Anak;
 use App\Models\Kelurahan;
 use App\Models\PemeriksaanFisik;
 use App\Models\PemeriksaanGigi;
 use Illuminate\Support\Facades\Response;
 use App\Models\Artikel;
+use App\Models\Dokter;
+use App\Models\Pasien;
 use Ramsey\Uuid\Uuid;
 use App\Models\Video;
 use Illuminate\Support\Facades\File as FacadesFile;
@@ -41,8 +41,8 @@ class OrangtuaController extends Controller
 
     // function untuk menampilkan data data akun orangtua yang terdaftar
     public function data(){
-        $orangtua = Orangtua::all();
-        return datatables()->of($orangtua)
+        $dokter = Dokter::all();
+        return datatables()->of($dokter)
         ->addColumn('action', function($row){
 
             $btn = '<a href="'.route('orangtua.edit',$row->id).'" type="button" id="btn-edit" class="btn btn-warning "><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>';
@@ -123,7 +123,7 @@ class OrangtuaController extends Controller
                 'role' => 'orangtua',
             ]);
 
-            $orangtua = Orangtua::create([
+            $dokter = Dokter::create([
                 'id_users' => $user->id,
                 'nama' => $request->nama,
                 'alamat' => $request->alamat,
@@ -162,10 +162,10 @@ class OrangtuaController extends Controller
      */
     public function edit($id)
     {
-        $orangtua= Orangtua::find($id);
+        $dokter= Dokter::find($id);
         $kelurahan=Kelurahan::all();
 
-        return view('admin.orangtua.edit', compact('orangtua','kelurahan'));
+        return view('admin.orangtua.edit', compact('dokter','kelurahan'));
     }
 
     /**
@@ -252,10 +252,10 @@ class OrangtuaController extends Controller
     // Function untuk menghapus akun orangtua dihalaman admin
     public function destroy($id)
     {
-        $orangtua = Orangtua::find($id);
-        $user = User::where('id', $orangtua->id_users);
+        $dokter = Dokter::find($id);
+        $user = User::where('id', $dokter->id_users);
         $user->delete();
-        $orangtua->delete();
+        $dokter->delete();
         return response()->json(['data'=>'success delete data']);
     }
 
@@ -268,43 +268,43 @@ class OrangtuaController extends Controller
     public function registerUser(Request $request)
     {
         $messages = [
-            'nama.required' => 'Nama wajib diisi.',
-            'email.required' => 'Email wajib diisi.',
+        //     'nama.required' => 'Nama wajib diisi.',
+        //     'email.required' => 'Email wajib diisi.',
             'email.unique' => 'Email sudah terdaftar.',
-            'password.required' => 'Password wajib diisi.',
-            'id_kecamatan.required' => 'Kecamatan wajib diisi.',
-            'id_kelurahan.required' => 'Kelurahan wajib diisi.',
-            'alamat.required' => 'Alamat wajib diisi.',
-            'tanggal_lahir.required' => 'Tanggal lahir wajib diisi.',
-            'tempat_lahir.required' => 'Tempat lahir wajib diisi.',
-            'pendidikan.required' => 'Pendidikan wajib diisi.'
+        //     'password.required' => 'Password wajib diisi.',
+        //     'id_kecamatan.required' => 'Kecamatan wajib diisi.',
+        //     'id_kelurahan.required' => 'Kelurahan wajib diisi.',
+        //     'alamat.required' => 'Alamat wajib diisi.',
+        //     'tanggal_lahir.required' => 'Tanggal lahir wajib diisi.',
+        //     'tempat_lahir.required' => 'Tempat lahir wajib diisi.',
+        //     'pendidikan.required' => 'Pendidikan wajib diisi.'
         ];
 
         $validator = $request->validate([
-            'nama' => 'required|min:3',
+        //     'nama' => 'required|min:3',
             'email' => ['required', 'email', Rule::unique('users', 'email')],
-            'password' => 'required',
-            'id_kecamatan' => 'required',
-            'id_kelurahan' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
-            'alamat' => 'required',
-            'pendidikan' => 'required'
+        //     'password' => 'required',
+        //     'id_kecamatan' => 'required',
+        //     'id_kelurahan' => 'required',
+        //     'tempat_lahir' => 'required',
+        //     'tanggal_lahir' => 'required',
+        //     'alamat' => 'required',
+        //     'pendidikan' => 'required'
         ], $messages);
+
         DB::beginTransaction();
-        try{
-        $user = New User();
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->role ="orangtua";
-        if(!empty($request->google_id)) {
-            $user->google_id = $request->google_id;
-        }
+        try {
+            $user = New User();
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->role = "orangtua";
+            if(!empty($request->google_id)) {
+                $user->google_id = $request->google_id;
+            }
 
-        $user->save();
+            $user->save();
 
-
-            $orangtua = new Orangtua();
+            $orangtua = new Dokter();
             $orangtua->id_users=$user->id;
             $orangtua->nama = $request->nama;
             $orangtua->id_kecamatan = $request->id_kecamatan;
@@ -312,7 +312,7 @@ class OrangtuaController extends Controller
             $orangtua->tempat_lahir = $request->tempat_lahir;
             $orangtua->tanggal_lahir = $request->tanggal_lahir;
             $orangtua->alamat = $request->alamat;
-            $orangtua->pendidikan= $request->pendidikan;
+            $orangtua->pendidikan = $request->pendidikan;
             if(!empty($request->foto)){
                 $file = $request->file('foto');
                 $extension = strtolower($file->getClientOriginalExtension());
@@ -321,11 +321,11 @@ class OrangtuaController extends Controller
                $orangtua->foto=$filename;
             }
 
-
             $orangtua->save();
             DB::commit();
             Auth::loginUsingId($user->id);
             return redirect('/');
+
         }catch(Exception $e){
             DB::rollback();
             return redirect('/register')->with('error','Gagal menambahkan data');
@@ -335,9 +335,9 @@ class OrangtuaController extends Controller
     // function untuk menampilkan data data anak berupa json untuk datatable dihalaman orangtua berdasarkan id orangtua ketika login
     public function dataAnak(){
         $user = Auth::user();
-        $orangtua = Orangtua::Where('id_users', Auth::user()->id)->value('id');
-        $anak = Anak::Where('id_orangtua',$orangtua)->get();
-        return datatables()->of($anak)
+        $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
+        $pasien = Pasien::Where('id_dokter',$dokter)->get();
+        return datatables()->of($pasien)
         ->addColumn('action', function($row){
 
             // $btn = '<a href="'.route('orangtua-anak.edit',$row->id);
@@ -357,11 +357,11 @@ class OrangtuaController extends Controller
     }
 
     public function viewDashboard(Request $request){
-        $user = Orangtua::with('anak')->where('id_users', Auth::user()->id)->first();
+        $user = Dokter::with('pasien')->where('id_users', Auth::user()->id)->first();
 
         // $user = Auth::user();
         // $orangtua = Orangtua::Where('id_users', Auth::user()->id)->value('id');
-        $anak = Anak::Where('id_orangtua',$user)->get();
+        $pasien = Pasien::Where('id_dokter',$user)->get();
 
         if ($request->ajax()) {
             $data = PemeriksaanFisik::select('tinggi_badan','berat_badan','waktu_pemeriksaan')->where('id_anak', $request->id)->get();
@@ -384,7 +384,7 @@ class OrangtuaController extends Controller
                 'data' => $arrayData,
             ]);
         }
-        return view('orangtua.dashboard.dashboard',compact('user', 'anak'));
+        return view('orangtua.dashboard.dashboard',compact('user', 'pasien'));
     }
 
     // function untuk menampilkan data anak di halaman orangtua
@@ -423,18 +423,18 @@ class OrangtuaController extends Controller
         ], $messages);
 
         $user = Auth::user();
-        $orangtua = Orangtua::Where('id_users', Auth::user()->id)->value('id');
+        $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
 
-        $anak = new Anak();
-        $anak->id_orangtua= $orangtua;
-        $anak->nama = $request->nama;
-        $anak->jenis_kelamin = $request->jenis_kelamin;
-        $anak->tanggal_lahir = $request->tanggal_lahir;
-        $anak->no_whatsapp = $request->no_whatsapp;
+        $pasien = new Pasien();
+        $pasien->id_dokter = $dokter;
+        $pasien->nama = $request->nama;
+        $pasien->jenis_kelamin = $request->jenis_kelamin;
+        $pasien->tanggal_lahir = $request->tanggal_lahir;
+        $pasien->no_whatsapp = $request->no_whatsapp;
 
 
 
-        $anak->save();
+        $pasien->save();
 
 
 
@@ -459,7 +459,7 @@ class OrangtuaController extends Controller
             $pgigi = new PemeriksaanGigi();
             $pgigi->id = $uuid;
 
-            $pgigi->id_anak = $anak->id;
+            $pgigi->id_anak = $pasien->id;
 
             $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
 
@@ -476,8 +476,8 @@ class OrangtuaController extends Controller
 
             $response = $response->post(config('app.ai_url') . '/api/detect', [
                 'pemeriksaan_id' => $pgigi->id,
-                'nama_anak' => $pgigi->anak->nama,
-                'nama_ortu' => $pgigi->anak->orangtua->nama,
+                'nama_anak' => $pgigi->pasien->nama,
+                'nama_ortu' => $pgigi->pasien->dokter->nama,
                 // 'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
                 // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
             ])->throw()->json();
@@ -496,21 +496,21 @@ class OrangtuaController extends Controller
     }
 
     public function editAnak($id){
-        $anak = Anak::find($id);
-        return view('orangtua.anak.edit',compact('anak'));
+        $pasien = Pasien::find($id);
+        return view('orangtua.anak.edit',compact('pasien'));
     }
     public function editAnakProfile($id){
-        $anak = Anak::find($id);
-        $periksa = PemeriksaanGigi::where('id_anak', $anak->id)->latest()->first();
-        return view('orangtua.anak.editProfile',compact('anak', 'periksa'));
+        $pasien = Pasien::find($id);
+        $periksa = PemeriksaanGigi::where('id_pasien', $pasien->id)->latest()->first();
+        return view('orangtua.anak.editProfile',compact('pasien', 'periksa'));
     }
 
     public function pemeriksaanAnak($id)
     {
-        $anak = Anak::find($id);
+        $pasien = Pasien::find($id);
         Session::put('id_anak', $id);
 
-        return view('orangtua.anak.pemeriksaan', compact('anak'));
+        return view('orangtua.anak.pemeriksaan', compact('pasien'));
     }
 
 
@@ -529,15 +529,15 @@ class OrangtuaController extends Controller
             'jenis_kelamin' => 'required',
         ], $messages);
 
-        $anak = Anak::find($id);
-        $periksa = PemeriksaanGigi::Where('id_anak', $anak->id)->latest()->first();
+        $pasien = Pasien::find($id);
+        $periksa = PemeriksaanGigi::Where('id_pasien', $pasien->id)->latest()->first();
         $user = Auth::user();
-        $orangtua = Orangtua::Where('id_users', Auth::user()->id)->value('id');
+        $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
 
-        $anak->nama = $request->nama;
-        $anak->jenis_kelamin=$request->jenis_kelamin;
-        $anak->tanggal_lahir=$request->tanggal_lahir;
-        $anak->no_whatsapp=$request->no_whatsapp;
+        $pasien->nama = $request->nama;
+        $pasien->jenis_kelamin=$request->jenis_kelamin;
+        $pasien->tanggal_lahir=$request->tanggal_lahir;
+        $pasien->no_whatsapp=$request->no_whatsapp;
 
 
 
@@ -562,7 +562,7 @@ class OrangtuaController extends Controller
             // $pgigi = new PemeriksaanGigi();
 
             $waktu_pemeriksaan = now();
-            $pgigi->id_anak = $anak->id;
+            $pgigi->id_anak = $pasien->id;
             $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
 
             $pgigi->$fieldName = $filename;
@@ -577,8 +577,8 @@ class OrangtuaController extends Controller
 
             $response = $response->post(config('app.ai_url') . '/api/detect', [
                 'pemeriksaan_id' => $pgigi->id,
-                'nama_anak' => $pgigi->anak->nama,
-                'nama_ortu' => $pgigi->anak->orangtua->nama,
+                'nama_anak' => $pgigi->pasien->nama,
+                'nama_ortu' => $pgigi->pasien->dokter->nama,
                 // 'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
                 // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
             ])->throw()->json();
@@ -589,14 +589,14 @@ class OrangtuaController extends Controller
 
 
 
-        $anak->save();
+        $pasien->save();
         Alert::success('Sukses', 'Data pasien berhasil diubah.');
         return redirect()->route('viewanak')->with('error',$messages);
     }
 
     public function deleteAnak($id){
-        $anak=Anak::find($id);
-        $anak->delete();
+        $pasien=Pasien::find($id);
+        $pasien->delete();
     }
 
     public function profil(){
@@ -608,28 +608,28 @@ class OrangtuaController extends Controller
     public function updateProfil(Request $request){
         $user = User::find(Auth::user()->id);
 
-        $profilorangtua = $user->profilorangtua;
-        if(!$profilorangtua){
-            $profilorangtua = new Orangtua();
-            $profilorangtua->id_users=$user->id;
+        $profilDokter = $user->profilDokter;
+        if(!$profilDokter){
+            $profilDokter = new Dokter();
+            $profilDokter->id_users=$user->id;
         }
 
-        $profilorangtua->nama = $request->nama;
-        $profilorangtua->tempat_lahir = $request->tempat_lahir;
-        $profilorangtua->tanggal_lahir = $request->tanggal_lahir;
-        $profilorangtua->pendidikan = $request->pendidikan;
-        $profilorangtua->alamat = $request->alamat;
+        $profilDokter->nama = $request->nama;
+        $profilDokter->tempat_lahir = $request->tempat_lahir;
+        $profilDokter->tanggal_lahir = $request->tanggal_lahir;
+        $profilDokter->pendidikan = $request->pendidikan;
+        $profilDokter->alamat = $request->alamat;
 
         if (!empty($request->foto)) {
             $file = $request->file('foto');
             $extension = strtolower($file->getClientOriginalExtension());
             $filename = uniqid() . '.' . $extension;
-            Storage::delete('/public/orangtua/' . $profilorangtua->foto);
+            Storage::delete('/public/orangtua/' . $profilDokter->foto);
             Storage::put('public/orangtua/' . $filename, File::get($file));
-            $profilorangtua->foto = $filename;
+            $profilDokter->foto = $filename;
         }
 
-        $profilorangtua->save();
+        $profilDokter->save();
 
         return redirect()->route('viewanak');
 
@@ -638,16 +638,16 @@ class OrangtuaController extends Controller
     public function reservasi($id){
         $reservasi=SkriningIndeks::find($id);
         $pgigi= PemeriksaanGigi::where('id',$reservasi->id_pemeriksaan)->first();
-        $anak = Anak::where('id',$pgigi->id_anak)->first();
+        $pasien = Pasien::where('id',$pgigi->id_pasien)->first();
 
         $klinik = Poli::get();
 
-        return view('orangtua.reservasi.create',compact('reservasi','pgigi','anak','klinik'));
+        return view('orangtua.reservasi.create',compact('reservasi','pgigi','pasien','klinik'));
     }
 
     public function hasilPeriksa($id){
-        $anak = Anak::where('id', $id)->first();
-        $periksa = PemeriksaanGigi::where('id_anak', $anak->id)->latest()->first();
+        $pasien = Pasien::where('id', $id)->first();
+        $periksa = PemeriksaanGigi::where('id_pasien', $pasien->id)->latest()->first();
         $url = config('app.ai_url') . "/api/result-image/?pemeriksaan_id=$id";
         $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn')->get($url);
 
@@ -674,7 +674,7 @@ class OrangtuaController extends Controller
             }
         }
 
-        return view('orangtua.anak.hasil', compact('anak', 'periksa', 'decodedImage', 'url'));
+        return view('orangtua.anak.hasil', compact('pasien', 'periksa', 'decodedImage', 'url'));
     }
 
 }

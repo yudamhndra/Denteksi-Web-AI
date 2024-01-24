@@ -15,7 +15,7 @@
             <div class="col-md-2 col-sm-6">
                 <select class=" form-select" id="anak" name="anak" data-width="100%">
                     <option value="clear">Pilih Pasien</option>
-                    @foreach($anak as $anak)
+                    @foreach($pasien as $anak)
 
                     <option value="{{$anak->id}}">{{$anak->nama}}</option>
                     @endforeach

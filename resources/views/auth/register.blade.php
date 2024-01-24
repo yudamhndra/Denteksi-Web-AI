@@ -453,14 +453,11 @@
             $("#form-register").validate({
                 rules: {
                     email: "required",
-
-
                 },
                 messages: {
                     email: "Email tidak boleh kosong",
                     password: {
                         required: "Password tidak boleh kosong",
-
                     },
                     nama:"Nama tidak boleh kosong",
                     tempat_lahir:"Tempat lahir tidak boleh kosong",
@@ -468,30 +465,25 @@
                     pendidikan:"pendidikan tidak boleh kosong",
                     alamat:"Alamat tidak boleh kosong",
                     id_kelurahan :"Kelurahan tidak boleh kosong"
-
-
                 },
-                 errorPlacement: function(error, element)
-            {
-            if ( element.is(":radio") )
-            {
-                error.appendTo( element.parents('.form-group') );
-            } else if (element.is("select[name='pendidikan']")) {
-                error.appendTo("#error-pendidikan");
-            }else if (element.is("select[name='id_kecamatan']")) {
-                error.appendTo("#error-kecamatan");
-            }else if (element.is("select[name='id_kelurahan']")) {
-                error.appendTo("#error-kelurahan");
-            }else if (element.is("input[name='password']")) {
-                error.appendTo("#error-password");
-            }else {
-                error.insertAfter(element);
-            }
-         },
+                errorPlacement: function(error, element) {
+                    if ( element.is(":radio") ) {
+                        error.appendTo( element.parents('.form-group') );
+                    } else if (element.is("select[name='pendidikan']")) {
+                        error.appendTo("#error-pendidikan");
+                    }else if (element.is("select[name='id_kecamatan']")) {
+                        error.appendTo("#error-kecamatan");
+                    }else if (element.is("select[name='id_kelurahan']")) {
+                        error.appendTo("#error-kelurahan");
+                    }else if (element.is("input[name='password']")) {
+                        error.appendTo("#error-password");
+                    }else {
+                        error.insertAfter(element);
+                    }
+                },
                 submitHandler: function(form) {
                     form.submit();
                 }
-
             });
         });
 

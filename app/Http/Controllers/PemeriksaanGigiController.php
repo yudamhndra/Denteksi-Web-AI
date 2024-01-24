@@ -12,6 +12,7 @@ use App\Models\Anak;
 use App\Models\Kelurahan;
 use App\Models\ResikoKaries;
 use App\Models\Dokter;
+use App\Models\Pasien;
 use App\Models\SkriningIndeks;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
@@ -46,8 +47,8 @@ class PemeriksaanGigiController extends Controller
     public function create()
     {
         $user = Auth::user();
-        $orangtua = Orangtua::Where('id_users', Auth::user()->id)->value('id');
-        $anak = Anak::Where('id_orangtua',$orangtua)->get();
+        $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
+        $pasien = Pasien::Where('id_orangtua',$dokter)->get();
         $kelurahan=Kelurahan::all()->pluck('nama','id');
         return view('orangtua.pemeriksaan.pemeriksaanGigi',compact('anak','kelurahan'));
     }
@@ -84,16 +85,16 @@ class PemeriksaanGigiController extends Controller
 
             // $imageArray = [];
             $pgigi = new PemeriksaanGigi();
-            $pgigi->id = $uuid;
+            $pgigi->id = $uuid; 
 
-            $idAnak = Session::get('id_anak');
-            $anak = Anak::find($idAnak);
+            $idPasien = Session::get('id_pasien');
+            $pasien = Pasien::find($idPasien);
 
-            if (!$anak) {
+            if (!$pasien) {
                 return redirect()->back()->with('error', 'ID anak tidak valid');
             }
 
-            $pgigi->id_anak = $idAnak;
+            $pgigi->id_pasien = $idPasien;
 
             // $pgigi->id_sekolah = $request->id_sekolah ?: $request->id_posyandu;
             // $pgigi->id_kelas = $request->kelas;
@@ -135,8 +136,8 @@ class PemeriksaanGigiController extends Controller
         //     // request to detection api
             $response = $response->post(config('app.ai_url') . '/api/detect', [
                 'pemeriksaan_id' => $pgigi->id,
-                'nama_anak' => $pgigi->anak->nama,
-                'nama_ortu' => $pgigi->anak->orangtua->nama,
+                'nama_anak' => $pgigi->pasien->nama,
+                'nama_ortu' => $pgigi->pasien->dokter->nama,
                 // 'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
                 // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
             ])->throw()->json();

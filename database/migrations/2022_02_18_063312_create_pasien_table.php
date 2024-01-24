@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAnakTable extends Migration
+class CreatePasienTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateAnakTable extends Migration
      */
     public function up()
     {
-        Schema::create('anak', function (Blueprint $table) {
+        Schema::create('pasien', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_orangtua')->nullable();
+            $table->unsignedBigInteger('id_dokter')->nullable();
             $table->string('nama')->nullable();
             $table->string('tempat_lahir')->nullable();
             $table->date('tanggal_lahir')->nullable();
@@ -23,7 +23,7 @@ class CreateAnakTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('id_orangtua')->references('id')->on('orangtua')->onDelete('cascade');
+            $table->foreign('id_dokter')->references('id')->on('dokter')->onDelete('cascade');
 
 
         });
@@ -36,6 +36,6 @@ class CreateAnakTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('anak');
+        Schema::dropIfExists('pasien');
     }
 }

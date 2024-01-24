@@ -13,17 +13,8 @@ class Dokter extends Model
 
     protected $table = 'dokter';
     protected $guarded = ['created_at', 'updated_at'];
-    protected $fillable=[
-        'id_users',
-        'nik',
-        'id_kecamatan',
-        'nama',
-        'jenis_kelamin',
-        'tempat_lahir',
-        'tanggal_lahir',
-        'no_telp',
-        'no_str'
-    ];
+
+
 
     public function user(){
         return $this->belongsTo('App\Models\User', 'id_users');
@@ -31,8 +22,17 @@ class Dokter extends Model
     public function kecamatan(){
         return $this->belongsTo('App\Models\Kecamatan', 'id_kecamatan');
     }
-    public function dokterSesi()
-    {
-        return $this->hasMany('App\Models\DokterSesi', 'dokter_id', 'id');
+    public function kelurahan(){
+        return $this->belongsTo('App\Models\Kelurahan', 'id_kelurahan');
     }
+    public function sekolah(){
+        return $this->belongsTo('App\Models\Sekolah', 'id_sekolah');
+    }
+    public function kelas(){
+        return $this->belongsTo('App\Models\Kelas', 'id_kelas');
+    }
+    public function pasien(){
+        return $this->hasMany('App\Models\Pasien', 'id_dokter');
+    }
+    
 }
