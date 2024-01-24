@@ -405,8 +405,8 @@ class OrangtuaController extends Controller
 
         $messages = [
             'nama.required' => 'Nama wajib diisi.',
-            'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi',
-            'tanggal_lahir.required' => 'Tanggal lahir wajib diisi',
+            // 'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi',
+            // 'tanggal_lahir.required' => 'Tanggal lahir wajib diisi',
             'no_whatsapp.required' => 'nomor whatsapp wajib diisi',
             'no_whatsapp.starts_with' => 'nomor whatsapp wajib diawali dengan +62',
             'no_whatsapp.numeric' => 'Nomor whatsapp harus berupa angka',
@@ -415,8 +415,8 @@ class OrangtuaController extends Controller
         $validator = $request->validate([
 
             'nama' => 'required',
-            'tanggal_lahir' => 'required',
-            'jenis_kelamin' => 'required',
+            // 'tanggal_lahir' => 'required',
+            // 'jenis_kelamin' => 'required',
             'no_whatsapp' => ['required', 'starts_with:+62','numeric'],
 
 
@@ -428,8 +428,8 @@ class OrangtuaController extends Controller
         $pasien = new Pasien();
         $pasien->id_dokter = $dokter;
         $pasien->nama = $request->nama;
-        $pasien->jenis_kelamin = $request->jenis_kelamin;
-        $pasien->tanggal_lahir = $request->tanggal_lahir;
+        // $pasien->jenis_kelamin = $request->jenis_kelamin;
+        // $pasien->tanggal_lahir = $request->tanggal_lahir;
         $pasien->no_whatsapp = $request->no_whatsapp;
 
 
@@ -511,15 +511,15 @@ class OrangtuaController extends Controller
     public function updateAnak(Request $request, $id){
         $messages = [
             'nama.required' => 'Nama wajib diisi.',
-            'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi',
-            'tanggal_lahir.required' => 'Tanggal lahir wajib diisi',
+            // 'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi',
+            // 'tanggal_lahir.required' => 'Tanggal lahir wajib diisi',
 
         ];
         $validator = $request->validate([
 
             'nama' => 'required',
-            'tanggal_lahir' => 'required',
-            'jenis_kelamin' => 'required',
+            // 'tanggal_lahir' => 'required',
+            // 'jenis_kelamin' => 'required',
         ], $messages);
 
         $pasien = Pasien::find($id);
@@ -528,8 +528,8 @@ class OrangtuaController extends Controller
         $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
 
         $pasien->nama = $request->nama;
-        $pasien->jenis_kelamin=$request->jenis_kelamin;
-        $pasien->tanggal_lahir=$request->tanggal_lahir;
+        // $pasien->jenis_kelamin=$request->jenis_kelamin;
+        // $pasien->tanggal_lahir=$request->tanggal_lahir;
         $pasien->no_whatsapp=$request->no_whatsapp;
 
 

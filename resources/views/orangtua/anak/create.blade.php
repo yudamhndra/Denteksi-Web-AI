@@ -24,7 +24,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                          @enderror
                     </div>
-                    <div class="mb-3 gender">
+ {{--                   <div class="mb-3 gender">
                         <label class="col-md-12 mb-2"> Jenis Kelamin <span class="text-danger">*</span> </label>
                         <div class="form-check form-check-inline">
                             <input type="radio" class="form-check-input" value="laki-laki" name="jenis_kelamin" id="radioInline">
@@ -40,9 +40,10 @@
                         </div>
                         <div class="error-placement"></div>
                     </div>
+                    --}}
 
-                    <div class="row col-md-12">
-                        <div class="col-md-5">
+                    <div class="row">
+                     {{--   <div class="col-md-5">
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
                                 <input type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror" id="tanggal_lahir" name="tanggal_lahir"
@@ -51,8 +52,8 @@
                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                        </div>
-                        <div class="col-md-5">
+                        </div> --}}
+                        <div class="col-md-10">
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Nomor Whatsapp <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('no_whatsapp') is-invalid @enderror" id="no_whatsapp" name="no_whatsapp"
