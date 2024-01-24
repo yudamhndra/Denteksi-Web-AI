@@ -284,7 +284,6 @@
                 updatePreviewCard(blob);
                 stopCameraPreview();
 
-
                 $.ajax({
                     url: "{{ route('tambahanak.store') }}",
                     method: 'POST',
@@ -292,14 +291,13 @@
                     processData: false,
                     contentType: false,
                     success: function (response) {
-                        console.log(response);
                         Swal.fire({
                         title: 'Sukses!',
                         text: 'Gambar berhasil diupload.',
                         icon: 'success',
                         confirmButtonText: 'OK'
                     }).then((result) => {
-                        if (result.isConfirmed || result.isDismissed) {
+                        if (result.isConfirmed) {
                             location.reload();
                         }
                         });
