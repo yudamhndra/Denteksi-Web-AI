@@ -1,4 +1,5 @@
 @extends('layout.master')
+@section('title') riwayat @endsection
 
 @section('content')
 
