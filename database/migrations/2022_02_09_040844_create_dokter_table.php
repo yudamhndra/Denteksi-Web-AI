@@ -15,20 +15,14 @@ class CreateDokterTable extends Migration
     {
         Schema::create('dokter', function (Blueprint $table) {
             $table->id();
-            $table->string('nik')->unique();
             $table->unsignedBigInteger('id_users')->nullable();
-            $table->unsignedBigInteger('id_kecamatan')->nullable();
             $table->string('nama');
             $table->string('jenis_kelamin')->nullable();
-            $table->string('tempat_lahir')->nullable();
-            $table->date('tanggal_lahir')->nullable();
-            $table->string('no_telp');
-            $table->string('no_str');
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('id_users')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('id_kecamatan')->references('id')->on('kecamatan')->onDelete('cascade');
+
 
         });
     }
