@@ -10,7 +10,7 @@
                     <div class="col-md-6 align-self-center">
                         <h2 class="mb-3 mb-md-0 text-left">Ingin melakukan </h2>
                         <h2 class="mb-3 mb-md-0 text-left">Pemeriksaan ?</h2>
-                        <a type="button" href="{{route('viewanak')}}" class="btn btn-primary wd-350 mt-5 button">PERIKSA SEKARANG</a>
+                        <a type="button" href="{{route('view-anak.create')}}" class="btn btn-primary wd-350 mt-5 button">PERIKSA SEKARANG</a>
                         {{--<a type="button" href="#scan-camera" class="btn  wd-350 mt-3 btn-outline-info">PERIKSA DENGAN SCAN QR</a>--}}
                     </div>
                     <div class="col-md-6 text-center">
@@ -235,7 +235,7 @@ function onScanSuccess(decodedText, decodedResult) {
   console.log(`Code matched = ${decodedText}`, decodedResult);
   document.getElementById("text_scan_input").value = decodedText;
   url_code = decodedText;
-  window.open("http://127.0.0.1:8000/orangtua/pemeriksaanfisik/create/" + decodedText, "_self")
+  window.open("http://127.0.0.1:8000/orangtua/anak/" + decodedText + "/editprofile", "_self")
 }
 
 function browse_url(){

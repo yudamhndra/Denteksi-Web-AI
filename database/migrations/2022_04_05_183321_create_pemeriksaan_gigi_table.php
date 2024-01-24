@@ -15,7 +15,7 @@ class CreatePemeriksaanGigiTable extends Migration
     {
         Schema::create('pemeriksaan_gigi', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->unsignedBigInteger('id_anak');
+            $table->unsignedBigInteger('id_pasien');
             $table->unsignedBigInteger('id_sekolah')->nullable();
             $table->unsignedBigInteger('id_kelas')->nullable();
             $table->string('gambar1')->nullable();
@@ -28,7 +28,7 @@ class CreatePemeriksaanGigiTable extends Migration
             $table->string('gsoal2')->nullable();
             $table->timestamps();
 
-            $table->foreign('id_anak')->references('id')->on('anak')->onDelete('cascade');
+            $table->foreign('id_pasien')->references('id')->on('pasien')->onDelete('cascade');
         });
     }
 

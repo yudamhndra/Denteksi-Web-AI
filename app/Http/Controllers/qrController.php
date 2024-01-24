@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Anak;
+use App\Models\Dokter;
 use App\Models\Orangtua;
+use App\Models\Pasien;
 use Barryvdh\DomPDF\Facade;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use SimpleSoftwareIO\QrCode\Generator;
@@ -24,9 +27,9 @@ class qrController extends Controller
     public function index($id)
     {
         $user = Auth::user();
-        $orangtua = Orangtua::Where('id_users', Auth::user()->id)->value('id');
-        $anak = Anak::Where('id_orangtua',$orangtua)->get();  //mendapatkan list anak berdasarkan id orangtua yang login
-        $autoAnak = $anak[(int)$id - 1];
+        $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
+        $pasien = Pasien::Where('id_dokter',$dokter)->get();  //mendapatkan list anak berdasarkan id orangtua yang login
+        $autoAnak = $pasien[(int)$id - 1];
         $QRGenerator = new Generator;
         $logoPath = asset('assets/logo-senyumin-black.png');
         // Dikasih UQ biar tiap QR yang digenerate beda
@@ -132,6 +135,43 @@ class qrController extends Controller
         // return Response::streamDownload(function () use ($pdf) {
         //     echo $pdf->output();
         // }, 'qr_code_senyumin.pdf');
+    }
+
+
+    public function formToPdf(Request $request){
+
+            $jsonData = $request->query('data');
+            $selectedData = json_decode($jsonData, true);
+            $selectedData = $selectedData[0];
+            $url = config('app.ai_url') . "/api/result-image/?pemeriksaan_id=" . $selectedData['id'];
+            $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn')->get($url);
+
+            $decodedImage = null; // Initialize the variable
+
+            $responseData = $response->json();
+
+            if (isset($responseData['status']) && isset($responseData['data'])) {
+                $status = $responseData['status'];
+                $data = $responseData['data'];
+    
+                // Check if the status is 'Success' and data is not empty
+                if ($status === 'Success' && !empty($data)) {
+                    foreach ($data as $item) {
+                        $result = $item['result'];
+    
+                        foreach ($result as $filename => $resultData) {
+                            $decodedImage = base64_decode($resultData);
+                            // Break out of the loop as you only want one image
+                            break;
+                        }
+                    }
+                }
+            }
+    
+            $pdf = Pdf::loadview('viewResultPDF', compact('selectedData', 'decodedImage'));
+
+            return $pdf->stream();
+
     }
 
     // public function viewPDF(Request $request){

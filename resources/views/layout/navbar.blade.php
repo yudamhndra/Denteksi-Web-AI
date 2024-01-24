@@ -77,7 +77,7 @@
                             </p>
                             @elseif(Auth::user()->role=='orangtua')
                             <p class="tx-16 fw-bolder">
-                                {{ auth()->user()->profilorangtua->nama ?? 'User' }}
+                                {{ auth()->user()->profildokter->nama ?? 'User' }}
                             </p>
                             <p class="tx-12 text-muted">
                                 {{auth()->user()->email}}

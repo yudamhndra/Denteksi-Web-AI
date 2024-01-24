@@ -113,7 +113,8 @@
         <div class="page-wrapper full-page">
             <div class="page-content m-0 pb-3 pb-md-1 pt-4">
                 <div class="container d-flex justify-content-between align-items-center">
-                    <img src="{{asset('assets/images/logo-putih.png')}}" alt="" srcset="">
+                    <!-- <img src="{{asset('assets/images/logo-putih.png')}}" alt="" srcset=""> -->
+                    <img src="{{asset('assets/images/logo-denteksi-text-removebg.png')}}" width="110" alt="logo" srcset="">
                     {{-- <a href="/" class="btn btn-register rounded-pill fw-bold text-light p-2 px-5">MASUK</a> --}}
                 </div>
             </div>
@@ -452,14 +453,11 @@
             $("#form-register").validate({
                 rules: {
                     email: "required",
-
-
                 },
                 messages: {
                     email: "Email tidak boleh kosong",
                     password: {
                         required: "Password tidak boleh kosong",
-
                     },
                     nama:"Nama tidak boleh kosong",
                     tempat_lahir:"Tempat lahir tidak boleh kosong",
@@ -467,30 +465,25 @@
                     pendidikan:"pendidikan tidak boleh kosong",
                     alamat:"Alamat tidak boleh kosong",
                     id_kelurahan :"Kelurahan tidak boleh kosong"
-
-
                 },
-                 errorPlacement: function(error, element)
-            {
-            if ( element.is(":radio") )
-            {
-                error.appendTo( element.parents('.form-group') );
-            } else if (element.is("select[name='pendidikan']")) {
-                error.appendTo("#error-pendidikan");
-            }else if (element.is("select[name='id_kecamatan']")) {
-                error.appendTo("#error-kecamatan");
-            }else if (element.is("select[name='id_kelurahan']")) {
-                error.appendTo("#error-kelurahan");
-            }else if (element.is("input[name='password']")) {
-                error.appendTo("#error-password");
-            }else {
-                error.insertAfter(element);
-            }
-         },
+                errorPlacement: function(error, element) {
+                    if ( element.is(":radio") ) {
+                        error.appendTo( element.parents('.form-group') );
+                    } else if (element.is("select[name='pendidikan']")) {
+                        error.appendTo("#error-pendidikan");
+                    }else if (element.is("select[name='id_kecamatan']")) {
+                        error.appendTo("#error-kecamatan");
+                    }else if (element.is("select[name='id_kelurahan']")) {
+                        error.appendTo("#error-kelurahan");
+                    }else if (element.is("input[name='password']")) {
+                        error.appendTo("#error-password");
+                    }else {
+                        error.insertAfter(element);
+                    }
+                },
                 submitHandler: function(form) {
                     form.submit();
                 }
-
             });
         });
 

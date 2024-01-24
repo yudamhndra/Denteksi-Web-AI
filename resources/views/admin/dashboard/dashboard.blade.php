@@ -19,7 +19,7 @@
             </div>
             <div class="row">
                 <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mt-4">{{$orangtua}}</h3>
+                <h3 class="mt-4">{{$dokter}}</h3>
                 <div class="d-flex align-items-baseline">
                     <p class="text-success">
                     <span></span>
@@ -43,7 +43,7 @@
             </div>
             <div class="row">
                 <div class="col-6 col-md-12 col-xl-5">
-                <h3 class="mt-4">{{$anak}}</h3>
+                <h3 class="mt-4">{{$pasien}}</h3>
                 <div class="d-flex align-items-baseline">
                     <p class="text-danger">
                     <span></span>

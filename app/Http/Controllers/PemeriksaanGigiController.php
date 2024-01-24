@@ -7,19 +7,19 @@ use Illuminate\Http\Request;
 use File;
 use Auth;
 use App\Models\User;
-use App\Models\Orangtua;
-use App\Models\Anak;
 use App\Models\Kelurahan;
 use App\Models\ResikoKaries;
 use App\Models\Dokter;
+use App\Models\Pasien;
 use App\Models\SkriningIndeks;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
-use Illuminate\Http\Response; 
+use Illuminate\Http\Response;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\File as FacadesFile;
 use Notification;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
@@ -45,8 +45,8 @@ class PemeriksaanGigiController extends Controller
     public function create()
     {
         $user = Auth::user();
-        $orangtua = Orangtua::Where('id_users', Auth::user()->id)->value('id');
-        $anak = Anak::Where('id_orangtua',$orangtua)->get();
+        $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
+        $pasien = Pasien::Where('id_dokter',$dokter)->get();
         $kelurahan=Kelurahan::all()->pluck('nama','id');
         return view('orangtua.pemeriksaan.pemeriksaanGigi',compact('anak','kelurahan'));
     }
@@ -81,37 +81,36 @@ class PemeriksaanGigiController extends Controller
             $uuid = Uuid::uuid4()->toString();
             $waktu_pemeriksaan = now();
 
-            // $imageArray = array();
+            // $imageArray = [];
             $pgigi = new PemeriksaanGigi();
-            $pgigi->id = $uuid;
+            $pgigi->id = $uuid; 
 
-            $idAnak = Session::get('id_anak');
-            $anak = Anak::find($idAnak);
-    
-            if (!$anak) {
+            $idPasien = Session::get('id_pasien');
+            $pasien = Pasien::find($idPasien);
+
+            if (!$pasien) {
                 return redirect()->back()->with('error', 'ID anak tidak valid');
             }
 
-            $pgigi->id_anak = $idAnak;
+            $pgigi->id_pasien = $idPasien;
 
             // $pgigi->id_sekolah = $request->id_sekolah ?: $request->id_posyandu;
             // $pgigi->id_kelas = $request->kelas;
             $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
 
-            
-            $fieldName = 'gambar';
+            $filename = uniqid() . '.' . strtolower($request->file('gambar1')->getClientOriginalExtension());
+
+            $fieldName = 'gambar1';
 
             if ($request->hasFile($fieldName)) {
                 $file = $request->file($fieldName);
-                $extension = strtolower($file->getClientOriginalExtension());
-                $filename = uniqid() . '.' . $extension;
-                $imageArray[] = ['gambar' => $file, 'filename' => $filename];
 
-                Storage::put('public/gigi/' . $filename, File::get($file));
+                Storage::put('public/gigi/' . $filename, FacadesFile::get($file));
+
                 $pgigi->$fieldName = $filename;
-            }
-            
+                $pgigi->gambar1 = $filename;
 
+            }
 
             $pgigi->save();
 
@@ -135,11 +134,13 @@ class PemeriksaanGigiController extends Controller
         //     // request to detection api
             $response = $response->post(config('app.ai_url') . '/api/detect', [
                 'pemeriksaan_id' => $pgigi->id,
-                'nama_anak' => $pgigi->anak->nama,
-                'nama_ortu' => $pgigi->anak->orangtua->nama,
+                'nama_anak' => $pgigi->pasien->nama,
+                'nama_ortu' => $pgigi->pasien->dokter->nama,
                 // 'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
                 // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
             ])->throw()->json();
+
+            $pgigi->save();
 
             return redirect()->route('view-riwayat')->with('success', 'Sukses mengisi data pemeriksaan gigi');
         // } catch (\Throwable $th) {
@@ -227,7 +228,7 @@ class PemeriksaanGigiController extends Controller
             // $rk->save();
             // }
 
-            
+
             // $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
 
             // foreach ($imageArray as $key => $value) {
@@ -239,7 +240,7 @@ class PemeriksaanGigiController extends Controller
             //     );
             // }
 
-            
+
 
 
 //            $response= $response->request('GET','http://185.210.144.115:8014/api/status/',[
@@ -277,14 +278,14 @@ class PemeriksaanGigiController extends Controller
 //
 //            );
 
-       
+
 
 //        $dokter = User::whereHas('dokter',function($query) use($kecamatan){
 //            $query->where('id_kecamatan',$kecamatan);
 //        })->get();
 //        Notification::send($dokter, new \App\Notifications\PemeriksaanGigiNotification(PemeriksaanGigi::with('anak','sekolah')->find($pgigi->id)));
 //        return redirect()->route('view-riwayat')->with('success','sukses mengisi data pemeriksaan gigi');
-       
+
 
     /**
      * Display the specified resource.

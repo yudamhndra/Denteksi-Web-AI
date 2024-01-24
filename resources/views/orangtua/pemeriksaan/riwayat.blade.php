@@ -1,4 +1,5 @@
 @extends('layout.master')
+@section('title') riwayat @endsection
 
 @section('content')
 
@@ -14,8 +15,8 @@
             </div>
             <div class="col-md-2 col-sm-6">
                 <select class=" form-select" id="anak" name="anak" data-width="100%">
-                    <option value="clear">Pilih Anak</option>
-                    @foreach($anak as $anak)
+                    <option value="clear">Pilih Pasien</option>
+                    @foreach($pasien as $anak)
 
                     <option value="{{$anak->id}}">{{$anak->nama}}</option>
                     @endforeach
@@ -30,7 +31,7 @@
                 <a class="nav-link active " id="gigi-line-tab" data-bs-toggle="tab" href="#gigi" role="tab"
                     aria-controls="gigi" aria-selected="false">Gigi</a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link " id="home-line-tab" data-bs-toggle="tab" href="#home" role="tab"
                     aria-controls="home" aria-selected="true">Fisik</a>
             </li>
@@ -41,7 +42,7 @@
             <li class="nav-item">
                 <a class="nav-link" id="contact-line-tab" data-bs-toggle="tab" href="#contact" role="tab"
                     aria-controls="contact" aria-selected="false">Telinga</a>
-            </li>
+            </li> --}}
 
         </ul>
         <div class="tab-content mt-3" id="lineTabContent">
@@ -183,7 +184,7 @@
             }).clear();
             $('#table-gigi').DataTable({
                 "oLanguage": {
-                    "sEmptyTable": "Silakan pilih anak terlebih dahulu",
+                    "sEmptyTable": "Silakan pilih pasien terlebih dahulu",
                 },
             }).clear();
 

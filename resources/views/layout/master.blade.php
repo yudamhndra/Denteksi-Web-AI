@@ -20,7 +20,7 @@ License: For each use you must have a valid license purchased only from above li
     <meta name="keywords"
         content="nobleui, bootstrap, bootstrap 5, bootstrap5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
-    <title>Senyumin - @yield('title')</title>
+    <title>Denteksi - @yield('title')</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,7 +67,7 @@ License: For each use you must have a valid license purchased only from above li
     <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}">
     <!-- End layout styles -->
 
-    <link rel="shortcut icon" href="{{asset('assets/images/logo-senyumin.png')}}" />
+    <link rel="shortcut icon" href="{{asset('assets/images/logo-denteksi-removebg.png')}}" />
 
 
     <script src="https://use.fontawesome.com/62b53805d2.js"></script>

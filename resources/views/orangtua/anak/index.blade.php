@@ -1,4 +1,5 @@
 @extends('layout.master')
+@section('title') pemeriksaan @endsection
 
 @section('content')
 <style>
@@ -61,7 +62,7 @@
                 </div>
                 <button type="create" id="btn-create" class="btn-create btn btn-submit-col" onclick="tambahAnak()">
                     <i class="fas fa-plus" style="margin-right: 10px;"></i>
-                    Tambah Anak
+                    Tambah Pasien
                 </button>
             </div>
         </div>
@@ -73,7 +74,7 @@
                 <tr>
                     <th>id</th>
                     <th style="width: 1px;">no</th>
-                    <th>Nama Anak</th>
+                    <th>Nama Pasien</th>
                     <th>Jenis Kelamin</th>
                     <th>Tanggal Lahir</th>
                     <th>Whatsapp</th>

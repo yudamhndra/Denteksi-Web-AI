@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Orangtua;
 use App\Models\Sekolah;
 use App\Models\Anak;
+use App\Models\Pasien;
 use Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -156,11 +156,11 @@ class AdminController extends Controller
     }
 
     public function dashboard(){
-        $orangtua = DB::table('orangtua')->count();
-        $anak = Anak::count();
+        $dokter = DB::table('dokter')->count();
+        $pasien = Pasien::count();
         $sekolah = Sekolah::where('type','sekolah')->count();
 
 
-        return view('admin.dashboard.dashboard',compact('orangtua','anak','sekolah'));
+        return view('admin.dashboard.dashboard',compact('dokter','pasien','sekolah'));
     }
 }

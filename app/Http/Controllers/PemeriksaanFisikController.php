@@ -11,9 +11,11 @@ use App\Models\PemeriksaanGigi;
 use App\Models\User;
 use App\Models\Orangtua;
 use App\Models\Anak;
+use App\Models\Dokter;
 use App\Models\Kelurahan;
 use App\Models\Sekolah;
 use App\Models\Kelas;
+use App\Models\Pasien;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -47,10 +49,10 @@ class PemeriksaanFisikController extends Controller
     {
         $kelurahan=Kelurahan::all()->pluck('nama','id');
         $user = Auth::user();
-        $orangtua = Orangtua::Where('id_users', Auth::user()->id)->value('id');
-        $anak = Anak::Where('id_orangtua',$orangtua)->get();  //mendapatkan list anak berdasarkan id orangtua yang login
+        $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
+        $pasien = Pasien::Where('id_dokter',$dokter)->get();  //mendapatkan list anak berdasarkan id orangtua yang login
 
-        return view('orangtua.pemeriksaan.create',compact('anak','kelurahan'));
+        return view('orangtua.pemeriksaan.create',compact('pasien','kelurahan'));
     }
 
     // menambah data pemeriksaan anak dengan auto-complete (dari QR)
@@ -61,19 +63,19 @@ class PemeriksaanFisikController extends Controller
 
         $kelurahan=Kelurahan::all()->pluck('nama','id');
         $user = Auth::user();
-        $orangtua = Orangtua::Where('id_users', Auth::user()->id)->value('id');
-        $anak = Anak::Where('id_orangtua',$orangtua)->get();  //mendapatkan list anak berdasarkan id orangtua yang login
-        $autoAnak = $anak[(int)$id - 1];
+        $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
+        $pasien = Pasien::Where('id_dokter',$dokter)->get();  //mendapatkan list anak berdasarkan id orangtua yang login
+        $autoAnak = $pasien[(int)$id - 1];
 
         return view('orangtua.pemeriksaan.create',compact('anak','kelurahan','autoAnak'));
     }
 
     public function listAnak($anak){
         $user = Auth::user();
-        $orangtua = Orangtua::Where('id_users', Auth::user()->id)->value('id');
-        $anak = Anak::Where('id_orangtua',$orangtua)->get();
+        $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
+        $pasien = Pasien::Where('id_dokter',$dokter)->get();
           //mendapatkan list anak berdasarkan id orangtua yang login
-        $kelas = Kelas::Where('id_sekolah',$anak)->get();
+        $kelas = Kelas::Where('id_sekolah',$pasien)->get();
         return response()->json($kelas);
     }
 
@@ -102,8 +104,8 @@ class PemeriksaanFisikController extends Controller
         try{
 
         $user = Auth::user();
-        $orangtua = Orangtua::Where('id_users', Auth::user()->id)->value('id');
-        $anak = Anak::Where('id_orangtua',$orangtua)->get();
+        $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
+        $anak = Pasien::Where('id_dokter',$dokter)->get();
 
         $waktu_pemeriksaan = Carbon::now(); //mendapatkan waktu sekarang
 
@@ -155,7 +157,7 @@ class PemeriksaanFisikController extends Controller
         // TODO : Cari tahu cara mengambil ID dari Pemeriksaan yang dibuat, kemudian ditaruh di ...
             $imageArray = array();
             $pgigi = new PemeriksaanGigi();
-            $pgigi->id_anak = $request->anak;
+            $pgigi->id_pasien = $request->anak;
             $pgigi->id_sekolah= $request->id_sekolah ?: $request->id_posyandu;
             $pgigi->id_kelas = $request->kelas;
             $pgigi->waktu_pemeriksaan = $waktu_pemeriksaan;
@@ -251,8 +253,8 @@ class PemeriksaanFisikController extends Controller
 
             $response = $response->post(config('app.ai_url').'/api/detect',[
                 'pemeriksaan_id' => $pgigi->id,
-                'nama_anak' => $pgigi->anak->nama,
-                'nama_ortu' => $pgigi->anak->orangtua->nama,
+                'nama_anak' => $pgigi->pasien->nama,
+                'nama_ortu' => $pgigi->pasien->dokter->nama,
                 'nama_instansi'=> ($pgigi->id_kelas != null) ? 'Puskesmas '.$pgigi->kelas->sekolah->kelurahan->kecamatan->nama : 'Puskesmas '.$pgigi->sekolah->kelurahan->kecamatan->nama,
                 'sekolah_id' => $pgigi->id_sekolah??$pgigi->kelas->sekolah->id,
                 'nama_sekolah' => ($pgigi->id_kelas != null) ? $pgigi->kelas->sekolah->nama : $pgigi->sekolah->nama,
@@ -323,19 +325,19 @@ class PemeriksaanFisikController extends Controller
     // ----------- HALAMAN ORANGTUA - > RIWAYAT --------------//
     public function riwayat(){
         $user = Auth::user();
-        $orangtua = Orangtua::Where('id_users', Auth::user()->id)->value('id');
-        $anak = Anak::Where('id_orangtua',$orangtua)->get();
-        return view('orangtua.pemeriksaan.riwayat',compact('anak'));
+        $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
+        $pasien = Pasien::Where('id_dokter',$dokter)->get();
+        return view('orangtua.pemeriksaan.riwayat',compact('pasien'));
     }
 
     // ----------- HALAMAN ORANGTUA - > RIWAYAT -> RIWAYAT FISIK --------------//
     public function riwayatfisik(Request $request){
         // MENAMPILKAN DATA PEMERIKSAAN FISIK
         $user = Auth::user();
-        $orangtua = Orangtua::Where('id_users', Auth::user()->id)->value('id');  // MENDAPATKAN ID ORANGTUA
-        $anak = Anak::Where('id_orangtua',$orangtua)->get(); // MENDAPATKAN LIST ANAK BERDASARKAN ID ORANGTUA
+        $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');  // MENDAPATKAN ID ORANGTUA
+        $pasien = Pasien::Where('id_dokter',$dokter)->get(); // MENDAPATKAN LIST ANAK BERDASARKAN ID ORANGTUA
 
-        $pemeriksaanFisik = PemeriksaanFisik::Where('id_anak',$request->anak)->orderBy('id','asc')->get(); // MENDAPATKAN LIST PEMERIKSAAN FISIK BERDASARKAN ID ANAK
+        $pemeriksaanFisik = PemeriksaanFisik::Where('id_pasien',$request->anak)->orderBy('id','asc')->get(); // MENDAPATKAN LIST PEMERIKSAAN FISIK BERDASARKAN ID ANAK
 
         return datatables()->of($pemeriksaanFisik)
         ->addColumn('imt', function($pemeriksaanFisik){
@@ -427,10 +429,10 @@ class PemeriksaanFisikController extends Controller
     }
     public function riwayatgigi(Request $request){
         $user = Auth::user();
-        $orangtua = Orangtua::Where('id_users', Auth::user()->id)->value('id');
-        $anak = Anak::Where('id_orangtua',$orangtua)->get();
+        $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
+        $pasien = Pasien::Where('id_dokter',$dokter)->get();
         if(!empty($request->anak)){
-            $pemeriksaanGigi = PemeriksaanGigi::Where('id_anak',$request->anak)->orderBy('waktu_pemeriksaan', 'desc')->get();
+            $pemeriksaanGigi = PemeriksaanGigi::Where('id_pasien',$request->anak)->orderBy('waktu_pemeriksaan', 'desc')->get();
 
         }else{
             $pemeriksaanGigi = PemeriksaanGigi::all();
@@ -446,7 +448,7 @@ class PemeriksaanFisikController extends Controller
             })
 
             ->addColumn('gambar',function($pemeriksaanGigi){
-                $url1= url('storage/gigi/'.$pemeriksaanGigi->gambar1 ?? "null");
+                $url1= url('storage/gigi/'.$pemeriksaanGigi->gambar1?? "null");
                 $url2= url('storage/gigi/'.$pemeriksaanGigi->gambar2?? "null");
                 $url3= url('storage/gigi/'.$pemeriksaanGigi->gambar3?? "null");
                 $url4= url('storage/gigi/'.$pemeriksaanGigi->gambar4?? "null");
@@ -496,7 +498,10 @@ class PemeriksaanFisikController extends Controller
             ->addColumn('rekomendasi',function($pemeriksaanGigi){
                 $rekomendasi = '';
 
-
+                // $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
+                // $response = $response->get(config('app.ai_url') . '/api/status/?pemeriksaan_id='.$pemeriksaanGigi->id)->throw()->json();
+    
+                //TODO : Sesuain sama response dari API 
                 if(!empty($pemeriksaanGigi->skriningIndeks->rekomendasi)){
                     if($pemeriksaanGigi->skriningIndeks->reservasi=="ya"){
 
@@ -529,9 +534,12 @@ class PemeriksaanFisikController extends Controller
             // })
 
             ->addColumn('action', function($row) {
-                $url = url('orangtua-anak/edit/' . $row->id);
-                $btn = '<a href="' . $url . '" class="btn btn-info"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Lihat Hasil</a>';
-                return $btn;
+                $url = route('orangtua-anak.periksa' , $row->id_pasien);
+                $btn = '<a href="' . $url . '" class="btn btn-info">Lihat Hasil</a>';
+                $deletebtn =' <button type="submit"  action="'.route('orangtua-anak.destroy', $row->id).'" title="Delete" id="btn-delete" class="delete-modal btn btn-danger mt-0"><i class="fa fa-trash " ></i>Hapus</button>';
+                $editProfilBtn = '<a href="'.route('orangtua-anak.editprofile',$row->id).'"  class="btn btn-warning "><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>';
+
+                return $btn . ' '. $deletebtn. ' '. $editProfilBtn;
             })
 
 
