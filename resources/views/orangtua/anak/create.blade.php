@@ -63,6 +63,16 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="col-md-10">
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Nama orangtua</label>
+                                <input type="text" class="form-control @error('nama_orangtua') is-invalid @enderror" id="nama_orangtua" name="nama_orangtua"
+                                    autocomplete="off" placeholder="nama_orangtua" value="{{old('nama_orangtua')}}" required>
+                                    @error('nama_orangtua')
+                                   <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Upload image -->

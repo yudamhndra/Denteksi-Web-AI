@@ -22,11 +22,14 @@ class AnakController extends Controller
         return datatables()->of($pasien)
             ->addColumn('action', function($row){
                 $editBtn = '<a href="'.route('anak.edit',$row->id).'"
-                    class="btn btn-warning "><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>';
+                    class="btn btn-warning "><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>';
                 $deleteBtn = '<a title="Delete" id="btn-delete"
                     class="delete-modal btn btn-danger "><i class="fa fa-trash " ></i> Hapus</a>';
-              
-                return $editBtn . ' ' . $deleteBtn;
+                $cetaktBtn = '<a href="#" type="button" id="btn-create" class="btn btn-info" style="margin-right: 15px;" onclick="var selectedDataToSend = [{ id: ' . $row->id . ', nama: \'' . $row->nama . '\', nama_orangtua: \'' . $row->nama_orangtua . '\' }]; var dataInJson = JSON.stringify(selectedDataToSend); var url = \'/admin/cetakQR?data=\' + encodeURIComponent(dataInJson); window.open(url, \'_blank\');">
+                    <i class="fas fa-qrcode"></i>
+                    Cetak QR
+                    </a>';
+                return $editBtn . ' ' . $deleteBtn . ' ' . $cetaktBtn;
             })
             ->addColumn('orangtua',function($row){
                 return $row->dokter->nama ??" ";
@@ -66,14 +69,10 @@ class AnakController extends Controller
             'nama.required' => 'Nama wajib diisi.',
             'nama.min' => 'Nama minimal 3 huruf.',
             'jenis_kelamin.required' => 'Jenis Kelamin harus diisi.',
-            'tempat_lahir.required' => 'Tempat lahir harus diisi',
-            'tanggal_lahir.required' => 'Tanggal lahir harus diisi',
         ];
         $validator = $request->validate([
             'nama'=>'required',
             'jenis_kelamin' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
         ], $messages);
             $pasien = new Pasien();
             $pasien->id_dokter=$request->dokter;

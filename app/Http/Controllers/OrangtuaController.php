@@ -407,7 +407,7 @@ class OrangtuaController extends Controller
             'nama.required' => 'Nama wajib diisi.',
             // 'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi',
             // 'tanggal_lahir.required' => 'Tanggal lahir wajib diisi',
-            'no_whatsapp.required' => 'nomor whatsapp wajib diisi',
+            // 'no_whatsapp.required' => 'nomor whatsapp wajib diisi',
             // 'no_whatsapp.starts_with' => 'nomor whatsapp wajib diawali dengan +62',
             // 'no_whatsapp.numeric' => 'Nomor whatsapp harus berupa angka',
 
@@ -418,7 +418,7 @@ class OrangtuaController extends Controller
             'nama' => 'required',
             // 'tanggal_lahir' => 'required',
             // 'jenis_kelamin' => 'required',
-            'no_whatsapp' => 'required',
+            // 'no_whatsapp' => 'required',
 
 
         ], $messages);
@@ -426,7 +426,7 @@ class OrangtuaController extends Controller
         $user = Auth::user();
         $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
         $pasien = Pasien::Where('nama', $request->nama)
-        ->Where('no_whatsapp', $request->no_whatsapp)
+        ->Where('nama_orangtua', $request->nama_orangtua)
         ->first();
 
         if($pasien == null){
@@ -437,6 +437,7 @@ class OrangtuaController extends Controller
             // $pasien->jenis_kelamin = $request->jenis_kelamin;
             // $pasien->tanggal_lahir = $request->tanggal_lahir;
             $pasien->no_whatsapp = $request->no_whatsapp;
+            $pasien->nama_orangtua = $request -> nama_orangtua;
             $pasien->save();
 
         }
