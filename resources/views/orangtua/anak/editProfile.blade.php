@@ -92,21 +92,29 @@
                     <div class="row mt-2">
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Foto gigi dari sisi depan</label>
-                            <input type="file"  class="form-control dropify-wrapper"  data-show-loader="true" data-allowed-file-extensions="jpg png jpeg svg" id="gambar1" name="gambar1" placeholder="masukkan gambar">
+                            <input type="file"  class="form-control dropify"  data-show-loader="true" data-allowed-file-extensions="jpg png jpeg svg" id="gambar1" name="gambar1" placeholder="masukkan gambar">
                             @error('gambar1')
                             <div class="badge bg-danger mt-2 ">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
 
-        <div style="float:right">
-            <button  type="submit" id="btn-create" class="btn btn-submit-col btn-rounded">
-                Simpan Profil
+        <div class="d-flex justify-content-end mt-5">
+            <a href="{{URL::previous()}}" type="button" class="btn btn-cancel wd-100 mt-3 button ml-auto" id="btn-cancel">
+                Batal
+            </a>
+            <button type="submit" class="btn btn-primary wd-150 mt-3 button ml-2" style="margin-left: 10px;" id="btn-periksa">
+                Periksa Sekarang
             </button>
-            <a href="{{URL::previous()}}" type="button" class="btn btn-submit-col mt-3">Batal</a>
         </div>
+    
     </form>
 </div>
+
+
+@endsection
+
+@push('after-script')
 
 <script type="text/javascript">
     function cetakQR() {
@@ -190,5 +198,4 @@ function ambilDariGaleri() {
 
 </script>
 
-
-@endsection
+@endpush
