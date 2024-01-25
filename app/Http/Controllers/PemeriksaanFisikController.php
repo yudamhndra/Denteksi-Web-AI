@@ -505,8 +505,8 @@ class PemeriksaanFisikController extends Controller
 
                 // $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
                 // $response = $response->get(config('app.ai_url') . '/api/status/?pemeriksaan_id='.$pemeriksaanGigi->id)->throw()->json();
-    
-                //TODO : Sesuain sama response dari API 
+
+                //TODO : Sesuain sama response dari API
                 if(!empty($pemeriksaanGigi->skriningIndeks->rekomendasi)){
                     if($pemeriksaanGigi->skriningIndeks->reservasi=="ya"){
 
@@ -541,7 +541,13 @@ class PemeriksaanFisikController extends Controller
             ->addColumn('action', function($row) {
                 $url = route('orangtua-anak.periksa' , $row->id);
                 $btn = '<a href="' . $url . '" class="btn btn-info">Lihat Hasil</a>';
-                $deletebtn =' <button type="submit"  action="'.route('pemeriksaangigi.destroy', $row->id).'" title="Delete" id="btn-delete" class="delete-modal btn btn-danger mt-0"><i class="fa fa-trash " ></i>Hapus</button>';
+                $deletebtn = '<form action="' . route('pemeriksaangigi.destroy', $row->id) . '" method="POST" style="display:inline;">
+                ' . csrf_field() . '
+                ' . method_field('DELETE') . '
+                <button type="submit" class="delete-modal btn btn-danger mt-0" title="Delete" id="btn-delete">
+                    <i class="fa fa-trash"></i>Hapus
+                </button>
+              </form>';
                 $editProfilBtn = '<a href="'.route('pemeriksaangigi.edit',$row->id).'"  class="btn btn-warning "><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>';
 
                 return $btn . ' '. $deletebtn. ' '. $editProfilBtn;

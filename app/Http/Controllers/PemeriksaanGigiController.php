@@ -24,6 +24,7 @@ use Notification;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Ramsey\Uuid\Uuid;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PemeriksaanGigiController extends Controller
 {
@@ -83,7 +84,7 @@ class PemeriksaanGigiController extends Controller
 
             // $imageArray = [];
             $pgigi = new PemeriksaanGigi();
-            $pgigi->id = $uuid; 
+            $pgigi->id = $uuid;
 
             $idPasien = Session::get('id_pasien');
             $pasien = Pasien::find($idPasien);
@@ -306,10 +307,12 @@ class PemeriksaanGigiController extends Controller
      */
     public function edit($id)
     {
-        $pgigi = PemeriksaanGigi::find($id);
+        $periksa = PemeriksaanGigi::find($id);
+        $pasien = Pasien::Where('id',$periksa->id_pasien)->first();
 
-        return view('admin.anak.edit',compact('pgigi'));
-   
+        return view('orangtua.anak.editProfile',compact('periksa','pasien'));
+        // return view('admin.anak.edit',compact('pgigi'));
+
     }
 
     /**
@@ -330,12 +333,17 @@ class PemeriksaanGigiController extends Controller
      * @param  \App\Models\PemeriksaanGigi  $pemeriksaanGigi
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($id)
     {
         $pgigi = PemeriksaanGigi::find($id);
+        $pasien = Pasien::Where('id',$pgigi->id_pasien)->first();
         $pgigi->delete();
-        return response()->json('success delete');
-    
+        $pasien->delete();
+        Alert::success('Sukses', 'Data berhasil dihapus');
+
+        return redirect()->back();
+        // return response()->json('success delete');
     }
 
     public function rePemeriksaanAi()

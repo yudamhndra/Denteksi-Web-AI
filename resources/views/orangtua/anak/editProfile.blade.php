@@ -5,19 +5,19 @@
 
 <div class="card shadow px-3 py-1 mb-3">
     <div class="row">
-        <div class="col-md-6 col-sm-6">
+      {{--  <!-- <div class="col-md-6 col-sm-6"> -->
             <!-- Tidak ada elemen disini -->
-        </div>
+        <!-- </div>
         <div class="col-md-6 col-sm-6 d-flex justify-content-end mt-4">
             <button href="#" type="button" id="btn-create" class="btn btn-submit-col btn-rounded" style="margin-right: 15px;" onclick="cetakQR()">
                 <i class="fas fa-qrcode" style="margin: 0px 10px;"></i>
                 Cetak QR
             </button>
-        </div>
+        </div> --> --}}
     </div>
 
     <form action="{{ route('orangtua-anak.update',$pasien->id) }}" id="form-anak" class="forms-sample py-4 px-3" method="post" enctype="multipart/form-data" files=true>
-    <h6 class="text-left h4 mb-3">Data Pasien</h6>
+    <h6 class="text-left mt-3 h4 mb-3">Data Pasien</h6>
         <input type="hidden" id="id" value="{{$pasien->id}}">
         @csrf
         @method('PUT')
@@ -31,7 +31,7 @@
             @enderror
         </div>
 
-        <div class="mb-3">
+    {{--    <div class="mb-3">
             <label class="col-md-12 col-sm-12 mb-2"> Jenis Kelamin <span class="text-danger">*</span></label>
             <div class="form-check form-check-inline">
                 <input type="radio" class="form-check-input" value="laki-laki" name="jenis_kelamin" id="radioInline" {{ ($pasien->jenis_kelamin=="laki-laki")? "checked" : "" }}>
@@ -45,11 +45,10 @@
                     Perempuan
                 </label>
             </div>
-        </div>
+        </div> --}}
 
-        <div class="row col-md-10">
+        <div class=" col-md-10">
 
-            <div class="col-md-6">
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Nomor Whatsapp <span class="text-danger">*</span></label>
                     <input type="text" class="form-control @error('no_whatsapp') is-invalid @enderror" id="no_whatsapp" name="no_whatsapp" autocomplete="off" placeholder="nomor whatsapp" value="{{$pasien->no_whatsapp}}">
@@ -57,8 +56,8 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
-            </div>
-            <div class="col-md-6">
+
+       {{--     <div class="col-md-6">
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
                     <input type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror" id="tanggal_lahir" name="tanggal_lahir" autocomplete="off" placeholder="masukkan tanggal lahir" value="{{$pasien->tanggal_lahir ? $pasien->tanggal_lahir->format('Y-m-d') : ''}}" max="{{ date('Y-m-d') }}">
@@ -66,47 +65,46 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
-            </div>
-            <div class="row mt-3">
-                        <h5 class="mb-3 mb-md-0 text-left">TAMBAH FOTO</h5>
+            </div> --}}
+                    <div class="row mt-3">
+                        <h5 class="mb-3 mb-md-0 text-left">FOTO PASIEN</h5>
                     </div>
-
                     <div class="row">
-                        <div class="row col-md-8 mt-5 mx-auto">
+                        <div class="row col-md-8 mt-2 mx-auto">
                             <div class="card text-center custom-card shadow py-2">
                                 <div class="card-body">
                                     <div class="row mt-3">
                                         <h6 class="mb-3 mb-md-0 text-left">PREVIEW</h6>
                                     </div>
-                                    @if($periksa == null)
-                                    <img id="gigi-depan"  src="{{ asset('assets/images/take-a-pict.png') }}" class="img-fluid mt-3" style="width: 400px; height: 200px;" alt="foto belum diambil">
+                                    @if($periksa->gambar1 == null)
+                                    <img id="gigi-depan"  src="{{ asset('assets/images/take-a-pict.png') }}" class="img-fluid mt-3"  alt="foto belum diambil">
                                     @else
-                                    <img id="gigi-depan"  src="{{'/storage/gigi/'.$periksa->gambar1}}" class="img-fluid mt-3" style="width: 400px; height: 200px;" alt="foto belum diambil">
+                                    <img id="gigi-depan"  src="{{'/storage/gigi/'.$periksa->gambar1}}" class="img-fluid mt-3"alt="foto belum diambil">
                                     @endif
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="row mt-5">
-                        <div class="row col-md-5 mb-3 mx-auto">
-                            <button type="button" class="btn-create btn btn-submit-col" id="btn-use-camera"> GUNAKAN KAMERA</button>
-                            <p class="text-center">atau</p>
-                        <label for="fileInput" class="btn btn-submit-white mt-1">
-                            <i class="far fa-image"></i> AMBIL DARI GALERI
-                            <input id="fileInput" onchange="readURL(this, 'gigi-depan');" type="file" name="gambar1" accept="image/*" style="display: none;">
-                        </label>
+                </div>
+                <div class="row mt-3">
+                        <h5 class="mb-3 mb-md-0 text-left">GANTI FOTO</h5>
+                </div>
+                    <div class="row mt-2">
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Foto gigi dari sisi depan</label>
+                            <input type="file"  class="form-control dropify-wrapper"  data-show-loader="true" data-allowed-file-extensions="jpg png jpeg svg" id="gambar1" name="gambar1" placeholder="masukkan gambar">
+                            @error('gambar1')
+                            <div class="badge bg-danger mt-2 ">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
-        </div>
         <div style="float:right">
             <button  type="submit" id="btn-create" class="btn btn-submit-col btn-rounded">
                 Simpan Profil
             </button>
             <a href="{{URL::previous()}}" type="button" class="btn btn-submit-col mt-3">Batal</a>
         </div>
-
     </form>
 </div>
 
@@ -171,6 +169,24 @@ function ambilDariGaleri() {
             reader.readAsDataURL(input.files[0]);
         }
     }
+
+    $(document).ready(function () {
+
+        $('.dropify').dropify({
+                messages: {
+                    'default': 'Drag and drop a file here or click',
+                    'replace': 'Drag and drop or click to replace',
+                    'remove':  'Hapus',
+
+                },
+                error: {
+
+                    'imageFormat': 'Format yang diizinkan hanya jpg , jpeg, png , dan svg.'
+                }
+            });
+
+
+        });
 
 </script>
 
