@@ -56,7 +56,7 @@ License: For each use you must have a valid license purchased only from above li
     <link rel="stylesheet" href="{{asset('assets/vendors/mdi/css/materialdesignicons.min.css')}}">
 
     <!-- End plugin css for this page -->
-
+    @yield('style')
     <!-- inject:css -->
     <link rel="stylesheet" href="{{asset('assets/fonts/feather-font/css/iconfont.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendors/flag-icon-css/css/flag-icon.min.css')}}">

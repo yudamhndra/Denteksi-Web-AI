@@ -1,6 +1,10 @@
 @extends('layout.master')
 @section('title') dashboard @endsection
 
+@section('style')
+<link rel="stylesheet" href="{{asset('assets/css/custom/dashboard-ortu.css')}}">
+@endsection
+
 @section('content')
 <!-- <div class="row"> -->
     <div class="col-12 col-xl-12 mb-6">
@@ -8,13 +12,13 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 align-self-center">
-                        <h2 class="mb-3 mb-md-0 text-left">Ingin melakukan </h2>
+                        <h2  class="mb-3 quote-periksa mb-md-0 text-left">Ingin melakukan </h2>
                         <h2 class="mb-3 mb-md-0 text-left">Pemeriksaan ?</h2>
-                        <a type="button" href="{{route('view-anak.create')}}" class="btn btn-primary wd-350 mt-5 button">PERIKSA SEKARANG</a>
+                        <a type="button" href="{{route('view-anak.create')}}" class="btn btn-primary  wd-300 mt-3 button">PERIKSA SEKARANG</a>
                         {{--<a type="button" href="#scan-camera" class="btn  wd-350 mt-3 btn-outline-info">PERIKSA DENGAN SCAN QR</a>--}}
                     </div>
                     <div class="col-md-6 text-center">
-                        <img class="wd-300 ht-300" src="{{asset('assets/images/dokterscan.png')}}" alt="Senyumin" class="img-fluid">
+                        <img class="wd-300 image-dokter-scan ht-300" src="{{asset('assets/images/dokterscan.png')}}" alt="Senyumin" class="img-fluid">
                     </div>
                 </div>
             </div>
