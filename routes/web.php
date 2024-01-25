@@ -116,13 +116,6 @@ Route::group(['prefix' => 'orangtua'], function () {
     Route::get('/hasil/{id}/periksa',[OrangtuaController::class,'hasilPeriksa'])->name('orangtua-anak.periksa');
 
     Route::resource('pemeriksaangigi', PemeriksaanGigiController::class)->except('create');
-    // Route::get('pemeriksaangigi/delete/{$id}', PemeriksaanGigiController::class, 'destroyAnak')->name('pemeriksaangigi.destroyAnak');
-    // Route::get('pemeriksaangigi/create', PemeriksaanGigiController::class,'create')->name('pemeriksaangigi.create');
-    // Route::get('pemeriksaangigi', PemeriksaanGigiController::class,'index')->name('pemeriksaangigi.index');
-    // Route::post('pemeriksaangigi', PemeriksaanGigiController::class, 'store')->name('pemeriksaangigi.store');
-    // Route::get('pemeriksaangigi/{$id}', PemeriksaanGigiController::class,'show')->name('pemeriksaangigi.show');
-    // Route::get('pemeriksaangigi/{$id}/edit', PemeriksaanGigiController::class,'edit')->name('pemeriksaangigi.edit');
-    // Route::put('pemeriksaangigi/{$id}', PemeriksaanGigiController::class,'update')->name('pemeriksaangigi.update');
 
     Route::get('/pemeriksaan/riwayat',[PemeriksaanFisikController::class,'riwayat'])->name('view-riwayat');
     Route::get('/profil',[OrangtuaController::class,'profil'])->name('orangtua.profil');
