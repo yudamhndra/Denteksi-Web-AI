@@ -407,17 +407,18 @@ class OrangtuaController extends Controller
             'nama.required' => 'Nama wajib diisi.',
             // 'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi',
             // 'tanggal_lahir.required' => 'Tanggal lahir wajib diisi',
-            // 'no_whatsapp.required' => 'nomor whatsapp wajib diisi',
+            'no_whatsapp.required' => 'nomor whatsapp wajib diisi',
             // 'no_whatsapp.starts_with' => 'nomor whatsapp wajib diawali dengan +62',
             // 'no_whatsapp.numeric' => 'Nomor whatsapp harus berupa angka',
 
         ];
+
         $validator = $request->validate([
 
             'nama' => 'required',
             // 'tanggal_lahir' => 'required',
             // 'jenis_kelamin' => 'required',
-            // 'no_whatsapp' => ['required', 'starts_with:+62','numeric'],
+            'no_whatsapp' => 'required',
 
 
         ], $messages);
@@ -429,7 +430,7 @@ class OrangtuaController extends Controller
         ->first();
 
         if($pasien == null){
-            
+
             $pasien = new Pasien();
             $pasien->id_dokter = $dokter;
             $pasien->nama = $request->nama;
@@ -485,8 +486,6 @@ class OrangtuaController extends Controller
         }
 
         $pgigi->save();
-
-
 
 
         Alert::success('Sukses', 'Data pasien berhasil disimpan.');
@@ -567,21 +566,21 @@ class OrangtuaController extends Controller
             $pgigi->$fieldName = $filename;
             $pgigi->gambar1 = $filename;
 
-            $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
-            $response->attach(
-                'gambar[1]',
-                file_get_contents($request->gambar1),
-                $request->gambar1->getClientOriginalName()
-            );
+            // $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
+            // $response->attach(
+            //     'gambar[1]',
+            //     file_get_contents($request->gambar1),
+            //     $request->gambar1->getClientOriginalName()
+            // );
 
-            $response = $response->post(config('app.ai_url') . '/api/detect', [
-                'pemeriksaan_id' => $pgigi->id,
-                'nama_anak' => $pgigi->pasien->nama,
-                'nama_ortu' => $pgigi->pasien->dokter->nama,
-                'platform' => 'denteksi'
-                // 'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
-                // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
-            ])->throw()->json();
+            // $response = $response->post(config('app.ai_url') . '/api/detect', [
+            //     'pemeriksaan_id' => $pgigi->id,
+            //     'nama_anak' => $pgigi->pasien->nama,
+            //     'nama_ortu' => $pgigi->pasien->dokter->nama,
+            //     'platform' => 'denteksi'
+            //     // 'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
+            //     // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
+            // ])->throw()->json();
 
             $pgigi->save();
 
@@ -591,7 +590,7 @@ class OrangtuaController extends Controller
 
         $pasien->save();
         Alert::success('Sukses', 'Data pasien berhasil diubah.');
-        return redirect()->route('viewanak')->with('error',$messages);
+        return redirect()->route('view-riwayat')->with('error',$messages);
     }
 
     public function deleteAnak($id){

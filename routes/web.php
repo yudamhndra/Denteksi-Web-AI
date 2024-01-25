@@ -116,6 +116,7 @@ Route::group(['prefix' => 'orangtua'], function () {
     Route::get('/hasil/{id}/periksa',[OrangtuaController::class,'hasilPeriksa'])->name('orangtua-anak.periksa');
 
     Route::resource('pemeriksaangigi', PemeriksaanGigiController::class)->except('create');
+
     Route::get('/pemeriksaan/riwayat',[PemeriksaanFisikController::class,'riwayat'])->name('view-riwayat');
     Route::get('/profil',[OrangtuaController::class,'profil'])->name('orangtua.profil');
     Route::post('/updateprofil',[OrangtuaController::class,'updateProfil'])->name('orangtua.updateprofil');

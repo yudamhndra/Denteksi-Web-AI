@@ -57,7 +57,7 @@
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Nomor Whatsapp <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('no_whatsapp') is-invalid @enderror" id="no_whatsapp" name="no_whatsapp"
-                                    autocomplete="off" placeholder="+62" value="{{old('no_whatsapps')}}">
+                                    autocomplete="off" placeholder="+62" value="{{old('no_whatsapps')}}" required>
                                     @error('no_whatsapp')
                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -84,7 +84,7 @@
                     </div> --}}
 
                     <div class="row mt-5">
-                        
+
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Foto gigi dari sisi depan</label>
                             <input type="file"  class="form-control dropify"  data-show-loader="true" data-allowed-file-extensions="jpg png jpeg svg" id="gambar1" name="gambar1" placeholder="masukkan gambar">
@@ -92,7 +92,7 @@
                             <div class="badge bg-danger mt-2 ">{{ $message }}</div>
                             @enderror
                         </div>
-                     
+
                         {{-- <div class="row col-md-5 mb-3 mx-auto">
                             <button type="button" class="btn-create btn btn-submit-col" id="btn-use-camera"> GUNAKAN KAMERA</button>
                             <p class="text-center">atau</p>
@@ -385,12 +385,6 @@
             mediaRecorder.stop
             }
         }
-
-
-
-
-
-
 </script>
 
 @endpush
