@@ -1,9 +1,19 @@
-@media only screen and (max-width: 600px) {
+.btn-periksa-sekarang{
+    width: 300px;
+}
+@media only screen and (max-width: 540px) {
     .quote-periksa{
         margin-top: 50px;
     }
     .image-dokter-scan{
         margin-top: 20px;
     }
+    .btn-periksa-sekarang{
+        width: 250px;
+        text-align: center;
+
+    }
 
   }
+
+
