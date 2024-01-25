@@ -28,14 +28,14 @@
     <!-- Scan QR -->
 
 
-    <div class="col-12 col-xl-12 mb-5">
+    <!-- <div class="col-12 col-xl-12 mb-5">
         <div class="card shadow px-3 py-1" id="scan-camera">
             <div class="card-body p-6">
                 <div class="text-center mb-4 row">
                     <h3>PERIKSA DENGAN SCAN QR</h3>
                 </div>
                 <div id="reader" width="200px" height="200px">
-                    <!-- ... (Scan QR content) ... -->
+                     (Scan QR content)
                 </div>
                 <div class="input-group mt-4">
                     <input type="text" id="text_scan_input" class="form-control mt-3" placeholder="your link here" readonly/>
@@ -45,7 +45,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
         <!-- <div class="col-12 col-xl-12 mb-4">
@@ -86,7 +86,7 @@
 
 
 
-// <!-- selain riwayat pemeriksaan -->
+ <!-- selain riwayat pemeriksaan -->
 <script>
 
     var idAnak = null;
@@ -227,8 +227,7 @@
 
 
 
-
-// <!-- QR SCAN -->
+ <!-- QR SCAN -->
 
 
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>

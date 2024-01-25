@@ -94,7 +94,7 @@
                         </div>
 
                         {{-- <div class="row col-md-5 mb-3 mx-auto">
-                            <button type="button" class="btn-create btn btn-submit-col" id="btn-use-camera"> GUNAKAN KAMERA</button>
+                            <button type="button" class="btn-create btn btn-submit-col" id="btn-modal-cam"> GUNAKAN KAMERA</button>
                             <p class="text-center">atau</p>
                             <label for="fileInput" class="btn btn-submit-white mt-1">
                                 <i class="far fa-image"></i> AMBIL DARI GALERI
@@ -104,6 +104,9 @@
                     </div>
 
                     <div class="d-flex justify-content-end mt-5">
+                        <button type="button" class="btn btn-primary wd-150 mt-3 button ml-2" style="margin-right: 10px;" id="btn-modal-cam">
+                            Scan QR
+                        </button>
                         <button type="button" class="btn btn-cancel wd-100 mt-3 button ml-auto" id="btn-cancel">
                             Batal
                         </button>
@@ -122,17 +125,27 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                <h3>PERIKSA DENGAN SCAN QR</h3>
             </div>
             <div class="modal-body">
-                <video id="camera-preview" class="img-fluid mt-3" style="width: 100%; height: auto;" autoplay playsinline></video>
+                <video id="camera-preview" class="img-fluid mt-3" style="width: 0px; height: 0px;"></video>
+                <div id="qrreader" class="img-fluid mt-3" width="200px" height="200px">
+                     <!-- (Scan QR content)  -->
+                </div>
+                <div class="input-group mt-4">
+                    <input type="text" id="text_scan_input" class="form-control mt-3" placeholder="your link here" readonly/>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary mt-3" type="button" onclick="browse_url()">Browse</button>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer d-flex justify-content-between">
-                <button type="button" class="btn btn-secondary mt-2" id="btn-switch-camera">
+                <!-- <button type="button" class="btn btn-secondary mt-2" id="btn-switch-camera">
                     Switch Kamera
                 </button>
                 <button type="button" class="btn btn-secondary mt-2" id="btn-take-picture">
                     Snapshoot
-                </button>
+                </button> -->
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="stopCameraPreview()">
                     Tutup
                 </button>
@@ -144,7 +157,6 @@
 @endsection
 
 @push('after-script')
-
 <script type="text/javascript">
     function readURL(input, imageId) {
         if (input.files && input.files[0]) {
@@ -245,7 +257,7 @@
             window.history.back();
         });
 
-        $('#btn-use-camera').on('click', function () {
+        $('#btn-modal-cam').on('click', function () {
             requestCameraPermission();
             $(this).prop('disabled', true);
         });
@@ -385,6 +397,33 @@
             mediaRecorder.stop
             }
         }
+
+    
+</script>
+
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+<script>
+    var url_code;
+
+    function onScanSuccess(decodedText, decodedResult) {
+    console.log(`Code matched = ${decodedText}`, decodedResult);
+    document.getElementById("text_scan_input").value = decodedText;
+    url_code = decodedText;
+    window.open("http://127.0.0.1:8000/orangtua/anak/" + decodedText + "/editprofile", "_self")
+    }
+
+    function browse_url(){
+        window.open(url_code, "_self")
+    }
+
+    function onScanFailure(error) {
+    }
+
+    let html5QrcodeScanner = new Html5QrcodeScanner(
+    "qrreader",
+    { fps: 10, qrbox: {width: 300, height: 300} },
+    /* verbose= */ false);
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
 </script>
 
 @endpush
