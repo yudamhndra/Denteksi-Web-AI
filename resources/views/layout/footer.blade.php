@@ -16,6 +16,6 @@
 
             <style>
             .footer {
-            background: #367781;
+            background: #544F8E;
             }
             </style>

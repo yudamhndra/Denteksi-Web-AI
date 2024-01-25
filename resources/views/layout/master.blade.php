@@ -80,7 +80,7 @@ License: For each use you must have a valid license purchased only from above li
         }
         .page-content{
             /* background-image: url('{{ asset('assets/images/bg-app.jpeg')}}') */
-            background-color: #D3E6E9;
+            background-color: #E2D6FF;
         }
         .select2-selection__choice{
             padding-right: 24px !important;

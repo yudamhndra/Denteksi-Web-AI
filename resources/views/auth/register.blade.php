@@ -50,30 +50,30 @@
     color: red;
     }
     .page-content {
-        background: #56CFE0;
+        background: #AF87F0;
     }
     .btn-fill {
-        background: #29A1B1;
+        background: #7771BB;
         font-weight: bold;
         color: #ffffff;
     }
     .btn-outline {
-        border: 2px solid #29A1B1;
-        color: #29A1B1;
+        border: 2px solid #7771BB;
+        color: #7771BB;
         font-weight: bold;
     }
     .btn:hover {
         background: #238b99;
     }
     .btn-outline:hover {
-        background: #29A1B1;
+        background: #7771BB;
         color: #ffffff;
     }
     .footer {
-        background: #367781;
+        background: #544F8E;
     }
     a {
-        color: #29A1B1;
+        color: #7771BB;
     }
     select {
         border-radius: 50px !important;
