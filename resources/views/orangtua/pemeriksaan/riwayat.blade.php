@@ -13,7 +13,7 @@
                     <h4 class="mb-0">Riwayat Pemeriksaan </h4>
                 </div>
             </div>
-            <div class="col-md-2 col-sm-6">
+            {{-- <div class="col-md-2 col-sm-6">
                 <select class=" form-select" id="anak" name="anak" data-width="100%">
                     <option value="clear">Pilih Pasien</option>
                     @foreach($pasien as $anak)
@@ -22,7 +22,7 @@
                     @endforeach
                 </select>
 
-            </div>
+            </div> --}}
         </div>
         <hr />
         <ul class="nav nav-tabs nav-tabs-line" id="lineTab" role="tablist">
@@ -53,6 +53,7 @@
                             <tr class="col-lg-12">
                                 <th>id</th>
                                 <th >no</th>
+                                <th>pasien</th>
                                 <th>Tanggal</th>
                                 <th >Waktu</th>
                                 <th >Hasil Pemeriksaan</th>
@@ -138,58 +139,59 @@
     let filter;
 
     $(document).ready(function () {
+        load_data();
         $('#anak').select2({
             placeholder: 'Pilih anak',
 
         });
-        if ($('#anak').val() == 'null') {
-            $('#table-fisik').DataTable({
-                "oLanguage": {
-                    "sEmptyTable": "Silakan pilih anak terlebih dahulu",
-                },
-            }).clear();
-            $('#table-mata').DataTable({
-                "oLanguage": {
-                    "sEmptyTable": "Silakan pilih anak terlebih dahulu",
-                },
-            }).clear();
-            $('#table-telinga').DataTable({
-                "oLanguage": {
-                    "sEmptyTable": "Silakan pilih anak terlebih dahulu",
-                },
-            }).clear();
-            $('#table-gigi').DataTable({
-                "oLanguage": {
-                    "sEmptyTable": "Silakan pilih anak terlebih dahulu",
-                },
-            }).clear();
+        // if ($('#anak').val() == 'null') {
+        //     $('#table-fisik').DataTable({
+        //         "oLanguage": {
+        //             "sEmptyTable": "Silakan pilih anak terlebih dahulu",
+        //         },
+        //     }).clear();
+        //     $('#table-mata').DataTable({
+        //         "oLanguage": {
+        //             "sEmptyTable": "Silakan pilih anak terlebih dahulu",
+        //         },
+        //     }).clear();
+        //     $('#table-telinga').DataTable({
+        //         "oLanguage": {
+        //             "sEmptyTable": "Silakan pilih anak terlebih dahulu",
+        //         },
+        //     }).clear();
+        //     $('#table-gigi').DataTable({
+        //         "oLanguage": {
+        //             "sEmptyTable": "Silakan pilih anak terlebih dahulu",
+        //         },
+        //     }).clear();
 
 
 
-        } else {
-            $('#table-fisik').DataTable({
-                "oLanguage": {
-                    "sEmptyTable": "Silakan pilih anak terlebih dahulu",
-                },
-            }).clear();
-            $('#table-mata').DataTable({
-                "oLanguage": {
-                    "sEmptyTable": "Silakan pilih anak terlebih dahulu",
-                },
-            }).clear();
-            $('#table-telinga').DataTable({
-                "oLanguage": {
-                    "sEmptyTable": "Silakan pilih anak terlebih dahulu",
-                },
-            }).clear();
-            $('#table-gigi').DataTable({
-                "oLanguage": {
-                    "sEmptyTable": "Silakan pilih pasien terlebih dahulu",
-                },
-            }).clear();
+        // } else {
+            // $('#table-fisik').DataTable({
+            //     "oLanguage": {
+            //         "sEmptyTable": "Silakan pilih anak terlebih dahulu",
+            //     },
+            // }).clear();
+            // $('#table-mata').DataTable({
+            //     "oLanguage": {
+            //         "sEmptyTable": "Silakan pilih anak terlebih dahulu",
+            //     },
+            // }).clear();
+            // $('#table-telinga').DataTable({
+            //     "oLanguage": {
+            //         "sEmptyTable": "Silakan pilih anak terlebih dahulu",
+            //     },
+            // }).clear();
+            // $('#table-gigi').DataTable({
+            //     "oLanguage": {
+            //         "sEmptyTable": "Silakan pilih pasien terlebih dahulu",
+            //     },
+            // }).clear();
 
 
-        }
+        // }
 
 
         function load_data(anak = '') {
@@ -453,6 +455,11 @@
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
                         visible: true
+                    },
+                    {
+                        data : 'pasien',
+                        name : 'pasien',
+                        visible : true
                     },
 
                     {

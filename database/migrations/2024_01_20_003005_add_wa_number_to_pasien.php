@@ -14,7 +14,7 @@ class AddWaNumberToPasien extends Migration
     public function up()
     {
         Schema::table('pasien', function (Blueprint $table) {
-            $table -> string('no_whatsapp');
+            $table -> string('no_whatsapp')->nullable();
         });
     }
 

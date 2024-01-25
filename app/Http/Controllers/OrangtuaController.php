@@ -407,9 +407,9 @@ class OrangtuaController extends Controller
             'nama.required' => 'Nama wajib diisi.',
             // 'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi',
             // 'tanggal_lahir.required' => 'Tanggal lahir wajib diisi',
-            'no_whatsapp.required' => 'nomor whatsapp wajib diisi',
-            'no_whatsapp.starts_with' => 'nomor whatsapp wajib diawali dengan +62',
-            'no_whatsapp.numeric' => 'Nomor whatsapp harus berupa angka',
+            // 'no_whatsapp.required' => 'nomor whatsapp wajib diisi',
+            // 'no_whatsapp.starts_with' => 'nomor whatsapp wajib diawali dengan +62',
+            // 'no_whatsapp.numeric' => 'Nomor whatsapp harus berupa angka',
 
         ];
         $validator = $request->validate([
@@ -417,7 +417,7 @@ class OrangtuaController extends Controller
             'nama' => 'required',
             // 'tanggal_lahir' => 'required',
             // 'jenis_kelamin' => 'required',
-            'no_whatsapp' => ['required', 'starts_with:+62','numeric'],
+            // 'no_whatsapp' => ['required', 'starts_with:+62','numeric'],
 
 
         ], $messages);
@@ -646,8 +646,8 @@ class OrangtuaController extends Controller
     }
 
     public function hasilPeriksa($id){
-        $pasien = Pasien::where('id', $id)->first();
-        $periksa = PemeriksaanGigi::where('id_pasien', $pasien->id)->latest()->first();
+        $periksa = PemeriksaanGigi::where('id', $id)->latest()->first();
+        $pasien = $periksa -> pasien;
         $url = config('app.ai_url') . "/api/result-image/?pemeriksaan_id=" . $periksa -> id;
         $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn')->get($url);
 
