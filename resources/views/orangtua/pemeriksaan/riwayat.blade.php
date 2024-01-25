@@ -13,7 +13,7 @@
                     <h4 class="mb-0">Riwayat Pemeriksaan </h4>
                 </div>
             </div>
-            <div class="col-md-2 col-sm-6">
+            {{-- <div class="col-md-2 col-sm-6">
                 <select class=" form-select" id="anak" name="anak" data-width="100%">
                     <option value="clear">Pilih Pasien</option>
                     @foreach($pasien as $anak)
@@ -22,7 +22,7 @@
                     @endforeach
                 </select>
 
-            </div>
+            </div> --}}
         </div>
         <hr />
         <ul class="nav nav-tabs nav-tabs-line" id="lineTab" role="tablist">
