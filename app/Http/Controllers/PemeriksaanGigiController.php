@@ -304,9 +304,12 @@ class PemeriksaanGigiController extends Controller
      * @param  \App\Models\PemeriksaanGigi  $pemeriksaanGigi
      * @return \Illuminate\Http\Response
      */
-    public function edit(PemeriksaanGigi $pemeriksaanGigi)
+    public function edit($id)
     {
-        //
+        $pgigi = PemeriksaanGigi::find($id);
+
+        return view('admin.anak.edit',compact('pgigi'));
+   
     }
 
     /**
@@ -327,9 +330,12 @@ class PemeriksaanGigiController extends Controller
      * @param  \App\Models\PemeriksaanGigi  $pemeriksaanGigi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PemeriksaanGigi $pemeriksaanGigi)
+    public function destroy($id)
     {
-        //
+        $pgigi = PemeriksaanGigi::find($id);
+        $pgigi->delete();
+        return response()->json('success delete');
+    
     }
 
     public function rePemeriksaanAi()

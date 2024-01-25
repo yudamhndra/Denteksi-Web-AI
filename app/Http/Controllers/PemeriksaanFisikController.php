@@ -431,12 +431,12 @@ class PemeriksaanFisikController extends Controller
         $user = Auth::user();
         $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
         $pasien = Pasien::Where('id_dokter',$dokter)->get();
-        if(!empty($request->anak)){
-            $pemeriksaanGigi = PemeriksaanGigi::Where('id_pasien',$request->anak)->orderBy('waktu_pemeriksaan', 'desc')->get();
+        // if(!empty($request->anak)){
+        //     $pemeriksaanGigi = PemeriksaanGigi::Where('id_pasien',$request->anak)->orderBy('waktu_pemeriksaan', 'desc')->get();
 
-        }else{
+        // }else{
             $pemeriksaanGigi = PemeriksaanGigi::all();
-        }
+        // }
 
             return datatables()->of($pemeriksaanGigi)
             ->addColumn('tanggal', function($pemeriksaanGigi){
@@ -445,6 +445,11 @@ class PemeriksaanFisikController extends Controller
             })
             ->addColumn('jam',function($pemeriksaanGigi){
                 return $jam = date('H:i', strtotime($pemeriksaanGigi->waktu_pemeriksaan??"null"));
+            })
+
+            ->addColumn('pasien', function($pemeriksaanGigi) {
+                $pasien = Pasien::where('id', $pemeriksaanGigi->id_pasien)->first();
+                return $pasien ? $pasien->nama : '';
             })
 
             ->addColumn('gambar',function($pemeriksaanGigi){
@@ -534,10 +539,10 @@ class PemeriksaanFisikController extends Controller
             // })
 
             ->addColumn('action', function($row) {
-                $url = route('orangtua-anak.periksa' , $row->id_pasien);
+                $url = route('orangtua-anak.periksa' , $row->id);
                 $btn = '<a href="' . $url . '" class="btn btn-info">Lihat Hasil</a>';
-                $deletebtn =' <button type="submit"  action="'.route('orangtua-anak.destroy', $row->id).'" title="Delete" id="btn-delete" class="delete-modal btn btn-danger mt-0"><i class="fa fa-trash " ></i>Hapus</button>';
-                $editProfilBtn = '<a href="'.route('orangtua-anak.editprofile',$row->id).'"  class="btn btn-warning "><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>';
+                $deletebtn =' <button type="submit"  action="'.route('pemeriksaangigi.destroy', $row->id).'" title="Delete" id="btn-delete" class="delete-modal btn btn-danger mt-0"><i class="fa fa-trash " ></i>Hapus</button>';
+                $editProfilBtn = '<a href="'.route('pemeriksaangigi.edit',$row->id).'"  class="btn btn-warning "><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>';
 
                 return $btn . ' '. $deletebtn. ' '. $editProfilBtn;
             })

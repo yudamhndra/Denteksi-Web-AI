@@ -53,6 +53,7 @@
                             <tr class="col-lg-12">
                                 <th>id</th>
                                 <th >no</th>
+                                <th>pasien</th>
                                 <th>Tanggal</th>
                                 <th >Waktu</th>
                                 <th >Hasil Pemeriksaan</th>
@@ -138,58 +139,59 @@
     let filter;
 
     $(document).ready(function () {
+        load_data();
         $('#anak').select2({
             placeholder: 'Pilih anak',
 
         });
-        if ($('#anak').val() == 'null') {
-            $('#table-fisik').DataTable({
-                "oLanguage": {
-                    "sEmptyTable": "Silakan pilih anak terlebih dahulu",
-                },
-            }).clear();
-            $('#table-mata').DataTable({
-                "oLanguage": {
-                    "sEmptyTable": "Silakan pilih anak terlebih dahulu",
-                },
-            }).clear();
-            $('#table-telinga').DataTable({
-                "oLanguage": {
-                    "sEmptyTable": "Silakan pilih anak terlebih dahulu",
-                },
-            }).clear();
-            $('#table-gigi').DataTable({
-                "oLanguage": {
-                    "sEmptyTable": "Silakan pilih anak terlebih dahulu",
-                },
-            }).clear();
+        // if ($('#anak').val() == 'null') {
+        //     $('#table-fisik').DataTable({
+        //         "oLanguage": {
+        //             "sEmptyTable": "Silakan pilih anak terlebih dahulu",
+        //         },
+        //     }).clear();
+        //     $('#table-mata').DataTable({
+        //         "oLanguage": {
+        //             "sEmptyTable": "Silakan pilih anak terlebih dahulu",
+        //         },
+        //     }).clear();
+        //     $('#table-telinga').DataTable({
+        //         "oLanguage": {
+        //             "sEmptyTable": "Silakan pilih anak terlebih dahulu",
+        //         },
+        //     }).clear();
+        //     $('#table-gigi').DataTable({
+        //         "oLanguage": {
+        //             "sEmptyTable": "Silakan pilih anak terlebih dahulu",
+        //         },
+        //     }).clear();
 
 
 
-        } else {
-            $('#table-fisik').DataTable({
-                "oLanguage": {
-                    "sEmptyTable": "Silakan pilih anak terlebih dahulu",
-                },
-            }).clear();
-            $('#table-mata').DataTable({
-                "oLanguage": {
-                    "sEmptyTable": "Silakan pilih anak terlebih dahulu",
-                },
-            }).clear();
-            $('#table-telinga').DataTable({
-                "oLanguage": {
-                    "sEmptyTable": "Silakan pilih anak terlebih dahulu",
-                },
-            }).clear();
-            $('#table-gigi').DataTable({
-                "oLanguage": {
-                    "sEmptyTable": "Silakan pilih pasien terlebih dahulu",
-                },
-            }).clear();
+        // } else {
+            // $('#table-fisik').DataTable({
+            //     "oLanguage": {
+            //         "sEmptyTable": "Silakan pilih anak terlebih dahulu",
+            //     },
+            // }).clear();
+            // $('#table-mata').DataTable({
+            //     "oLanguage": {
+            //         "sEmptyTable": "Silakan pilih anak terlebih dahulu",
+            //     },
+            // }).clear();
+            // $('#table-telinga').DataTable({
+            //     "oLanguage": {
+            //         "sEmptyTable": "Silakan pilih anak terlebih dahulu",
+            //     },
+            // }).clear();
+            // $('#table-gigi').DataTable({
+            //     "oLanguage": {
+            //         "sEmptyTable": "Silakan pilih pasien terlebih dahulu",
+            //     },
+            // }).clear();
 
 
-        }
+        // }
 
 
         function load_data(anak = '') {
@@ -453,6 +455,11 @@
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
                         visible: true
+                    },
+                    {
+                        data : 'pasien',
+                        name : 'pasien',
+                        visible : true
                     },
 
                     {

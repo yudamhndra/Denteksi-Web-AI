@@ -646,8 +646,8 @@ class OrangtuaController extends Controller
     }
 
     public function hasilPeriksa($id){
-        $pasien = Pasien::where('id', $id)->first();
-        $periksa = PemeriksaanGigi::where('id_pasien', $pasien->id)->latest()->first();
+        $periksa = PemeriksaanGigi::where('id', $id)->latest()->first();
+        $pasien = $periksa -> pasien;
         $url = config('app.ai_url') . "/api/result-image/?pemeriksaan_id=" . $periksa -> id;
         $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn')->get($url);
 
