@@ -139,7 +139,7 @@
             </div>
             <div class="modal-body">
                 <video id="camera-preview" class="img-fluid mt-3" style="width: 0px; height: 0px;"></video>
-                <div id="qrreader" class="img-fluid mt-3" width="200px" height="200px">
+                <div id="qrreader" class="img-fluid mt-3" width="200px" height="200px"> 
                      <!-- (Scan QR content)  -->
                 </div>
                 <div class="input-group mt-4">
@@ -269,7 +269,6 @@
 
         $('#btn-modal-cam').on('click', function () {
             requestCameraPermission();
-            $(this).prop('disabled', true);
         });
 
         $('#btn-switch-camera').on('click', function () {
@@ -427,12 +426,14 @@
     }
 
     function onScanFailure(error) {
+        console.warn(`QR error = ${error}`);
     }
 
     let html5QrcodeScanner = new Html5QrcodeScanner(
     "qrreader",
     { fps: 10, qrbox: {width: 300, height: 300} },
     /* verbose= */ false);
+    // rememberLastUsedCamera;
     html5QrcodeScanner.render(onScanSuccess, onScanFailure);
 </script>
 
