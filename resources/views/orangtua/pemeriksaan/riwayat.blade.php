@@ -55,9 +55,9 @@
                                 <th >no</th>
                                 <th>pasien</th>
                                 <th>Tanggal</th>
-                                <th >Waktu</th>
+                                {{-- <th >Waktu</th>
                                 <th >Hasil Pemeriksaan</th>
-                                <th>Rekomendasi</th>
+                                <th>Rekomendasi</th> --}}
                                 <th>Action </th>
                             </tr>
                         </thead>
@@ -132,13 +132,18 @@
 @push('after-script')
 
 <script type="text/javascript">
-    var tableData;
-    var tableDataMata;
-    var tableDataTelinga;
+    // var tableData;
+    // var tableDataMata;
+    // var tableDataTelinga;
     var tableDataGigi;
     let filter;
 
     $(document).ready(function () {
+        $('#table-fisik').DataTable().clear().destroy();
+                $('#table-mata').DataTable().clear().destroy();
+                $('#table-telinga').DataTable().clear().destroy();
+                $('#table-gigi').DataTable().clear().destroy();
+
         load_data();
         $('#anak').select2({
             placeholder: 'Pilih anak',
@@ -467,23 +472,23 @@
                         name: 'tanggal',
                         visible: true
                     },
-                    {
-                        data: 'jam',
-                        name: 'jam',
-                        visible: true
-                    },
-                    {
-                        data:'diagnosa',
-                        name:'diagnosa',
-                        visible:true,
+                    // {
+                    //     data: 'jam',
+                    //     name: 'jam',
+                    //     visible: false
+                    // },
+                    // {
+                    //     data:'diagnosa',
+                    //     name:'diagnosa',
+                    //     visible:false,
 
-                    },
-                    {
-                        data:'rekomendasi',
-                        name:'rekomendasi',
-                        visible:true,
+                    // },
+                    // {
+                    //     data:'rekomendasi',
+                    //     name:'rekomendasi',
+                    //     visible:false,
 
-                    },
+                    // },
                     {
                         data:'action',
                         name:'action',
@@ -493,18 +498,18 @@
 
                 ],
                 columnDefs: [
-                {
-                    render: function (data, type, full, meta) {
-                        return "<div class='text-wrap width-300'>" + data + "</div>";
-                    },
-                    targets: [5,6]
-                },
-                {
-                    render: function (data, type, full, meta) {
-                        return "<div class='text-wrap width-400'>" + data + "</div>";
-                    },
-                    targets: [4]
-                },
+                // {
+                //     render: function (data, type, full, meta) {
+                //         return "<div class='text-wrap width-300'>" + data + "</div>";
+                //     },
+                //     targets: [5,6]
+                // },
+                // {
+                //     render: function (data, type, full, meta) {
+                //         return "<div class='text-wrap width-400'>" + data + "</div>";
+                //     },
+                //     targets: [4]
+                // },
                 {
                     "targets": 0,
                     "type": "date-eu"

@@ -86,7 +86,6 @@
 
     function cetakPdf() {
         var nama = document.getElementById('nama').value;
-        var tanggal_lahir = document.getElementById('tanggal_lahir').value;
         var no_whatsapp = document.getElementById('no_whatsapp').value;
         var hasil = document.getElementById('hasil').value;
         var rekomendasi = document.getElementById('rekomendasi').value;
@@ -97,7 +96,6 @@
         var selectedDataToSend = [{
                 id : id_periksa,
                 nama: nama,
-                tanggal: tanggal_lahir,
                 whatsapp: no_whatsapp,
                 hasil: hasil,
                 rekomendasi: rekomendasi,

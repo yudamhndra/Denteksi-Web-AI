@@ -168,7 +168,7 @@ class qrController extends Controller
                 }
             }
     
-            $pdf = Pdf::loadview('viewResultPDF', compact('selectedData', 'decodedImage'));
+            $pdf = Pdf::loadview('viewResultPdf', compact('selectedData', 'decodedImage'));
 
             return $pdf->stream();
 

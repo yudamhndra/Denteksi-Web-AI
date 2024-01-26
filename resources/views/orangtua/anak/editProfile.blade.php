@@ -31,6 +31,12 @@
             @enderror
         </div>
 
+        <div class="mb-3 col-md-10">
+            <label for="exampleInputPassword1" class="form-label is-invalid">Nama Orangtua </label>
+            <input type="text" class="form-control" id="nama_orangtua" name="nama_orangtua" autocomplete="off" value="{{$pasien->nama_orangtua}}" placeholder="Nama orangtua">
+        </div>
+
+
     {{--    <div class="mb-3">
             <label class="col-md-12 col-sm-12 mb-2"> Jenis Kelamin <span class="text-danger">*</span></label>
             <div class="form-check form-check-inline">

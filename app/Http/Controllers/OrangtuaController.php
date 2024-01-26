@@ -536,6 +536,7 @@ class OrangtuaController extends Controller
         $pasien->nama = $request->nama;
         // $pasien->jenis_kelamin=$request->jenis_kelamin;
         // $pasien->tanggal_lahir=$request->tanggal_lahir;
+        $pasien->nama_orangtua = $request->nama_orangtua;
         $pasien->no_whatsapp=$request->no_whatsapp;
 
 
