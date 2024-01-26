@@ -479,7 +479,7 @@ class OrangtuaController extends Controller
             // $response = $response->post(config('app.ai_url') . '/api/detect', [
             //     'pemeriksaan_id' => $pgigi->id,
             //     'nama_anak' => $pgigi->pasien->nama,
-            //     'nama_ortu' => $pgigi->pasien->dokter->nama,
+            //     'nama_ortu' => $pgigi->pasien->nama_orangtua,
             //     // 'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
             //     // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
             // ])->throw()->json();
