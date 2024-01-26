@@ -8,7 +8,7 @@ Orangtua
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h6 class="text-center h3">Ubah Orangtua</h6>
+                <h6 class="text-center h3">Ubah Dokter</h6>
                 <form action="{{ route('orangtua.update', $dokter->id) }}" class="forms-sample" id="orangtua-store"
                     method="post" nctype="multipart/form-data" files=true>
                     <input type="hidden" id="id" value="{{$dokter->id}}">
