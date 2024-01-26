@@ -55,9 +55,9 @@
                         </div> --}}
                         <div class="col-md-10">
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Nomor Whatsapp <span class="text-danger">*</span></label>
+                                <label for="exampleInputPassword1" class="form-label">Nomor Whatsapp</label>
                                 <input type="text" class="form-control @error('no_whatsapp') is-invalid @enderror" id="no_whatsapp" name="no_whatsapp"
-                                    autocomplete="off" placeholder="+62" value="{{old('no_whatsapps')}}" required>
+                                    autocomplete="off" placeholder="nomor whatsapp" value="{{old('no_whatsapps')}}" >
                                     @error('no_whatsapp')
                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -67,7 +67,7 @@
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Nama orangtua</label>
                                 <input type="text" class="form-control @error('nama_orangtua') is-invalid @enderror" id="nama_orangtua" name="nama_orangtua"
-                                    autocomplete="off" placeholder="nama_orangtua" value="{{old('nama_orangtua')}}" required>
+                                    autocomplete="off" placeholder="nama orangtua" value="{{old('nama_orangtua')}}" required>
                                     @error('nama_orangtua')
                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -139,7 +139,7 @@
             </div>
             <div class="modal-body">
                 <video id="camera-preview" class="img-fluid mt-3" style="width: 0px; height: 0px;"></video>
-                <div id="qrreader" class="img-fluid mt-3" width="200px" height="200px"> 
+                <div id="qrreader" class="img-fluid mt-3" width="200px" height="200px">
                      <!-- (Scan QR content)  -->
                 </div>
                 <div class="input-group mt-4">
@@ -407,7 +407,7 @@
             }
         }
 
-    
+
 </script>
 
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
