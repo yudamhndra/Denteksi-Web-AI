@@ -1,6 +1,6 @@
 @extends('layout.master')
 @section('navbar-title')
-Orangtua
+Dokter
 @endsection
 @section('content')
 
@@ -13,7 +13,7 @@ Orangtua
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h6 class="text-center h3">Tambah Orangtua</h6>
+                <h6 class="text-center h3">Tambah Dokter</h6>
                 <form action="{{ route('orangtua.store') }}" class="forms-sample" id="orangtua-store" method="post"
                     nctype="multipart/form-data" files=true>
                     @csrf

@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('navbar-title')
-Orangtua
+Dokter
 @endsection
 @section('content')
 
@@ -10,7 +10,7 @@ Orangtua
         <div class="row">
             <div class="col-10">
                	<div class="card-title">
-								<h4 class="mb-0">Orangtua</h4>
+								<h4 class="mb-0">Dokter</h4>
 							</div>
             </div>
             <div class="col-2">
