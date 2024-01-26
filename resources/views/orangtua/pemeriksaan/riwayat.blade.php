@@ -437,7 +437,7 @@
                             </div>`
                 },
 
-                "searching": false,
+                "searching": true,
                 "bPaginate": true,
                 serverSide: true,
                 stateSave: true,
