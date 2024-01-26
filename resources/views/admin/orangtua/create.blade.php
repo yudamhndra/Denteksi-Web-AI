@@ -1,7 +1,6 @@
 @extends('layout.master')
-@section('navbar-title')
-Dokter
-@endsection
+@section('title') Data Dokter @endsection
+@section('navbar-title') Dokter @endsection
 @section('content')
 
 @if(session()->has('error'))
@@ -10,13 +9,22 @@ Dokter
     </div>
 @endif
 <div class="row">
+    <div class="d-md-none">&nbsp;</div>
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h6 class="text-center h3">Tambah Dokter</h6>
+                <h6 class="text-center h3 my-4">Tambah Dokter</h6>
                 <form action="{{ route('orangtua.store') }}" class="forms-sample" id="orangtua-store" method="post"
                     nctype="multipart/form-data" files=true>
                     @csrf
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Nama <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="nama" name="nama" autocomplete="off" 
+                            placeholder="Masukkan Nama" value="{{old('nama')}}">
+                            @error('nama')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email <span class="text-danger">*</span></label>
                         <input type="email" class="form-control" id="email" name="email" placeholder="mail@mail.com" value="{{old('email')}}">
@@ -39,16 +47,7 @@ Dokter
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
                     </div>
-
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Nama <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="nama" name="nama" autocomplete="off" 
-                            placeholder="Masukkan Nama" value="{{old('nama')}}">
-                            @error('nama')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="row col-md-10">
+                    {{-- <div class="row col-md-10">
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Tempat
@@ -116,10 +115,10 @@ Dokter
                             <option value="S2">S2</option>
                             <option value="S3">S3</option>
                         </select>
-                    </div>
-                    <div style="float: right;">
-                    <button type="submit" class="btn btn-primary me-2">Tambah</button>
-                    <a href="{{URL::previous()}}" type="button" class="btn btn-secondary">Batal</a>
+                    </div> --}}
+                    <div class="text-end mt-4">
+                        <button type="submit" class="btn btn-primary mt-0 me-2">Tambah</button>
+                        <a href="{{URL::previous()}}" type="button" class="btn btn-secondary">Batal</a>
                     </div>
                 </form>
             </div>
@@ -128,7 +127,7 @@ Dokter
 </div>
 @endsection
 
-@push('after-script')
+{{-- @push('after-script')
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -160,4 +159,4 @@ Dokter
         });
     });
 
-</script> @endpush
+</script> @endpush --}}
