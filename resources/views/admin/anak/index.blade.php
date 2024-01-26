@@ -1,6 +1,6 @@
 @extends('layout.master')
 @section('navbar-title')
-Anak
+Pasien
 @endsection
 @section('content')
 
@@ -11,7 +11,7 @@ Anak
         <div class="row">
             <div class="col-10">
                	<div class="card-title">
-								<h4 class="mb-0">Anak</h4>
+								<h4 class="mb-0">Pasien</h4>
 							</div>
             </div>
             <div class="col-2">

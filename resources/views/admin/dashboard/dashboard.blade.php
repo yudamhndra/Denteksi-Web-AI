@@ -38,7 +38,7 @@
         <div class="card">
             <div class="card-body">
             <div class="d-flex justify-content-between align-items-baseline">
-                <h6 class="card-title mb-0">Data Jumlah Anak</h6>
+                <h6 class="card-title mb-0">Data Jumlah Pasien</h6>
                
             </div>
             <div class="row">

@@ -6,7 +6,7 @@
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h6 class="text-center h3">Tambah Anak</h6>
+                <h6 class="text-center h3">Tambah Pasien</h6>
                 <form action="{{ route('anak.store') }}" class="forms-sample" id="anak-store" method="post"
                     nctype="multipart/form-data" files=true>
                     @csrf

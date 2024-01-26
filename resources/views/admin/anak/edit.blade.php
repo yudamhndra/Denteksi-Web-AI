@@ -9,7 +9,7 @@ Anak
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h6 class="text-center h3">Edit Anak</h6>
+                <h6 class="text-center h3">Edit Pasien</h6>
                 <form action="{{ route('anak.update',$pasien->id) }}" class="forms-sample" id="dokter-update" method="post" nctype="multipart/form-data" files=true >
                     <input type="hidden" id="id" value="{{$pasien->id}}">
                     @csrf
