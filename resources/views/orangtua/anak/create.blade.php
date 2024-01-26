@@ -65,7 +65,7 @@
                         </div>
                         <div class="col-md-10">
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Nama orangtua</label>
+                                <label for="exampleInputPassword1" class="form-label">Nama orangtua<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control @error('nama_orangtua') is-invalid @enderror" id="nama_orangtua" name="nama_orangtua"
                                     autocomplete="off" placeholder="nama orangtua" value="{{old('nama_orangtua')}}" required>
                                     @error('nama_orangtua')

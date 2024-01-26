@@ -469,20 +469,20 @@ class OrangtuaController extends Controller
             $pgigi->gambar1 = $filename;
 
 
-            // $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
-            // $response->attach(
-            //     'gambar[1]',
-            //     file_get_contents($request->gambar1),
-            //     $request->gambar1->getClientOriginalName()
-            // );
+            $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
+            $response->attach(
+                'gambar[1]',
+                file_get_contents($request->gambar1),
+                $request->gambar1->getClientOriginalName()
+            );
 
-            // $response = $response->post(config('app.ai_url') . '/api/detect', [
-            //     'pemeriksaan_id' => $pgigi->id,
-            //     'nama_anak' => $pgigi->pasien->nama,
-            //     'nama_ortu' => $pgigi->pasien->nama_orangtua,
-            //     // 'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
-            //     // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
-            // ])->throw()->json();
+            $response = $response->post(config('app.ai_url') . '/api/detect', [
+                'pemeriksaan_id' => $pgigi->id,
+                'nama_anak' => $pgigi->pasien->nama,
+                'nama_ortu' => $pgigi->pasien->nama_orangtua,
+                // 'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
+                // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
+            ])->throw()->json();
 
         }
 
