@@ -40,19 +40,19 @@
                                 Admin
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="{{route('dokter.index')}}" class="nav-link">
+                                Dokter
+                            </a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a href="{{route('orangtua.index')}}" class="nav-link">
                                 Dokter
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('orangtua.index')}}" class="nav-link">
-                                Orangtua
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="{{route('anak.index')}}" class="nav-link">
-                                Anak
+                                Pasien
                             </a>
                         </li>
                     </ul>
