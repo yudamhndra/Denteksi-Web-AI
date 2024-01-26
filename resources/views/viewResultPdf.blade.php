@@ -73,7 +73,7 @@
         </div>
         <div class="row col-md-12 mt-3 px-5">
             <div class="mb-3">
-                <label for="gambar" class="form-label">Gambar </label>
+                <label for="gambar" class="form-label">Foto  </label>
                 <img class="img-fluid" src="data:image/jpeg;base64,{{ base64_encode($decodedImage) }}" alt="Profile Image" id="gambar">
             </div>
         </div>

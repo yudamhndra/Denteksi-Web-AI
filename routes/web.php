@@ -23,6 +23,7 @@ use App\Http\Controllers\qrController;
 use App\Http\Controllers\QRscanController;
 use App\Http\Controllers\SpreadsheetController;
 use App\Http\Controllers\WhatsAppController;
+use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 
 /*
 |--------------------------------------------------------------------------
@@ -109,7 +110,7 @@ Route::group(['prefix' => 'orangtua'], function () {
     Route::get('/anak',[OrangtuaController::class,'viewAnak'])->name('viewanak');
     Route::get('/anak/create',[OrangtuaController::class,'viewTambahAnak'])->name('view-anak.create');
     Route::post('/anak/store',[OrangtuaController::class,'tambahAnak'])->name('tambahanak.store');
-
+    Route::get('/anak/{id}', [OrangtuaController::class, 'getDataAnak']);
     Route::get('/anak/{id}/edit',[OrangtuaController::class,'editAnak'])->name('orangtua-anak.edit');
     Route::get('/orangtua/anak/{id}/pemeriksaan', [OrangtuaController::class, 'pemeriksaanAnak'])->name('orangtua-anak.pemeriksaan');
 
