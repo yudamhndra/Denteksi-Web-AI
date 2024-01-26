@@ -1,15 +1,14 @@
 @extends('layout.master')
-
-@section('navbar-title')
-Anak
-@endsection
+@section('title') Data Pasien @endsection
+@section('navbar-title') Pasien @endsection
 @section('content')
 
 <div class="row">
+    <div class="d-md-none">&nbsp;</div>
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h6 class="text-center h3">Edit Pasien</h6>
+                <h6 class="text-center h3 my-4">Edit Pasien</h6>
                 <form action="{{ route('anak.update',$pasien->id) }}" class="forms-sample" id="dokter-update" method="post" nctype="multipart/form-data" files=true >
                     <input type="hidden" id="id" value="{{$pasien->id}}">
                     @csrf
@@ -76,8 +75,8 @@ Anak
                         </div>
                     </div>
                   
-                    <div style="float: right">
-                    <button type="submit" class="btn btn-primary me-2">Ubah</button>
+                    <div class="text-end mt-4">
+                    <button type="submit" class="btn btn-primary mt-0">Ubah</button>
                     <a href="{{URL::previous()}}" type="button" class="btn btn-secondary">Batal</a>
                     </div>
                 </form>

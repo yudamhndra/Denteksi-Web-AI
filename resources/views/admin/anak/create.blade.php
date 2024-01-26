@@ -1,12 +1,14 @@
 @extends('layout.master')
-
+@section('title') Data Pasien @endsection
+@section('navbar-title') Pasien @endsection
 @section('content')
 
 <div class="row">
+    <div class="d-md-none">&nbsp;</div>
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h6 class="text-center h3">Tambah Pasien</h6>
+                <h6 class="text-center h3 my-4">Tambah Pasien</h6>
                 <form action="{{ route('anak.store') }}" class="forms-sample" id="anak-store" method="post"
                     nctype="multipart/form-data" files=true>
                     @csrf
@@ -50,8 +52,8 @@
                     @enderror
                     </div>
                     
-                    <div style="float: right">
-                    <button type="submit" class="btn btn-primary me-2">Tambah</button>
+                    <div class="text-end mt-4">
+                    <button type="submit" class="btn btn-primary mt-0">Tambah</button>
                     <a href="{{URL::previous()}}" type="button" class="btn btn-secondary">Batal</a>
                     </div>
                 </form>
