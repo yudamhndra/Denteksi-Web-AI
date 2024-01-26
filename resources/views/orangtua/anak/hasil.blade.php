@@ -90,7 +90,7 @@
                 <a href="{{Route('view-riwayat')}}" class="btn btn-cancel wd-100 mt-3 button ml-auto" id="btn-cancel">
                     Kembali
                 </a>
-                <a type="button" onclick="cetakPdf()" target="_blank" class="btn btn-primary wd-150 mt-3 button ml-2" style="margin-left: 10px;" id="btn-periksa"> <i class="fas fa-file" style="margin-right: 10px;"></i>
+                <a type="button" onclick="cetakPdf()" target="_self" class="btn btn-primary wd-150 mt-3 button ml-2" style="margin-left: 10px;" id="btn-periksa"> <i class="fas fa-file" style="margin-right: 10px;"></i>
                     Cetak Hasil
                 </a>
             </div>
@@ -124,8 +124,8 @@
         var dataInJson = JSON.stringify(selectedDataToSend);
         // var url = "/orangtua/dashboard"
         var url = "/orangtua/get-pdf-result?data=" + encodeURIComponent(dataInJson);
-        // window.location.href = url;
-        window.open(url);
+        window.location.href = url;
+        // window.open(url);
     }
 
     </script>

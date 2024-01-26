@@ -25,7 +25,7 @@ class AnakController extends Controller
                     class="btn btn-warning "><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>';
                 $deleteBtn = '<a title="Delete" id="btn-delete"
                     class="delete-modal btn btn-danger "><i class="fa fa-trash " ></i> Hapus</a>';
-                $cetaktBtn = '<a href="#" type="button" id="btn-create" class="btn btn-info" style="margin-right: 15px;" onclick="var selectedDataToSend = [{ id: ' . $row->id . ', nama: \'' . $row->nama . '\', nama_orangtua: \'' . $row->nama_orangtua . '\' }]; var dataInJson = JSON.stringify(selectedDataToSend); var url = \'/admin/cetakQR?data=\' + encodeURIComponent(dataInJson); window.open(url, \'_blank\');">
+                $cetaktBtn = '<a href="#" type="button" id="btn-create" class="btn btn-info" style="margin-right: 15px;" onclick="var selectedDataToSend = [{ id: ' . $row->id . ', nama: \'' . $row->nama . '\', nama_orangtua: \'' . $row->nama_orangtua . '\' }]; var dataInJson = JSON.stringify(selectedDataToSend); var url = \'/admin/cetakQR?data=\' + encodeURIComponent(dataInJson); window.open(url, \'_self\');">
                     <i class="fas fa-qrcode"></i>
                     Cetak QR
                     </a>';

@@ -6,6 +6,7 @@ use App\Models\Anak;
 use App\Models\Dokter;
 use App\Models\Orangtua;
 use App\Models\Pasien;
+use App\Models\PemeriksaanGigi;
 use Barryvdh\DomPDF\Facade;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -111,6 +112,7 @@ class qrController extends Controller
 
         foreach ($selectedData as $row) {
             $id = $row['id'];
+            $nama = $row['nama'];
             $QRGenerator = new Generator;
             $uniqueIdentifier = mt_rand(100000, 999999);
             $logoPath = asset('assets/images/logo-senyumin-black.png');
@@ -128,13 +130,11 @@ class qrController extends Controller
         $pdf = Pdf::loadview('viewPDF', compact('selectedData', 'qrCodes'));
         $pdfContent = $pdf->output();
 
-        // Ini untuk pdf
-        return $pdf->stream();
-
-        // untuk auto download :
-        // return Response::streamDownload(function () use ($pdf) {
-        //     echo $pdf->output();
-        // }, 'qr_code_senyumin.pdf');
+        // return $pdf->stream();
+        return Response::streamDownload(function () use ($pdf) {
+            echo $pdf->output();
+        }, 'QR - ' . $nama . ' - ' . now() . '.pdf');
+    
     }
 
 
@@ -145,6 +145,8 @@ class qrController extends Controller
             $selectedData = $selectedData[0];
             $url = config('app.ai_url') . "/api/result-image/?pemeriksaan_id=" . $selectedData['id'];
             $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn')->get($url);
+            $pgigi = PemeriksaanGigi::find($selectedData['id']);
+            $pasien = Pasien::find($pgigi -> id_pasien);
 
             $decodedImage = null; // Initialize the variable
 
@@ -170,8 +172,20 @@ class qrController extends Controller
     
             $pdf = Pdf::loadview('viewResultPdf', compact('selectedData', 'decodedImage'));
 
-            return $pdf->stream();
+            // return $pdf->stream();
 
+            if ($pasien -> nama_orangtua != null) {
+                return Response::streamDownload(function () use ($pdf) {
+                    echo $pdf->output();
+                }, 'Hasil Pemeriksaan - ' . $selectedData['nama'] . ' - ' . $pasien -> nama_orangtua . ' .pdf');
+            } else {
+                return Response::streamDownload(function () use ($pdf) {
+                    echo $pdf->output();
+                }, 'Hasil Pemeriksaan - ' . $selectedData['nama'] . ' .pdf');
+            }
+            
+            // untuk auto download :
+            
     }
 
     // public function viewPDF(Request $request){
