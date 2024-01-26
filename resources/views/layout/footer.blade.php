@@ -7,7 +7,7 @@
                         </div>
                         <hr class="my-1 px-4 m-md-0 d-md-none order-2" style="border: 1px solid white">
                         <div class="text-center col-12 col-md-auto order-1 order-md-2">
-                            <small><a href="https://api.whatsapp.com/send?phone=6281291996680" class="text-white text-decoration-underline">+62 812-9199-6680</a></small>
+                            <small></small>
                         </div>
                     </div>
                 </div>
