@@ -678,4 +678,9 @@ class OrangtuaController extends Controller
         return view('orangtua.anak.hasil', compact('pasien', 'periksa', 'decodedImage', 'url'));
     }
 
+
+    public function getDataAnak($id){
+        $pasien = Pasien::find($id);
+        return response()->json(['data' => $pasien]);
+    }
 }

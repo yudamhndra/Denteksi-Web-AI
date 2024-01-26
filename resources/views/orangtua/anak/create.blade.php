@@ -55,22 +55,17 @@
                         </div> --}}
                         <div class="col-md-10">
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Nomor Whatsapp</label>
-                                <input type="text" class="form-control @error('no_whatsapp') is-invalid @enderror" id="no_whatsapp" name="no_whatsapp"
-                                    autocomplete="off" placeholder="nomor whatsapp" value="{{old('no_whatsapps')}}" >
-                                    @error('no_whatsapp')
-                                   <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <label for="exampleInputPassword1" class="form-label">Nama orangtua</label>
+                                <input type="text" class="form-control" id="nama_orangtua" name="nama_orangtua"
+                                    autocomplete="off" placeholder="nama orangtua" value="{{old('nama_orangtua')}}">
+
                             </div>
                         </div>
                         <div class="col-md-10">
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Nama orangtua<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control @error('nama_orangtua') is-invalid @enderror" id="nama_orangtua" name="nama_orangtua"
-                                    autocomplete="off" placeholder="nama orangtua" value="{{old('nama_orangtua')}}" required>
-                                    @error('nama_orangtua')
-                                   <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <label for="exampleInputPassword1" class="form-label">Nomor Whatsapp</label>
+                                <input type="text" class="form-control" id="no_whatsapp" name="no_whatsapp"
+                                    autocomplete="off" placeholder="nomor whatsapp" value="{{old('no_whatsapps')}}" >
                             </div>
                         </div>
                     </div>
@@ -138,8 +133,8 @@
                 <h3>PERIKSA DENGAN SCAN QR</h3>
             </div>
             <div class="modal-body">
-                <video id="camera-preview" class="img-fluid mt-3" style="width: 0px; height: 0px;"></video>
-                <div id="qrreader" class="img-fluid mt-3" width="200px" height="200px">
+                {{-- <video id="camera-preview" class="img-fluid mt-3" style="width: 0px; height: 0px;"></video> --}}
+                <div id="qrreader"  width="200px">
                      <!-- (Scan QR content)  -->
                 </div>
                 <div class="input-group mt-4">
@@ -167,7 +162,15 @@
 @endsection
 
 @push('after-script')
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
 <script type="text/javascript">
+    let html5QrcodeScanner = new Html5QrcodeScanner(
+                    "qrreader",
+                    { fps: 10, qrbox: {width: 300, height: 300} },
+                    /* verbose= */ false);
+
+
     function readURL(input, imageId) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -271,170 +274,197 @@
             requestCameraPermission();
         });
 
-        $('#btn-switch-camera').on('click', function () {
-            switchCamera();
-        });
+        // $('#btn-switch-camera').on('click', function () {
+        //     switchCamera();
+        // });
 
-        $('#btn-take-picture').on('click', function () {
-            takePicture();
-        });
+        // $('#btn-take-picture').on('click', function () {
+        //     takePicture();
+        // });
 
     });
 
     var currentStream;
-    var videoElement = document.getElementById('camera-preview');
+    // var videoElement = document.getElementById('camera-preview');
 
     function requestCameraPermission() {
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(function (stream) {
-                currentStream = stream;
-                videoElement.srcObject = stream;
+        // navigator.mediaDevices.getUserMedia({ video: true })
+        //     .then(function (stream) {
+        //         // currentStream = stream;
+                // videoElement.srcObject = stream;
 
                 $('#cameraModal').modal('show');
+                html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+                var url_code;
+                var nama = document.getElementById('nama');
+                var nama_orangtua = document.getElementById('nama_orangtua');
+                var no_whatsapp = document.getElementById('no_whatsapp');
+                
+                            
+                function onScanSuccess(decodedText, decodedResult) {
+                    console.log(decodedText, decodedResult);
+                    $decodedText = decodedText.split('_')
+                    $.ajax({
+                        url : 'http://127.0.0.1:8000/orangtua/anak/' + $decodedText,
+                        method : 'GET',
+                        success : function (response) {
+                            if (response.data) {
+                                var pasienData = response.data;
+                                console.log(pasienData);
+
+                                nama.value = pasienData.nama;
+                                nama_orangtua.value = pasienData.nama_orangtua;
+                                no_whatsapp.value = pasienData.no_whatsapp;
+
+                                html5QrcodeScanner.clear()
+                                $('#cameraModal').modal('hide');
+                            } else {
+                                console.error('Pasien not found');
+                                alert('Pasien not found');
+                            }
+                        },
+                        error: function(error) {
+                            console.error('Error fetching pasien data:', error);
+                            }
+                        });
+                    }
+
+                    
+                
+
+                function browse_url(){
+                    window.open(url_code, "_self")
+                }
+
+                function onScanFailure(error) {
+                    console.warn(`QR error = ${error}`);
+                }
+
+
+                // rememberLastUsedCamera;
+                
 
                 $('#cameraModal').on('hidden.bs.modal', function () {
                     stopCameraPreview();
                 });
-            })
-            .catch(function (error) {
-                console.error('Error accessing camera: ', error);
-                alert('Izin kamera diperlukan untuk menggunakan fitur ini.');
-            });
+            // })
+            // .catch(function (error) {
+            //     console.error('Error accessing camera: ', error);
+            //     alert('Izin kamera diperlukan untuk menggunakan fitur ini.');
+            // });
     }
 
-    function switchCamera() {
-        if (currentStream) {
-            currentStream.getTracks().forEach(function (track) {
-                track.stop();
-            });
-        }
+    // function switchCamera() {
+    //     if (currentStream) {
+    //         currentStream.getTracks().forEach(function (track) {
+    //             track.stop();
+    //         });
+    //     }
 
-        requestCameraPermission();
-    }
+    //     requestCameraPermission();
+    // }
 
-    function takePicture() {
-        console.log('Take Picture called');
-        if (currentStream) {
-            var canvas = document.createElement('canvas');
-            canvas.width = videoElement.videoWidth;
-            canvas.height = videoElement.videoHeight;
-            var context = canvas.getContext('2d');
-            context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+    // function takePicture() {
+    //     console.log('Take Picture called');
+    //     if (currentStream) {
+    //         var canvas = document.createElement('canvas');
+    //         canvas.width = videoElement.videoWidth;
+    //         canvas.height = videoElement.videoHeight;
+    //         var context = canvas.getContext('2d');
+    //         context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
 
-            canvas.toBlob(function (blob) {
+    //         canvas.toBlob(function (blob) {
 
-                var formData = new FormData(document.getElementById('form-anak'));
-                formData.append('gambar1', blob, 'image.png');
+    //             var formData = new FormData(document.getElementById('form-anak'));
+    //             formData.append('gambar1', blob, 'image.png');
 
-                updatePreviewCard(blob);
-                stopCameraPreview();
+    //             updatePreviewCard(blob);
+    //             stopCameraPreview();
 
-                $.ajax({
-                    url: "{{ route('tambahanak.store') }}",
-                    method: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        Swal.fire({
-                        title: 'Sukses!',
-                        text: 'Gambar berhasil diupload.',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            location.reload();
-                        }
-                        });
-                    },
-                    error: function (error) {
-                        console.error('Error uploading image: ', error);
-                    }
-                });
-            }, 'image/png');
-        }
-    }
+    //             $.ajax({
+    //                 url: "{{ route('tambahanak.store') }}",
+    //                 method: 'POST',
+    //                 data: formData,
+    //                 processData: false,
+    //                 contentType: false,
+    //                 success: function (response) {
+    //                     Swal.fire({
+    //                     title: 'Sukses!',
+    //                     text: 'Gambar berhasil diupload.',
+    //                     icon: 'success',
+    //                     confirmButtonText: 'OK'
+    //                 }).then((result) => {
+    //                     if (result.isConfirmed) {
+    //                         location.reload();
+    //                     }
+    //                     });
+    //                 },
+    //                 error: function (error) {
+    //                     console.error('Error uploading image: ', error);
+    //                 }
+    //             });
+    //         }, 'image/png');
+    //     }
+    // }
 
-    function updatePreviewCard(blob) {
-        var cardElement = document.querySelector('.custom-card');
-        var previewImageElement = cardElement.querySelector('img');
+    // function updatePreviewCard(blob) {
+    //     var cardElement = document.querySelector('.custom-card');
+    //     var previewImageElement = cardElement.querySelector('img');
 
-        var imageUrl = URL.createObjectURL(blob);
-        previewImageElement.src = imageUrl;
+    //     var imageUrl = URL.createObjectURL(blob);
+    //     previewImageElement.src = imageUrl;
 
-    }
+    // }
 
     function stopCameraPreview() {
-        if (currentStream) {
-            var tracks = currentStream.getTracks();
+    //     if (currentStream) {
+    //         var tracks = currentStream.getTracks();
 
-            tracks.forEach(function (track) {
-                track.stop();
-            });
+    //         tracks.forEach(function (track) {
+    //             track.stop();
+    //         });
 
-            videoElement.srcObject = null;
-            $('#cameraModal').modal('hide');
-        }
+    //         videoElement.srcObject = null;
+        html5QrcodeScanner.clear();
+        $('#cameraModal').modal('hide');
+    //     }
     }
 
-    let mediaRecorder;
-    let recordedChunks = [];
+    // let mediaRecorder;
+    // let recordedChunks = [];
 
-    function startRecording(stream) {
-        mediaRecorder = new MediaRecorder(stream);
+    // function startRecording(stream) {
+    //     mediaRecorder = new MediaRecorder(stream);
 
-        mediaRecorder.ondataavailable = function (event) {
-            if (event.data.size > 0) {
-                recordedChunks.push(event.data);
-            }
-        };
+    //     mediaRecorder.ondataavailable = function (event) {
+    //         if (event.data.size > 0) {
+    //             recordedChunks.push(event.data);
+    //         }
+    //     };
 
-        mediaRecorder.onstop = function () {
-            var blob = new Blob(recordedChunks, { type: 'image/png' });
-            var url = URL.createObjectURL(blob);
+    //     mediaRecorder.onstop = function () {
+    //         var blob = new Blob(recordedChunks, { type: 'image/png' });
+    //         var url = URL.createObjectURL(blob);
 
-            $('#gigi-depan').attr('src', url);
+    //         $('#gigi-depan').attr('src', url);
 
-            recordedChunks = [];
-        };
+    //         recordedChunks = [];
+    //     };
 
-        mediaRecorder.start();
-    }
+    //     mediaRecorder.start();
+    // }
 
-    function stopRecording() {
-        if (mediaRecorder.state === 'recording') {
-            mediaRecorder.stop
-            }
-        }
+    // function stopRecording() {
+    //     if (mediaRecorder.state === 'recording') {
+    //         mediaRecorder.stop
+    //         }
+    //     }
 
 
 </script>
 
-<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script>
-    var url_code;
-
-    function onScanSuccess(decodedText, decodedResult) {
-    console.log(`Code matched = ${decodedText}`, decodedResult);
-    document.getElementById("text_scan_input").value = decodedText;
-    url_code = decodedText;
-    window.open("http://127.0.0.1:8000/orangtua/anak/" + decodedText + "/editprofile", "_self")
-    }
-
-    function browse_url(){
-        window.open(url_code, "_self")
-    }
-
-    function onScanFailure(error) {
-        console.warn(`QR error = ${error}`);
-    }
-
-    let html5QrcodeScanner = new Html5QrcodeScanner(
-    "qrreader",
-    { fps: 10, qrbox: {width: 300, height: 300} },
-    /* verbose= */ false);
-    // rememberLastUsedCamera;
-    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
-</script>
+    
+    </script>
 
 @endpush
