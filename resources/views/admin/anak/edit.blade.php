@@ -15,7 +15,7 @@ Anak
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
-                        <label class="form-label">Nama Orangtua <span class="text-danger">*</span></label>
+                        <label class="form-label">Nama Dokter <span class="text-danger">*</span></label>
                         <select class="js-example-basic-single form-select" name="orangtua" data-width="100%">
                             @foreach(\App\Models\Dokter::get() as $value => $key)
                       

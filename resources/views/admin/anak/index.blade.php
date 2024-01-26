@@ -25,8 +25,8 @@ Pasien
                     <tr>
 						<th>id</th>
                         <th style="width: 1px;">no</th>
-                        <th>orangtua</th>
-                        <th>nama Anak</th>
+                        <th>dokter</th>
+                        <th>nama Pasien</th>
                         <th>action</th>
                     </tr>
                 </thead>
