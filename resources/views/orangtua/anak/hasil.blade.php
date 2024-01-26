@@ -15,14 +15,25 @@
                 </div>
             </div>
 
-            <div class="col-md-4 mt-5 mx-auto">
-                    <div class="card text-center custom-card shadow w-100 py-2">
-                        <div class="card-body">
-                             <img id="gigi-depan" src="data:image/jpeg;base64,{{ base64_encode($decodedImage) }}" class="img-fluid" style="width: 200px; height: 200px;" alt="{{$url}}" val>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card text-center custom-card shadow mx-auto">
+                            <div class="card-body">
+                                <img id="gigi-depan-asli" src="{{'/storage/gigi/'.$periksa->gambar1}}" class="img-fluid mt-3" style="max-width: 100%;" alt="foto belum diambil">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card text-center custom-card shadow mx-auto">
+                            <div class="card-body">
+                                <img id="gigi-depan" src="data:image/jpeg;base64,{{ base64_encode($decodedImage) }}" class="img-fluid" style="max-width: 100%;" alt="{{$url}}" val>
+                            </div>
                         </div>
                     </div>
                 </div>
-
+            </div>
+            
                         <div class="row col-md-12 mt-3 px-5">
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Nama </label>
