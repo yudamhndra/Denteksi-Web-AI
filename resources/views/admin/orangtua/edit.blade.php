@@ -1,14 +1,14 @@
 @extends('layout.master')
-@section('navbar-title')
-Orangtua
-@endsection
+@section('title') Data Dokter @endsection
+@section('navbar-title') Dokter @endsection
 @section('content')
 
 <div class="row">
+    <div class="d-md-none">&nbsp;</div>
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h6 class="text-center h3">Ubah Dokter</h6>
+                <h6 class="text-center h3 my-4">Ubah Dokter</h6>
                 <form action="{{ route('orangtua.update', $dokter->id) }}" class="forms-sample" id="orangtua-store"
                     method="post" nctype="multipart/form-data" files=true>
                     <input type="hidden" id="id" value="{{$dokter->id}}">
@@ -49,7 +49,7 @@ Orangtua
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="row col-md-10">
+                    {{-- <div class="row col-md-10">
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Tempat
@@ -125,11 +125,11 @@ Orangtua
                             <option value="S2" {{$dokter->pendidikan=="S2" ? 'selected' : ''}}>S2</option>
                             <option value="S3" {{$dokter->pendidikan=="S3" ? 'selected' : ''}}>S3</option>
                         </select>
-                    </div>
+                    </div> --}}
 
-                    <div style="float: right">
-                    <button type="submit" class="btn btn-primary me-2">Ubah</button>
-                    <a href="{{URL::previous()}}" type="button" class="btn btn-secondary">Batal</a>
+                    <div class="text-end mt-4">
+                        <button type="submit" class="btn btn-primary mt-0 me-2">Ubah</button>
+                        <a href="{{URL::previous()}}" type="button" class="btn btn-secondary">Batal</a>
                     </div>
                 </form>
             </div>

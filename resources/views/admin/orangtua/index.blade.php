@@ -1,8 +1,6 @@
 @extends('layout.master')
-
-@section('navbar-title')
-Dokter
-@endsection
+@section('title') Data Dokter @endsection
+@section('navbar-title') Dokter @endsection
 @section('content')
 
 <div class="card">
@@ -10,10 +8,10 @@ Dokter
         <div class="row">
             <div class="col-10">
                	<div class="card-title">
-								<h4 class="mb-0">Dokter</h4>
-							</div>
+                    <h4 class="mb-0">Dokter</h4>
+                </div>
             </div>
-            <div class="col-2">
+            <div class="text-end">
             <a href="{{route('orangtua.create')}}" type="button" id="btn-create"  class="btn btn-custom text-white">Tambah data</a>
             </div>
         </div>
@@ -26,8 +24,8 @@ Dokter
                         <th style="width: 1px;">no</th>
                         <th>email</th>
                         <th>nama</th>
-                        <th>alamat</th>
-                        <th>pendidikan</th>
+                        {{-- <th>alamat</th>
+                        <th>pendidikan</th> --}}
                         <th>action</th>
                     </tr>
                 </thead>
@@ -84,18 +82,21 @@ $(document).ready(function () {
                     name: 'nama',
                     visible: true
                 },
+                // {
+                //     data: 'alamat',
+                //     name: 'alamat',
+                //     visible: true
+                // },
+                // {
+                //     data: 'pendidikan',
+                //     name: 'pendidikan',
+                //     visible: true
+                // },
                 {
-                    data: 'alamat',
-                    name: 'alamat',
-                    visible: true
+                    data: 'action',
+                    name:'action',
+                    visible:true
                 },
-                {
-                    data: 'pendidikan',
-                    name: 'pendidikan',
-                    visible: true
-                },
-                 { data: 'action', name:'action', visible:true},
-
             ],
 
         });
