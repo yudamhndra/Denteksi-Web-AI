@@ -58,7 +58,7 @@
                     </ul>
                 </div>
             </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{route('klinik.index')}}" class="nav-link">
                         <i class="link-icon" data-feather="calendar"></i>
                         <span class="link-title">Layanan Kesehatan</span>
@@ -121,7 +121,7 @@
                         </li>
                     </ul>
                 </div>
-            </li>
+            </li> --}}
             <li class="nav-item nav-category">Lainnya</li>
             <li class="nav-item">
                 <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
