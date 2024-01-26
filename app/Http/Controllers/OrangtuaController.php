@@ -86,26 +86,26 @@ class OrangtuaController extends Controller
             'nama' => 'required|min:3',
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'password' => 'required|confirmed',
-            'id_kecamatan' => 'required',
-            'id_kelurahan' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
-            'alamat' => 'required',
-            'pendidikan' => 'required',
 
+            // 'id_kecamatan' => 'required',
+            // 'id_kelurahan' => 'required',
+            // 'tempat_lahir' => 'required',
+            // 'tanggal_lahir' => 'required',
+            // 'alamat' => 'required',
+            // 'pendidikan' => 'required',
+            
         ], [
+            'nama.required' => 'Nama wajib diisi',
             'email.required' => 'Email wajib diisi.',
             'email.unique' => 'Email sudah terdaftar.',
             'password.required' => 'Password wajib diisi',
-            'id_kecamatan.required' => 'Kecamatan wajib diisi',
-            'id_kelurahan.required' => 'Kelurahan wajib diisi',
-            'nama.required' => 'Nama wajib diisi',
-            'alamat.required' => 'Alamat wajib diisi',
-            'tempat_lahir.required' => 'tempat lahir wajib diisi',
-            'tanggal_lahir.required' => 'tanggal lahir wajib diisi',
             'password.confirmed' => 'password tidak sesuai',
 
-
+            // 'id_kecamatan.required' => 'Kecamatan wajib diisi',
+            // 'id_kelurahan.required' => 'Kelurahan wajib diisi',
+            // 'alamat.required' => 'Alamat wajib diisi',
+            // 'tempat_lahir.required' => 'tempat lahir wajib diisi',
+            // 'tanggal_lahir.required' => 'tanggal lahir wajib diisi',
         ]);
 
         if ($validator->fails()) {
@@ -126,12 +126,12 @@ class OrangtuaController extends Controller
             $dokter = Dokter::create([
                 'id_users' => $user->id,
                 'nama' => $request->nama,
-                'alamat' => $request->alamat,
-                'id_kecamatan' => $request->id_kecamatan,
-                'id_kelurahan' => $request->id_kelurahan,
-                'tempat_lahir' => $request->tempat_lahir,
-                'tanggal_lahir' => $request->tanggal_lahir,
-                'pendidikan' => $request->pendidikan,
+                // 'alamat' => $request->alamat,
+                // 'id_kecamatan' => $request->id_kecamatan,
+                // 'id_kelurahan' => $request->id_kelurahan,
+                // 'tempat_lahir' => $request->tempat_lahir,
+                // 'tanggal_lahir' => $request->tanggal_lahir,
+                // 'pendidikan' => $request->pendidikan,
             ]);
 
             DB::commit();
@@ -180,23 +180,23 @@ class OrangtuaController extends Controller
         $validator = Validator::make($request->all(), [
             'nama' => 'required|min:3',
             'password' => 'confirmed',
-            'id_kecamatan' => 'required',
-            'id_kelurahan' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
-            'alamat' => 'required',
-            'pendidikan' => 'required',
+
+            // 'id_kecamatan' => 'required',
+            // 'id_kelurahan' => 'required',
+            // 'tempat_lahir' => 'required',
+            // 'tanggal_lahir' => 'required',
+            // 'alamat' => 'required',
+            // 'pendidikan' => 'required',
 
         ], [
-            'id_kecamatan.required' => 'Kecamatan wajib diisi',
-            'id_kelurahan.required' => 'Kelurahan wajib diisi',
             'nama.required' => 'Nama wajib diisi',
-            'alamat.required' => 'Alamat wajib diisi',
-            'tempat_lahir.required' => 'tempat lahir wajib diisi',
-            'tanggal_lahir.required' => 'tanggal lahir wajib diisi',
             'password.confirmed' => 'password tidak sesuai',
 
-
+            // 'id_kecamatan.required' => 'Kecamatan wajib diisi',
+            // 'id_kelurahan.required' => 'Kelurahan wajib diisi',
+            // 'alamat.required' => 'Alamat wajib diisi',
+            // 'tempat_lahir.required' => 'tempat lahir wajib diisi',
+            // 'tanggal_lahir.required' => 'tanggal lahir wajib diisi',
         ]);
 
         if ($validator->fails()) {
@@ -225,12 +225,12 @@ class OrangtuaController extends Controller
             if ($user) {
                 $dokter->update([
                     'nama' => $request->nama,
-                    'alamat' => $request->alamat,
-                    'id_kecamatan' => $request->id_kecamatan,
-                    'id_kelurahan' => $request->id_kelurahan,
-                    'tempat_lahir' => $request->tempat_lahir,
-                    'tanggal_lahir' => $request->tanggal_lahir,
-                    'pendidikan' => $request->pendidikan,
+                    // 'alamat' => $request->alamat,
+                    // 'id_kecamatan' => $request->id_kecamatan,
+                    // 'id_kelurahan' => $request->id_kelurahan,
+                    // 'tempat_lahir' => $request->tempat_lahir,
+                    // 'tanggal_lahir' => $request->tanggal_lahir,
+                    // 'pendidikan' => $request->pendidikan,
                 ]);
 
                 DB::commit();

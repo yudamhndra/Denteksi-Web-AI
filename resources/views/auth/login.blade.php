@@ -165,7 +165,7 @@
                                                     {{-- </div> --}}
                                                 </div>
                                             </div>
-                                            <a href="#" class="text-decoration-underline p-3">Lupa password?</a>
+                                           {{-- <a href="#" class="text-decoration-underline p-3">Lupa password?</a> --}}
                                             <div class="text-center p-2 mt-2">
                                                 <button type="submit" class="btn btn-fill w-100 me-2 mb-2 mb-md-0 text-white rounded-pill">MASUK</button>
                                             </div>

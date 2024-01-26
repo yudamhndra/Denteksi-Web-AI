@@ -1,12 +1,14 @@
 @extends('layout.master')
-
+@section('title') Data Admin @endsection
+@section('navbar-title') Admin @endsection
 @section('content')
 
 <div class="row">
+    <div class="d-md-none">&nbsp;</div>
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h6 class="card-title">Edit Admin</h6>
+                <h6 class="text-center h3 my-4">Edit Admin</h6>
                 <form action="{{ route('admin.update',$admin->id) }}" class="forms-sample" id="admin-update"
                     method="post" nctype="multipart/form-data" files=true>
                     <input type="hidden" id="id" value="{{$admin->id}}">
@@ -33,9 +35,10 @@
                             </label>
                         </div>
 
-
-                    <button type="submit" class="btn btn-primary me-2">Submit</button>
+                    <div class="text-end mt-4">
+                    <button type="submit" class="btn btn-primary mt-0">Submit</button>
                     <a href="{{URL::previous()}}" type="button" class="btn btn-secondary">Cancel</a>
+                    </div>
                 </form>
             </div>
         </div>

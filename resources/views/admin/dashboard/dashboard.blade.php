@@ -3,7 +3,7 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
     <div>
-    <h4 class="mb-3 mb-md-0">Dashboard Dokter</h4>
+    <h4 class="mb-3 mb-md-0">Dashboard Admin</h4>
     </div>
 </div>
 
@@ -14,7 +14,7 @@
         <div class="card">
             <div class="card-body">
             <div class="d-flex justify-content-between align-items-baseline">
-                <h6 class="card-title mb-0">Jumlah Data Orangtua</h6>
+                <h6 class="card-title mb-0">Jumlah Data Dokter</h6>
 
             </div>
             <div class="row">
@@ -38,7 +38,7 @@
         <div class="card">
             <div class="card-body">
             <div class="d-flex justify-content-between align-items-baseline">
-                <h6 class="card-title mb-0">Data Jumlah Anak</h6>
+                <h6 class="card-title mb-0">Data Jumlah Pasien</h6>
                
             </div>
             <div class="row">

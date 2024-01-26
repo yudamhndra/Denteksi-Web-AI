@@ -1,5 +1,6 @@
 @extends('layout.master')
-
+@section('title') Data Admin @endsection
+@section('navbar-title') Admin @endsection
 @section('content')
 @if(session()->has('error'))
     <div class="alert alert-danger">
@@ -7,10 +8,11 @@
     </div>
 @endif
 <div class="row">
+    <div class="d-md-none">&nbsp;</div>
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h3 class="text-center">Tambah Admin</h3>
+                <h3 class="text-center my-4">Tambah Admin</h3>
                 <form action="{{ route('admin.store') }}" class="forms-sample p-3" id="admin-store" method="post" nctype="multipart/form-data" files=true >
                     @csrf
                     <div class="mb-3">
@@ -31,8 +33,8 @@
                         </div>
                     </div>
                    
-                    <div style="float: right">
-                    <button type="submit" class="btn btn-primary me-2">Tambah</button>
+                    <div class="text-end mt-4">
+                    <button type="submit" class="btn btn-primary mt-0">Tambah</button>
                     <a href="{{URL::previous()}}" type="button" class="btn btn-secondary">Batal</a>
                     </div>
                 </form>

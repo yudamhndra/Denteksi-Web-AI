@@ -1,20 +1,20 @@
 @extends('layout.master')
-@section('navbar-title')
-Anak
-@endsection
+@section('title') Data Pasien @endsection
+@section('navbar-title') Pasien @endsection
 @section('content')
 
 
 
 <div class="card">
+    <div class="d-md-none"><br>&nbsp;</div>
     <div class="card-body">
         <div class="row">
-            <div class="col-10">
+            <div class="col">
                	<div class="card-title">
-								<h4 class="mb-0">Anak</h4>
-							</div>
+                    <h4 class="mt-2">Pasien</h4>
+                </div>
             </div>
-            <div class="col-2">
+            <div class="col-auto">
             <a href="{{route('anak.create')}}" type="button" id="btn-create"  class="btn btn-custom text-white">Tambah data</a>
             </div>
         </div>
@@ -25,8 +25,8 @@ Anak
                     <tr>
 						<th>id</th>
                         <th style="width: 1px;">no</th>
-                        <th>orangtua</th>
-                        <th>nama Anak</th>
+                        <th>dokter</th>
+                        <th>nama Pasien</th>
                         <th>action</th>
                     </tr>
                 </thead>

@@ -1,20 +1,19 @@
 @extends('layout.master')
-
-@section('navbar-title')
-Admin
-@endsection
+@section('title') Data Admin @endsection
+@section('navbar-title') Admin @endsection
 @section('content')
 
 
 <div class="card">
+    <div class="d-md-none"><br>&nbsp;</div>
     <div class="card-body">
         <div class="row">
-            <div class="col-10">
+            <div class="col">
                	<div class="card-title">
-								<h4 class="mb-0">Admin</h4>
-							</div>
+                    <h4 class="mt-2">Admin</h4>
+                </div>
             </div>
-            <div class="col-2">
+            <div class="col-auto">
             <a href="{{route('admin.create')}}" type="button" id="btn-create"  class="btn btn-custom text-white">Tambah data</a>
             </div>
         </div>
