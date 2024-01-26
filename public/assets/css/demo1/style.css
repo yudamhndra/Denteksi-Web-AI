@@ -2645,9 +2645,9 @@ textarea.form-control-lg {
 .status-button-white.true{
   width: 250px;
   height: 40px;
-  border: 2px solid #29A1B1;
+  border: 2px solid #7771BB;
   background-color: #ffffff;
-  color: #29A1B1;
+  color: #7771BB;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2656,8 +2656,8 @@ textarea.form-control-lg {
 }
 
 .status-button.true {
-  background-color: #56CFE0;
-  border: 1px solid #56CFE0;
+  background-color: #AF87F0;
+  border: 1px solid #AF87F0;
 }
 
 button {
@@ -3167,13 +3167,13 @@ textarea.is-invalid.typeahead.tt-hint, .select2-container--default .select2-sear
 .btn-submit-col{
   color: #F6F6F6;
   border-radius: 30px;
-  background: var(--Medium-Blue, #29A1B1);
+  background: var(--Medium-Blue, #7771BB);
 }
 
 .btn-submit-white{
-  border: 2px solid #29A1B1;
+  border: 2px solid #7771BB;
   background-color: #ffffff;
-  color: #29A1B1;
+  color: #7771BB;
   border-radius: 30px;
 }
 
@@ -4774,7 +4774,7 @@ div.tox .btn-group-vertical > .btn-group:not(:first-child) > .tox-button,
 }
 
 .data-siswa {
-    background-color: #29A1B1;
+    background-color: #7771BB;
     color: #fff;
 }
 .card > hr {
@@ -4886,7 +4886,7 @@ div.tox .btn-group-vertical > .btn-group:not(:first-child) > .tox-button,
 }
 
 .card .button {
-    background-color: #367781;
+    background-color: #544F8E;
     border-radius: 30px;
 }
 @media (min-width: 576px) {
@@ -22602,7 +22602,7 @@ svg.icon-xxl {
 .navbar {
   width: calc(100% - 240px);
   height: 60px;
-  background: #D3E6E9;
+  background: #E2D6FF;
   /* border-bottom: 1px solid #e9ecef; */
   display: flex;
   align-items: center;
@@ -22697,7 +22697,7 @@ svg.icon-xxl {
     padding: 30px;
 }
 .sub-profile {
-    background-color: #367781;
+    background-color: #544F8E;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 5px;
@@ -23128,7 +23128,7 @@ svg.icon-xxl {
   /* color: #6571ff; */
 
   border-radius: 50px;
-  background-color: #56CFE0;
+  background-color: #AF87F0;
 }
 .sidebar .sidebar-body .nav .nav-item.active .nav-link::before {
   /* content: "";
@@ -23726,7 +23726,7 @@ div.tox .btn-group-lg > .btn-icon-text.tox-button .btn-icon-append,
   height: 18px;
 }
 .btn-icon-text{
-    background-color: #29A1B1;
+    background-color: #7771BB;
     color: #fff;
     border-radius: 30px;
 }

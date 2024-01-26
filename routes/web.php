@@ -91,6 +91,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/data-admin',[AdminController::class,'index'])->name('admin.index');
     Route::get('/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
     Route::get('/data-kelas/{id}',[App\Http\Controllers\SekolahController::class,'viewKelas'])->name('viewKelas');
+    Route::get('/cetakQR', [qrController::class,'viewPDF']) -> name('cetakQR');
+
+
   });
 });
 Route::post('/daftarUser', [App\Http\Controllers\Auth\RegisterController::class, 'storeOrangtua'])
@@ -136,7 +139,6 @@ Route::group(['prefix' => 'orangtua'], function () {
 
     Route::get('/QR/{id}', [qrController::class,'index']);
     Route::get('/scan', [QRscanController::class, 'index']);
-    Route::get('/cetakQR', [qrController::class,'viewPDF']) -> name('cetakQR');
     Route::get('/anak/{id}/cetakQR', [qrController::class,'viewPDF']) ->name('cetakQRAnak');
     Route::get('/downloadSpreadsheet', [SpreadsheetController::class, 'downloadTemplate'])-> name('downloadSpreadsheet');
     Route::post('/importSpreadsheet', [SpreadsheetController::class, 'saveSpreadsheetToDatabase']) -> name('saveSpreadsheet');

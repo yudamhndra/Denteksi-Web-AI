@@ -47,10 +47,11 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <p class="" id="auto-increment-id"></p>
-                        <p>{{ $row['id'].'-'.$row['tanggal'] }}</p>
-                        <p>{{ $row['whatsapp'] }}</p>
+                        <p>{{ $row['id'] }}</p>
+                        {{-- <p>{{ $row['whatsapp'] }}</p> --}}
 
                         <p>Nama: {{ $row['nama'] }}</p>
+                        <p>Orang Tua: {{ $row['nama_orangtua'] }}</p>
                         <div class="visible-print text-center">
                             @if(isset($row['base64QR']))
                                 {!! '<img src="' . $row['base64QR'] . '" alt="QR Code for ' . $row['nama'] . '">' !!}

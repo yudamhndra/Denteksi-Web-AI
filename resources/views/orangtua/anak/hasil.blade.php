@@ -33,22 +33,22 @@
 
 
 
-            <div class="row col-md-12 mt-2 px-5">
-                        <div class="col-md-6">
+            <!-- <div class="row col-md-12 mt-2 px-5"> -->
+                    {{--    <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Tanggal Lahir </label>
                                 <input type="type" disabled class="form-control @error('tanggal_lahir') is-invalid @enderror" id="tanggal_lahir" name="tanggal_lahir"
                                     autocomplete="off" placeholder="masukkan tanggal lahir"value="{{$pasien->tanggal_lahir}}" >
                             </div>
-                        </div>
-                        <div class="col-md-6">
+                        </div> --}}
+                        <div class="row col-md-12 mt-2 px-5">
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Nomor Whatsapp </label>
                                 <input type="text" disabled class="form-control @error('no_whatsapp') is-invalid @enderror" id="no_whatsapp" name="no_whatsapp"
-                                    autocomplete="off" placeholder="masukkan nomor whatsapp" value="{{$pasien->no_whatsapp}}">
+                                    autocomplete="off" placeholder="nomor whatsapp" value="{{$pasien->no_whatsapp}}">
                             </div>
                         </div>
-            </div>
+            <!-- </div> -->
 
             <div class="row col-md-12 px-5">
                             <div class="mb-3">
@@ -86,18 +86,16 @@
 
     function cetakPdf() {
         var nama = document.getElementById('nama').value;
-        var tanggal_lahir = document.getElementById('tanggal_lahir').value;
         var no_whatsapp = document.getElementById('no_whatsapp').value;
         var hasil = document.getElementById('hasil').value;
         var rekomendasi = document.getElementById('rekomendasi').value;
         var gambar = document.getElementById('gigi-depan').src;
         var id_periksa = document.getElementById('id_periksa').value
-        
+
 
         var selectedDataToSend = [{
                 id : id_periksa,
                 nama: nama,
-                tanggal: tanggal_lahir,
                 whatsapp: no_whatsapp,
                 hasil: hasil,
                 rekomendasi: rekomendasi,
@@ -108,8 +106,8 @@
         // var url = "/orangtua/dashboard"
         var url = "/orangtua/get-pdf-result?data=" + encodeURIComponent(dataInJson);
         // window.location.href = url;
-        window.open(url);  
-    }    
+        window.open(url);
+    }
 
     </script>
 @endpush

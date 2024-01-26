@@ -13,7 +13,7 @@
 
                     <div class="mb-3">
                         <label class="form-label">Nama Orangtua <span class="text-danger">*</span></label>
-                        <select class="js-example-basic-single form-select" name="orangtua" data-width="100%">
+                        <select class="js-example-basic-single form-select" name="dokter" data-width="100%">
                             @foreach(\App\Models\Dokter::get() as $value => $key)
 
                             <option value="{{$key->id}}">{{$key->nama}}</option>
@@ -49,32 +49,7 @@
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
                     </div>
-                    <div class="row col-md-10">
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Tempat
-                                    Lahir <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir"
-                                    autocomplete="off" placeholder="Masukkan Tempat Lahir" value="{{old('tempat_lahir')}}">
-                                    @error('tempat_lahir')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Tanggal
-                                    Lahir <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir"
-                                    autocomplete="off" placeholder="Masukkan tanggal lahir" value="{{old('tanggal_lahir')}}">
-                                    @error('tanggal_lahir')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
-
+                    
                     <div style="float: right">
                     <button type="submit" class="btn btn-primary me-2">Tambah</button>
                     <a href="{{URL::previous()}}" type="button" class="btn btn-secondary">Batal</a>

@@ -48,12 +48,12 @@
                     </button>
                     <div class="dropdown-menu" style="top: 100%; padding: 20px; width: 200px; border-radius: 30px;">
                         <div>
-                            <button class="dropdown-item" type="button" id="btn-import-excel" style="color:#29A1B1;">
-                                <i class="fas fa-upload" style="margin-right: 10px; color:#29A1B1;"></i>
+                            <button class="dropdown-item" type="button" id="btn-import-excel" style="color:#7771BB;">
+                                <i class="fas fa-upload" style="margin-right: 10px; color:#7771BB;"></i>
                                 <p class="text-import-excel">Import Excel</p>
                             </button>
-                            <button class="dropdown-item" type="button" id="btn-download-excel" style="color:#29A1B1;" onclick="downloadTemplate()">
-                                <i class="fas fa-file-excel" style="margin-right: 10px; color:#29A1B1;"></i>
+                            <button class="dropdown-item" type="button" id="btn-download-excel" style="color:#7771BB;" onclick="downloadTemplate()">
+                                <i class="fas fa-file-excel" style="margin-right: 10px; color:#7771BB;"></i>
                                 <p class="text-download-template">Download Template</p>
                             </button>
                             <input type="file" id="fileInput" style="display: none">
