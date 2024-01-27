@@ -29,6 +29,7 @@
 
         .form-control {
             width: 90%;
+            height: 5%;
             padding: 8px;
             margin-bottom: 10px;
             border: 1px solid #ccc;

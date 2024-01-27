@@ -23,6 +23,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 use File;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Validator;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -661,7 +662,8 @@ class OrangtuaController extends Controller
     public function hasilPeriksa($id){
         $periksa = PemeriksaanGigi::where('id', $id)->latest()->first();
         $pasien = $periksa -> pasien;
-        $skrining = SkriningIndeks::Where('id_pemeriksaan', $periksa->id)->first();
+        $skrining = $periksa -> skriningIndeks;
+
         $url = config('app.ai_url') . "/api/result-image/?pemeriksaan_id=" . $periksa -> id;
         $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn')->get($url);
 
