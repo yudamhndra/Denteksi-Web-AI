@@ -23,6 +23,7 @@
                                 <img id="gigi-depan-asli" src="{{'/storage/gigi/'.$periksa->gambar1}}" class="img-fluid mt-3" style="max-width: 100%;" alt="foto belum diambil">
                             </div>
                         </div>
+                        <p>Foto gigi asli</p>
                     </div>
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="card text-center custom-card shadow mx-auto">
@@ -30,13 +31,6 @@
                                 <img id="gigi-depan" src="data:image/jpeg;base64,{{ base64_encode($decodedImage) }}" class="img-fluid" style="max-width: 100%;" alt="{{$url}}" val>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-md-6 col-lg-4 mb-4 text-center">
-                        <p>Foto gigi asli</p>
-                    </div>
-                    <div class="col-md-6 col-lg-4 mb-4 text-center">
                         <p>hasil deteksi ai</p>
                     </div>
                 </div>
