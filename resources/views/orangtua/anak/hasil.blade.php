@@ -126,8 +126,8 @@
         var dataInJson = JSON.stringify(selectedDataToSend);
         // var url = "/orangtua/dashboard"
         var url = "/orangtua/get-pdf-result?data=" + encodeURIComponent(dataInJson);
-        window.location.href = url;
-        // window.open(url);
+        // window.location.href = url;
+        window.open(url, '_self');
     }
 
     </script>
