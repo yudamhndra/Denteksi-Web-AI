@@ -499,11 +499,13 @@ class OrangtuaController extends Controller
 
     public function editAnak($id){
         $pasien = Pasien::find($id);
-        return view('orangtua.anak.edit',compact('pasien'));
+        $periksa = PemeriksaanGigi::Where('id_pasien', $pasien->id)->first();
+        return view('orangtua.anak.edit',compact('pasien','periksa'));
     }
     public function editAnakProfile($id){
         $pasien = Pasien::find($id);
-        $periksa = PemeriksaanGigi::where('id_pasien', $pasien->id)->latest()->first();
+        $periksa = PemeriksaanGigi::where('id_pasien', $pasien->id)->first();
+        // $hasil = SkriningIndeks::Where('id_pemeriksaan', $periksa->id)->first();
         return view('orangtua.anak.editProfile',compact('pasien', 'periksa'));
     }
 
@@ -659,7 +661,7 @@ class OrangtuaController extends Controller
     public function hasilPeriksa($id){
         $periksa = PemeriksaanGigi::where('id', $id)->latest()->first();
         $pasien = $periksa -> pasien;
-        $skrining = SkriningIndeks::Where('id_pemeriksaan', $periksa->id);
+        $skrining = SkriningIndeks::Where('id_pemeriksaan', $periksa->id)->first();
         $url = config('app.ai_url') . "/api/result-image/?pemeriksaan_id=" . $periksa -> id;
         $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn')->get($url);
 
