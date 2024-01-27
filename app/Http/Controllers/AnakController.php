@@ -119,26 +119,26 @@ class AnakController extends Controller
     {
         $messages = [
             'nama.required' => 'Nama wajib diisi.',
-            'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi',
-            'tempat_lahir.required'  => 'Tempat lahir wajib diisi',
-            'tanggal_lahir.required' => 'Tanggal lahir wajib diisi'
+            // 'jenis_kelamin.required' => 'Jenis Kelamin wajib diisi',
+            // 'tempat_lahir.required'  => 'Tempat lahir wajib diisi',
+            // 'tanggal_lahir.required' => 'Tanggal lahir wajib diisi'
 
         ];
         $validator = $request->validate([
 
             'nama' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
-            'jenis_kelamin' => 'required'
+            // 'tempat_lahir' => 'required',
+            // 'tanggal_lahir' => 'required',
+            // 'jenis_kelamin' => 'required'
 
         ], $messages);
         $pasien = Pasien::find($id);
 
         $pasien->id_dokter=$request->orangtua;
         $pasien->nama = $request->nama;
-        $pasien->jenis_kelamin = $request->jenis_kelamin;
-        $pasien->tempat_lahir = $request->tempat_lahir;
-        $pasien->tanggal_lahir = $request->tanggal_lahir;
+        $pasien->nama_orangtua = $request->nama_orangtua;
+        $pasien->no_whatsapp = $request->no_whatsapp;
+        // $pasien->tanggal_lahir = $request->tanggal_lahir;
 
 
         $pasien->save();
