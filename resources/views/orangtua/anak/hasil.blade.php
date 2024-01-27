@@ -54,9 +54,11 @@
                                     autocomplete="off" placeholder="masukkan tanggal lahir"value="{{$pasien->tanggal_lahir}}" >
                             </div>
                         </div> --}}
-                        <div class="mb-3 col-md-10">
-                            <label for="exampleInputPassword1" class="form-label is-invalid">Nama Orangtua </label>
-                            <input type="text" class="form-control" id="nama_orangtua" name="nama_orangtua" autocomplete="off" disabled value="{{$pasien->nama_orangtua}}" placeholder="Nama orangtua">
+                        <div class="row col-md-12 mt-2 px-5">
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label is-invalid">Nama Orangtua </label>
+                                <input type="text" class="form-control" id="nama_orangtua" name="nama_orangtua" autocomplete="off" disabled value="{{$pasien->nama_orangtua}}" placeholder="Nama orangtua">
+                            </div>
                         </div>
                         <div class="row col-md-12 mt-2 px-5">
                             <div class="mb-3">

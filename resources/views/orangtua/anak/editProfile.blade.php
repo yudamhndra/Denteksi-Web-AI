@@ -66,7 +66,7 @@
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Hasil Pemeriksaan </label>
                                 <input type="text" class="form-control" id="hasil" name="hasil"
-                                    autocomplete="off"  placeholder="hasil pasien" value="{{$diagnosa->diagnosa ?? ''}}">
+                                    autocomplete="off"  placeholder="hasil pasien" value="">
                             </div>
                         </div>
 
@@ -74,7 +74,7 @@
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Rekomendasi </label>
                                 <input type="text"  class="form-control" id="rekomendasi" name="rekomendasi"
-                                    autocomplete="off" placeholder="rekomendasi" value="{{$diagnosa->rekomendasi ?? ''}}" >
+                                    autocomplete="off" placeholder="rekomendasi" value="" >
                             </div>
                         </div>
 
