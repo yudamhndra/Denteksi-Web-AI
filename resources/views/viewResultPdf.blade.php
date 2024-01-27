@@ -49,33 +49,41 @@
         <div class="row col-md-12 mt-3 px-5">
             <div class="mb-3">
                 <label for="nama" class="form-label">Nama </label>
-                <input type="text" disabled class="form-control" id="nama" name="nama" autocomplete="off" placeholder="Masukkan nama" value="{{$selectedData['nama']}}">
+                <input type="text" disabled class="form-control" id="nama" name="nama" autocomplete="off" placeholder="Masukkan nama" value="{{$pasien -> nama}}">
             </div>
         </div>
 
         <div class="row col-md-12 mt-3 px-5">
             <div class="mb-3">
                 <label for="nama_orangtua" class="form-label">Nama Orangtua </label>
-                <input type="text" disabled class="form-control" id="nama_orangtua" name="nama_orangtua" autocomplete="off" placeholder="Masukkan nama orangtua" value="{{$selectedData['nama_orangtua']}}">
+                <input type="text" disabled class="form-control" id="nama_orangtua" name="nama_orangtua" autocomplete="off" placeholder="Masukkan nama orangtua" value="{{$pasien -> nama_orangtua}}">
             </div>
         </div>
         <div class="row col-md-12 mt-3 px-5">
             <div class="mb-3">
                 <label for="no_whatsapp" class="form-label">Nomor Whatsapp </label>
-                <input type="text" disabled class="form-control" id="no_whatsapp" name="no_whatsapp" autocomplete="off" placeholder="Masukkan nomor whatsapp" value="{{$selectedData['whatsapp']}}">
+                <input type="text" disabled class="form-control" id="no_whatsapp" name="no_whatsapp" autocomplete="off" placeholder="Masukkan nomor whatsapp" value="{{$pasien -> no_whatsapp}}">
             </div>
         </div>
 
         <div class="row col-md-12 mt-3 px-5">
             <div class="mb-3">
                 <label for="hasil" class="form-label">Hasil Pemeriksaan </label>
-                <input type="text" class="form-control" id="hasil" name="hasil" autocomplete="off" disabled placeholder="Hasil belum keluar" value="{{$selectedData['hasil']}}">
+                @if ($skrining -> diagnosa != null)
+                    <input type="text" class="form-control" id="hasil" name="hasil" autocomplete="off" disabled placeholder="Hasil belum keluar" value="{{$skrining -> diagnosa}}">        
+                @else
+                    <input type="text" class="form-control" id="hasil" name="hasil" autocomplete="off" disabled placeholder="Hasil belum keluar" value="Hasil pemeriksaan belum tersedia"> 
+                @endif
             </div>
         </div>
         <div class="row col-md-12 mt-3 px-5">
             <div class="mb-3">
                 <label for="rekomendasi" class="form-label">Rekomendasi </label>
-                <input type="text" disabled class="form-control" id="rekomendasi" name="rekomendasi" autocomplete="off" placeholder="Belum ada rekomendasi" value="{{$selectedData['rekomendasi']}}">
+                @if ($skrining -> rekomendasi != null)
+                    <input type="text" class="form-control" id="hasil" name="hasil" autocomplete="off" disabled placeholder="Hasil belum keluar" value="{{$skrining -> rekomendasi}}">        
+                @else
+                    <input type="text" class="form-control" id="hasil" name="hasil" autocomplete="off" disabled placeholder="Hasil belum keluar" value="Rekomendasi belum tersedia"> 
+                @endif  
             </div>
         </div>
         <div class="row col-md-12 mt-3 px-5">
