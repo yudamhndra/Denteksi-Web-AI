@@ -17,21 +17,21 @@
 
             <div class="container">
                 <div class="row justify-content-center align-items-end">
-                    <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="col-md-6 col-lg-4 mb-4 text-center">
                         <div class="card text-center custom-card shadow mx-auto">
                             <div class="card-body">
-                                <img id="gigi-depan-asli" src="{{'/storage/gigi/'.$periksa->gambar1}}" class="img-fluid mt-3" style="max-width: 100%;" alt="foto belum diambil">
+                                <img id="gigi-depan-asli" src="{{'/storage/gigi/'.$periksa->gambar1}}" class="img-fluid mt-3" style="max-width: 100%;" alt="Foto belum diambil">
                             </div>
                         </div>
-                        <p>Foto gigi asli</p>
+                        <p class="mt-3">Foto gigi asli</p>
                     </div>
-                    <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="col-md-6 col-lg-4 mb-4 text-center">
                         <div class="card text-center custom-card shadow mx-auto">
                             <div class="card-body">
                                 <img id="gigi-depan" src="data:image/jpeg;base64,{{ base64_encode($decodedImage) }}" class="img-fluid" style="max-width: 100%;" alt="{{$url}}" val>
                             </div>
                         </div>
-                        <p>hasil deteksi ai</p>
+                        <p class="mt-3">hasil deteksi ai</p>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                             </div>
                         </div> --}}
                         <div class="row col-md-12 mt-2 px-5">
-                            <div class="mb-3">
+                            <div class="mb-3 col-md-10">
                                 <label for="exampleInputPassword1" class="form-label is-invalid">Nama Orangtua </label>
                                 <input type="text" class="form-control" id="nama_orangtua" name="nama_orangtua" autocomplete="off" disabled value="{{$pasien->nama_orangtua}}" placeholder="Nama orangtua">
                             </div>
