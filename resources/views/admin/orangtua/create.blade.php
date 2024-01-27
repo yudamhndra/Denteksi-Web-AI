@@ -117,7 +117,7 @@
                         </select>
                     </div> --}}
                     <div class="text-end mt-4">
-                        <button type="submit" class="btn btn-primary mt-0 me-2">Tambah</button>
+                        <button type="submit" class="btn btn-primary mt-0">Tambah</button>
                         <a href="{{URL::previous()}}" type="button" class="btn btn-secondary">Batal</a>
                     </div>
                 </form>

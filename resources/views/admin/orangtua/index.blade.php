@@ -4,14 +4,15 @@
 @section('content')
 
 <div class="card">
+    <div class="d-md-none"><br>&nbsp;</div>
     <div class="card-body">
         <div class="row">
-            <div class="col-10">
+            <div class="col">
                	<div class="card-title">
-                    <h4 class="mb-0">Dokter</h4>
+                    <h4 class="mt-2">Dokter</h4>
                 </div>
             </div>
-            <div class="text-end">
+            <div class="col-auto">
             <a href="{{route('orangtua.create')}}" type="button" id="btn-create"  class="btn btn-custom text-white">Tambah data</a>
             </div>
         </div>
