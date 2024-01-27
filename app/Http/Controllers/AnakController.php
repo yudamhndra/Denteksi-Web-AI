@@ -62,8 +62,6 @@ class AnakController extends Controller
      */
     public function store(Request $request)
     {
-
-
         $messages = [
 
             'nama.required' => 'Nama wajib diisi.',
@@ -84,8 +82,6 @@ class AnakController extends Controller
             // $pasien->tanggal_lahir = $request->tanggal_lahir;
             $pasien->save();
             return redirect()->route('anak.index')->with('success','data berhasil ditambahkan');
-
-
     }
 
     /**
