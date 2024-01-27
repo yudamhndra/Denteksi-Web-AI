@@ -115,12 +115,7 @@
 
         var selectedDataToSend = [{
                 id : id_periksa,
-                nama: nama,
-                whatsapp: no_whatsapp,
-                hasil: hasil,
-                rekomendasi: rekomendasi,
                 gambar: gambar,
-                nama_orangtua : nama_orangtua,
             }];
 
         var dataInJson = JSON.stringify(selectedDataToSend);

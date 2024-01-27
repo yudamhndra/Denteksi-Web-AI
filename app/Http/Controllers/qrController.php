@@ -146,6 +146,7 @@ class qrController extends Controller
             $url = config('app.ai_url') . "/api/result-image/?pemeriksaan_id=" . $selectedData['id'];
             $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn')->get($url);
             $pgigi = PemeriksaanGigi::find($selectedData['id']);
+            $skrining = $pgigi -> skriningIndeks;
             $pasien = Pasien::find($pgigi -> id_pasien);
 
             $decodedImage = null; // Initialize the variable
@@ -170,18 +171,18 @@ class qrController extends Controller
                 }
             }
     
-            $pdf = Pdf::loadview('viewResultPdf', compact('selectedData', 'decodedImage'));
+            $pdf = Pdf::loadview('viewResultPdf', compact('pgigi', 'pasien', 'decodedImage', 'skrining'));
 
             // return $pdf->stream();
 
             if ($pasien -> nama_orangtua != null) {
                 return Response::streamDownload(function () use ($pdf) {
                     echo $pdf->output();
-                }, 'Hasil Pemeriksaan - ' . $selectedData['nama'] . ' - ' . $pasien -> nama_orangtua . ' .pdf');
+                }, 'Hasil Pemeriksaan - ' . $pasien -> nama . ' - ' . $pasien -> nama_orangtua . ' .pdf');
             } else {
                 return Response::streamDownload(function () use ($pdf) {
                     echo $pdf->output();
-                }, 'Hasil Pemeriksaan - ' . $selectedData['nama'] . ' .pdf');
+                }, 'Hasil Pemeriksaan - ' . $pasien -> nama . ' .pdf');
             }
             
             // untuk auto download :
