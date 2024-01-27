@@ -68,18 +68,20 @@ class AnakController extends Controller
 
             'nama.required' => 'Nama wajib diisi.',
             'nama.min' => 'Nama minimal 3 huruf.',
-            'jenis_kelamin.required' => 'Jenis Kelamin harus diisi.',
         ];
         $validator = $request->validate([
             'nama'=>'required',
-            'jenis_kelamin' => 'required',
         ], $messages);
             $pasien = new Pasien();
             $pasien->id_dokter=$request->dokter;
             $pasien->nama = $request->nama;
-            $pasien->jenis_kelamin = $request->jenis_kelamin;
-            $pasien->tempat_lahir = $request->tempat_lahir;
-            $pasien->tanggal_lahir = $request->tanggal_lahir;
+            if($request->no_whatsapp != null){
+            $pasien->no_whatsapp = $request->no_whatsapp;
+            }
+            $pasien->nama_orangtua = $request->nama_orangtua;
+            // $pasien->jenis_kelamin = $request->jenis_kelamin;
+            // $pasien->tempat_lahir = $request->tempat_lahir;
+            // $pasien->tanggal_lahir = $request->tanggal_lahir;
             $pasien->save();
             return redirect()->route('anak.index')->with('success','data berhasil ditambahkan');
 
