@@ -416,7 +416,7 @@
 
             tableDataGigi = $('#table-gigi').DataTable({
                 "oLanguage": {
-                    "sEmptyTable": "Silakan pilih anak terlebih dahulu",
+                    "sEmptyTable": "Silakan tambah pasien terlebih dahulu",
                     "zeroRecords": "Data tidak ditemukan",
                 },
                 processing: true,

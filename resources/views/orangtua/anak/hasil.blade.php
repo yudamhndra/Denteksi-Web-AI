@@ -55,7 +55,7 @@
                             </div>
                         </div> --}}
                         <div class="row col-md-12 mt-2 px-5">
-                            <div class="mb-3 col-md-10">
+                            <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label is-invalid">Nama Orangtua </label>
                                 <input type="text" class="form-control" id="nama_orangtua" name="nama_orangtua" autocomplete="off" disabled value="{{$pasien->nama_orangtua}}" placeholder="Nama orangtua">
                             </div>
@@ -110,6 +110,7 @@
         var rekomendasi = document.getElementById('rekomendasi').value;
         var gambar = document.getElementById('gigi-depan').src;
         var id_periksa = document.getElementById('id_periksa').value
+        var nama_orangtua =  document.getElementById('nama_orangtua').value
 
 
         var selectedDataToSend = [{
@@ -118,7 +119,8 @@
                 whatsapp: no_whatsapp,
                 hasil: hasil,
                 rekomendasi: rekomendasi,
-                gambar: gambar
+                gambar: gambar,
+                nama_orangtua : nama_orangtua,
             }];
 
         var dataInJson = JSON.stringify(selectedDataToSend);
