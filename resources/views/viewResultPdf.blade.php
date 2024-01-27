@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulir Pemeriksaan</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,11 +55,17 @@
 
         <div class="row col-md-12 mt-3 px-5">
             <div class="mb-3">
+                <label for="nama_orangtua" class="form-label">Nama Orangtua </label>
+                <input type="text" disabled class="form-control" id="nama_orangtua" name="nama_orangtua" autocomplete="off" placeholder="Masukkan nama orangtua" value="{{$selectedData['nama_orangtua']}}">
+            </div>
+        </div>
+        <div class="row col-md-12 mt-3 px-5">
+            <div class="mb-3">
                 <label for="no_whatsapp" class="form-label">Nomor Whatsapp </label>
                 <input type="text" disabled class="form-control" id="no_whatsapp" name="no_whatsapp" autocomplete="off" placeholder="Masukkan nomor whatsapp" value="{{$selectedData['whatsapp']}}">
             </div>
         </div>
-        
+
         <div class="row col-md-12 mt-3 px-5">
             <div class="mb-3">
                 <label for="hasil" class="form-label">Hasil Pemeriksaan </label>

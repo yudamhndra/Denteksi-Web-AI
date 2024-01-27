@@ -15,7 +15,7 @@ class CreateSkriningIndeksTable extends Migration
     {
         Schema::create('skrining_indeks', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_pemeriksaan')->nullable();
+            $table->uuid('id_pemeriksaan')->nullable();
             $table->integer('def_d')->default(0);
             $table->integer('def_e')->default(0);
             $table->integer('def_f')->default(0);
