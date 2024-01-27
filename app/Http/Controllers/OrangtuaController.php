@@ -500,12 +500,12 @@ class OrangtuaController extends Controller
     public function editAnak($id){
         $pasien = Pasien::find($id);
         $periksa = PemeriksaanGigi::Where('id_pasien', $pasien->id)->first();
-        $diagnosa = SkriningIndeks::Where('id_pemeriksaan', $periksa->id)->first();
-        return view('orangtua.anak.edit',compact('pasien','periksa','diagnosa'));
+        return view('orangtua.anak.edit',compact('pasien','periksa'));
     }
     public function editAnakProfile($id){
         $pasien = Pasien::find($id);
-        $periksa = PemeriksaanGigi::where('id_pasien', $pasien->id)->latest()->first();
+        $periksa = PemeriksaanGigi::where('id_pasien', $pasien->id)->first();
+        // $hasil = SkriningIndeks::Where('id_pemeriksaan', $periksa->id)->first();
         return view('orangtua.anak.editProfile',compact('pasien', 'periksa'));
     }
 
