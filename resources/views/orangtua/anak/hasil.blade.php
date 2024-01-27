@@ -108,7 +108,7 @@
         var no_whatsapp = document.getElementById('no_whatsapp').value;
         var hasil = document.getElementById('hasil').value;
         var rekomendasi = document.getElementById('rekomendasi').value;
-        var gambar = document.getElementById('gigi-depan').src;
+        var gambar = document.getElementById('gigi-depan-asli').src;
         var id_periksa = document.getElementById('id_periksa').value
         var nama_orangtua =  document.getElementById('nama_orangtua').value
 
