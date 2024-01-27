@@ -26,12 +26,23 @@
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Nama <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="nama" name="nama" autocomplete="off"
-                            placeholder="Masukkan Nama" value="{{old('nama')}}">
+                            placeholder="Masukkan Nama" value="{{old('nama')}}" required>
                             @error('nama')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-3">
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Nama orangtua  <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="nama_orangtua" name="nama_orangtua"
+                                    autocomplete="off" placeholder="nama orangtua" value="{{old('nama_orangtua')}}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Nomor Whatsapp</label>
+                                <input type="text" class="form-control" id="no_whatsapp" name="no_whatsapp"
+                                    autocomplete="off" placeholder="nomor whatsapp" value="{{old('no_whatsapps')}}" >
+                        </div>
+                    {{--<div class="mb-3">
                         <label class="col-md-12 mb-2"> Jenis Kelamin <span class="text-danger">*</span></label>
                         <div class="form-check form-check-inline">
                             <input type="radio" class="form-check-input" value="laki-laki" name="jenis_kelamin"
@@ -50,8 +61,8 @@
                         @error('jenis_kelamin')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
-                    </div>
-                    
+                    </div> --}}
+
                     <div class="text-end mt-4">
                     <button type="submit" class="btn btn-primary mt-0">Tambah</button>
                     <a href="{{URL::previous()}}" type="button" class="btn btn-secondary">Batal</a>

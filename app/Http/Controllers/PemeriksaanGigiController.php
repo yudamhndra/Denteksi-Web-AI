@@ -122,6 +122,7 @@ class PemeriksaanGigiController extends Controller
         //         : $pgigi->sekolah->kelurahan->kecamatan->id;
 
         //     // make request to detection api
+        try{
             $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn');
         //     foreach ($imageArray as $key => $value) {
         //         $key = $key + 1;
@@ -140,7 +141,9 @@ class PemeriksaanGigiController extends Controller
                 // 'nama_instansi' => 'Puskesmas ' . $pgigi->kelas->sekolah->kelurahan->kecamatan->nama,
                 // 'nama_sekolah' => $pgigi->kelas->sekolah->nama,
             ])->throw()->json();
-
+            }catch(\Throwable $th){
+                return redirect()->route('view-riwayat')->with('success', 'Sukses mengisi data pemeriksaan gigi');
+            }
             $pgigi->save();
 
             return redirect()->route('view-riwayat')->with('success', 'Sukses mengisi data pemeriksaan gigi');

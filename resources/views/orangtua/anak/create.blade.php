@@ -58,7 +58,6 @@
                                 <label for="exampleInputPassword1" class="form-label">Nama orangtua</label>
                                 <input type="text" class="form-control" id="nama_orangtua" name="nama_orangtua"
                                     autocomplete="off" placeholder="nama orangtua" value="{{old('nama_orangtua')}}">
-
                             </div>
                         </div>
                         <div class="col-md-10">
@@ -299,8 +298,8 @@
                 var nama = document.getElementById('nama');
                 var nama_orangtua = document.getElementById('nama_orangtua');
                 var no_whatsapp = document.getElementById('no_whatsapp');
-                
-                            
+
+
                 function onScanSuccess(decodedText, decodedResult) {
                     console.log(decodedText, decodedResult);
                     $decodedText = decodedText.split('_')
@@ -329,8 +328,8 @@
                         });
                     }
 
-                    
-                
+
+
 
                 function browse_url(){
                     window.open(url_code, "_self")
@@ -342,7 +341,7 @@
 
 
                 // rememberLastUsedCamera;
-                
+
 
                 $('#cameraModal').on('hidden.bs.modal', function () {
                     stopCameraPreview();
@@ -464,7 +463,7 @@
 </script>
 
 <script>
-    
+
     </script>
 
 @endpush

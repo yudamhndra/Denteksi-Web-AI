@@ -23,7 +23,7 @@
                                 <img id="gigi-depan-asli" src="{{'/storage/gigi/'.$periksa->gambar1}}" class="img-fluid mt-3" style="max-width: 100%;" alt="foto belum diambil">
                             </div>
                         </div>
-                    </div>                            
+                    </div>
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="card text-center custom-card shadow mx-auto">
                             <div class="card-body">
@@ -37,11 +37,11 @@
                         <p>Foto gigi asli</p>
                     </div>
                     <div class="col-md-6 col-lg-4 mb-4 text-center">
-                        <p>Foto gigi hasil pemeriksaan</p>
+                        <p>hasil deteksi ai</p>
                     </div>
                 </div>
             </div>
-            
+
                         <div class="row col-md-12 mt-3 px-5">
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Nama </label>
@@ -60,6 +60,10 @@
                                     autocomplete="off" placeholder="masukkan tanggal lahir"value="{{$pasien->tanggal_lahir}}" >
                             </div>
                         </div> --}}
+                        <div class="mb-3 col-md-10">
+                            <label for="exampleInputPassword1" class="form-label is-invalid">Nama Orangtua </label>
+                            <input type="text" class="form-control" id="nama_orangtua" name="nama_orangtua" autocomplete="off" disabled value="{{$pasien->nama_orangtua}}" placeholder="Nama orangtua">
+                        </div>
                         <div class="row col-md-12 mt-2 px-5">
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Nomor Whatsapp </label>
@@ -69,11 +73,11 @@
                         </div>
             <!-- </div> -->
 
-            <div class="row col-md-12 px-5">
+                     <div class="row col-md-12 px-5">
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Hasil Pemeriksaan </label>
                                 <input type="text" class="form-control" id="hasil" name="hasil"
-                                    autocomplete="off" disabled placeholder="hasil belum keluar" value="{{old('hasil')}}">
+                                    autocomplete="off" disabled placeholder="hasil belum keluar" value="{{$skrining->diagnosa}}">
                             </div>
                         </div>
 
@@ -81,7 +85,7 @@
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Rekomendasi </label>
                                 <input type="text" disabled class="form-control" id="rekomendasi" name="rekomendasi"
-                                    autocomplete="off" placeholder="belum ada rekomendasi" value="{{old('rekomendasi')}}">
+                                    autocomplete="off" placeholder="belum ada rekomendasi"  value="{{$skrining->rekomendasi}}">
                             </div>
                         </div>
 

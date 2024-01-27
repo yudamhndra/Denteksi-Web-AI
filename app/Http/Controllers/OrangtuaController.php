@@ -93,7 +93,7 @@ class OrangtuaController extends Controller
             // 'tanggal_lahir' => 'required',
             // 'alamat' => 'required',
             // 'pendidikan' => 'required',
-            
+
         ], [
             'nama.required' => 'Nama wajib diisi',
             'email.required' => 'Email wajib diisi.',
@@ -425,6 +425,7 @@ class OrangtuaController extends Controller
 
         $user = Auth::user();
         $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
+        $skrining = new SkriningIndeks();
         $pasien = Pasien::Where('nama', $request->nama)
         ->Where('nama_orangtua', $request->nama_orangtua)
         ->first();
@@ -487,6 +488,8 @@ class OrangtuaController extends Controller
         }
 
         $pgigi->save();
+        $skrining->id_pemeriksaan = $pgigi->id;
+        $skrining->save();
 
 
         Alert::success('Sukses', 'Data pasien berhasil disimpan.');
@@ -530,6 +533,7 @@ class OrangtuaController extends Controller
 
         $pasien = Pasien::find($id);
         $periksa = PemeriksaanGigi::Where('id_pasien', $pasien->id)->latest()->first();
+        $skrining = SkriningIndeks::Where('id_pemeriksaan', $periksa->id)->first();
         $user = Auth::user();
         $dokter = Dokter::Where('id_users', Auth::user()->id)->value('id');
 
@@ -538,7 +542,13 @@ class OrangtuaController extends Controller
         // $pasien->tanggal_lahir=$request->tanggal_lahir;
         $pasien->nama_orangtua = $request->nama_orangtua;
         $pasien->no_whatsapp=$request->no_whatsapp;
-
+        if($request->hasil != null){
+        $skrining->diagnosa = $request->hasil;
+        }
+        if($request->rekomendasi != null){
+        $skrining->rekomendasi = $request->rekomendasi;
+        }
+        $skrining->save();
 
 
         $fieldName = 'gambar1';
@@ -649,6 +659,7 @@ class OrangtuaController extends Controller
     public function hasilPeriksa($id){
         $periksa = PemeriksaanGigi::where('id', $id)->latest()->first();
         $pasien = $periksa -> pasien;
+        $skrining = SkriningIndeks::Where('id_pemeriksaan', $periksa->id);
         $url = config('app.ai_url') . "/api/result-image/?pemeriksaan_id=" . $periksa -> id;
         $response = Http::withBasicAuth('user@senyumin.com', 'sdgasdfklsdwqorn')->get($url);
 
@@ -675,7 +686,7 @@ class OrangtuaController extends Controller
             }
         }
 
-        return view('orangtua.anak.hasil', compact('pasien', 'periksa', 'decodedImage', 'url'));
+        return view('orangtua.anak.hasil', compact('pasien', 'periksa', 'decodedImage', 'url', 'skrining'));
     }
 
 

@@ -53,8 +53,7 @@
             </div>
         </div> --}}
 
-        <div class=" col-md-10">
-
+            <div class=" col-md-10">
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Nomor Whatsapp <span class="text-danger">*</span></label>
                     <input type="text" class="form-control @error('no_whatsapp') is-invalid @enderror" id="no_whatsapp" name="no_whatsapp" autocomplete="off" placeholder="nomor whatsapp" value="{{$pasien->no_whatsapp}}">
@@ -62,6 +61,22 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Hasil Pemeriksaan </label>
+                                <input type="text" class="form-control" id="hasil" name="hasil"
+                                    autocomplete="off"  placeholder="hasil pasien" value="{{old('hasil')}}" value="">
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Rekomendasi </label>
+                                <input type="text"  class="form-control" id="rekomendasi" name="rekomendasi"
+                                    autocomplete="off" placeholder="rekomendasi" value="{{old('rekomendasi')}}" value="">
+                            </div>
+                        </div>
 
        {{--     <div class="col-md-6">
                 <div class="mb-3">
@@ -105,17 +120,17 @@
                         </div>
                     </div>
 
-        <div class="d-flex justify-content-end mt-5">
-            <a href="{{URL::previous()}}" type="button" class="btn btn-cancel wd-100 mt-3 button ml-auto" id="btn-cancel">
-                Batal
-            </a>
-            <button type="submit" class="btn btn-primary wd-150 mt-3 button ml-2" style="margin-left: 10px;" id="btn-periksa">
-                Periksa Sekarang
-            </button>
+                <div class="d-flex justify-content-end mt-5">
+                    <a href="{{URL::previous()}}" type="button" class="btn btn-cancel wd-100 mt-3 button ml-auto" id="btn-cancel">
+                        Batal
+                    </a>
+                    <button type="submit" class="btn btn-primary wd-150 mt-3 button ml-2" style="margin-left: 10px;" id="btn-periksa">
+                        Periksa Sekarang
+                    </button>
+                </div>
+
+            </form>
         </div>
-    
-    </form>
-</div>
 
 
 @endsection
