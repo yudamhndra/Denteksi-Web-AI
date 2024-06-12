@@ -18,9 +18,19 @@ login page
 
 ## About The Project
 
-[![Product Name Screen Shot][login-screenshot]]
-[![Product Name Screen Shot][dashboard-screenshot]]
-[![Product Name Screen Shot][pemeriksaan-screenshot]]
+### Login Screen
+[![Login Screen][login-screenshot]]
+Deskripsi: Tampilan antarmuka halaman login di mana pengguna dapat memasukkan kredensial untuk mengakses aplikasi.
+
+### Dashboard
+[![Dashboard][dashboard-screenshot]]
+
+Deskripsi: Tampilan antarmuka dashboard utama yang memberikan akses ke fitur-fitur utama aplikasi dan ringkasan informasi.
+
+### Pemeriksaan
+[![Pemeriksaan Screen][pemeriksaan-screenshot]]
+
+Deskripsi: Tampilan antarmuka halaman pemeriksaan di mana pengguna dapat melakukan pemeriksaan dan melihat hasil analisis.
 
 
 
