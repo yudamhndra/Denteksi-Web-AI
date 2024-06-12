@@ -18,9 +18,9 @@ login page
 
 ## About The Project
 
-[login-screenshot]
-[dashboard-screenshot]
-[pemeriksaan-screenshot]
+[![Product Name Screen Shot]][login-screenshot]
+[![Product Name Screen Shot]][dashboard-screenshot]
+[![Product Name Screen Shot]][pemeriksaan-screenshot]
 
 
 
