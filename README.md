@@ -24,4 +24,5 @@ login page
 <!-- citation -->
 
 [contributors-url]: https://github.com/yudamhndra/Denteksi-Web-AI/graphs/contributors
-[contributors-shield]: https://img.shields.io/badge/any_text-you_like-blue 
+<!-- [contributors-shield]: https://img.shields.io/badge/any_text-you_like-blue  -->
+[contributors-shield]: https://img.shields.io/github/contributors/yudamhndra/Denteksi-Web-AI.svg?style=for-the-badge
