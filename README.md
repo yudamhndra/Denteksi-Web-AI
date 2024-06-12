@@ -1,3 +1,8 @@
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+
 ## DENTEKSI
 
 Denteksi adalah aplikasi web inovatif yang dibangun menggunakan Laravel, Framework PHP populer, yang bertujuan untuk proses pemeriksaan gigi dan mengotomatisasi pembuatan odontogram melalui machine lerarning AI 
@@ -11,3 +16,11 @@ composer install
 php artisan serve
 ```
 login page
+
+
+
+
+
+<!-- citation -->
+
+[contributors-url]: https://github.com/yudamhndra/Denteksi-Web-AI/graphs/contributors
