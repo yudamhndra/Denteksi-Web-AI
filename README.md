@@ -33,6 +33,11 @@ Deskripsi: Tampilan antarmuka dashboard utama yang memberikan akses ke fitur-fit
 Deskripsi: Tampilan antarmuka halaman pemeriksaan di mana pengguna dapat melakukan pemeriksaan dan melihat hasil analisis.
 
 
+### built with
+
+* [![Laravel][Laravel.com]][Laravel-url]
+* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+
 
 
 
@@ -45,3 +50,7 @@ Deskripsi: Tampilan antarmuka halaman pemeriksaan di mana pengguna dapat melakuk
 [login-screenshot]: public/assets/images/screenshots/Screenshot-login.png
 [pemeriksaan-screenshot]: public/assets/images/screenshots/Screenshot-riwayatPemeriksaan.png
 [dashboard-screenshot]: public/assets/images/screenshots/Screenshot-dashboard.png
+[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
+[Laravel-url]: https://laravel.com
+[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Bootstrap-url]: https://getbootstrap.com
