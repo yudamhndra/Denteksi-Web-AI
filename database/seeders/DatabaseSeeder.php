@@ -39,6 +39,12 @@ class DatabaseSeeder extends Seeder
             'role'      => 'orangtua'
         ]);
 
+        User::create([
+            'email'     => 'dokter@dokter.com',
+            'password'  =>  bcrypt('dokter1234'),
+            'role'      => 'orangtua'
+        ]);
+
         Dokter::create([
             'id_users' => 2,
             'nama' => 'dokter',
