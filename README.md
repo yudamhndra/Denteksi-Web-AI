@@ -16,6 +16,11 @@ php artisan serve
 login page
 
 
+## About The Project
+
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
+
+
 
 
 
@@ -25,3 +30,4 @@ login page
 [contributors-shield]: https://img.shields.io/github/contributors/yudamhndra/Denteksi-Web-AI.svg?style=for-the-badge
 [forks-shield]: https://img.shields.io/github/forks/yudamhndra/Denteksi-Web-AI.svg?style=for-the-badge
 [forks-url]:  https://github.com/yudamhndra/Denteksi-Web-AI/network/members
+[product-screenshot]: public/assets/images/screenshots/Screenshot-login.png
