@@ -18,7 +18,9 @@ login page
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][login-screenshot]]
+[![Product Name Screen Shot][dashboard-screenshot]]
+[![Product Name Screen Shot][pemeriksaan-screenshot]]
 
 
 
@@ -30,4 +32,6 @@ login page
 [contributors-shield]: https://img.shields.io/github/contributors/yudamhndra/Denteksi-Web-AI.svg?style=for-the-badge
 [forks-shield]: https://img.shields.io/github/forks/yudamhndra/Denteksi-Web-AI.svg?style=for-the-badge
 [forks-url]:  https://github.com/yudamhndra/Denteksi-Web-AI/network/members
-[product-screenshot]: public/assets/images/screenshots/Screenshot-login.png
+[login-screenshot]: public/assets/images/screenshots/Screenshot-login.png
+[pemeriksaan-screenshot]: public/assets/images/screenshots/Screenshot-riwayatPemeriksaan.png
+[dashboard-screenshot]: public/assets/images/screenshots/Screenshot-dashboard.png
