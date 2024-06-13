@@ -5,6 +5,8 @@
 
 Denteksi adalah aplikasi web inovatif yang dibangun menggunakan Laravel, Framework PHP populer, yang bertujuan untuk proses pemeriksaan gigi dan mengotomatisasi pembuatan odontogram melalui machine lerarning AI 
 
+* video demo lapangan : https://drive.google.com/file/d/1bkFBQaCZpUjfqCQyad2t5DvoWBghHRrm/view?usp=sharing 
+
 ### Getting Started
 ```bash
 composer install
